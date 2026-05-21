@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William Suzan — UX Product Designer</title>
+<meta name="description" content="UX Product Designer based in France. Lead UX/UI & Product Owner on a B2B cybersecurity SIEM. Available for senior product design roles.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #1A1A1A;
+    --ink-2: #4A4A4A;
+    --ink-3: #8C8C8C;
+    --line: #E4E1DA;
+    --paper: #FAF8F3;
+    --paper-2: #F2EFE6;
+    --accent: #D85A30;
+    --accent-soft: #FAEEDA;
+    --deep: #042C53;
+    --deep-2: #0C447C;
+    --deep-3: #185FA5;
+    --deep-text: #E6F1FB;
+    --deep-text-2: #B5D4F4;
+    --deep-text-3: #85B7EB;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter Tight', -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  /* === LANGUAGE SWITCHER === */
+  .lang-switch {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--paper);
+    padding: 1rem 0;
+    margin: -3rem 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .lang-switch.scrolled { border-color: var(--line); }
+  .lang-brand {
+    font-family: var(--serif);
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .lang-brand .dot { color: var(--accent); }
+  .lang-buttons { display: flex; gap: 4px; }
+  .lang-btn {
+    font-family: var(--sans);
+    font-size: 12px;
+    padding: 5px 11px;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--line);
+    background: transparent;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    letter-spacing: 0.02em;
+  }
+  .lang-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+  .lang-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* === HERO === */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: end;
+    padding-bottom: 1.75rem;
+    border-bottom: 0.5px solid var(--line);
+    margin-bottom: 3rem;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(48px, 7vw, 68px);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin-bottom: 18px;
+  }
+  .hero-name .dot { color: var(--accent); }
+  .hero-tagline {
+    font-size: 15px;
+    color: var(--ink-2);
+    max-width: 480px;
+    line-height: 1.55;
+  }
+  .hero-contact {
+    font-size: 13px;
+    color: var(--ink-2);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+  .hero-contact a { color: var(--accent); text-decoration: none; border-bottom: 0.5px solid transparent; transition: border-color 0.18s; }
+  .hero-contact a:hover { border-color: var(--accent); }
+  .hero-contact .label {
+    display: inline-block;
+    width: 64px;
+    color: var(--ink-3);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* === SECTION HEADERS === */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin: 3.5rem 0 2rem;
+  }
+  .section-num {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--ink-3);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .section-line {
+    flex: 1;
+    height: 0.5px;
+    background: var(--line);
+  }
+  .section-meta {
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+
+  /* === PROJET ARTEFACT (BANDEAU) === */
+  .project-feature {
+    background: var(--deep);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem 0;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: 24px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .project-feature:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -20px rgba(4, 44, 83, 0.4);
+  }
+  .project-feature-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 16px;
+  }
+  .project-feature-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--deep-text-3);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .project-feature-name {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--deep-text);
+    letter-spacing: -0.015em;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .project-feature-desc {
+    font-size: 14px;
+    color: var(--deep-text-2);
+    max-width: 420px;
+    line-height: 1.55;
+  }
+  .project-feature-date {
+    font-size: 11px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(133, 183, 235, 0.15);
+    color: var(--deep-text-2);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1.75rem;
+  }
+  .project-tag {
+    font-size: 11px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    border: 0.5px solid rgba(133, 183, 235, 0.3);
+    color: var(--deep-text-2);
+    letter-spacing: 0.02em;
+  }
+  .project-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .project-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+    padding: 1.75rem 0;
+    border-top: 0.5px solid rgba(133, 183, 235, 0.2);
+    margin-top: 1.5rem;
+    align-items: center;
+  }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--deep-text);
+    line-height: 1;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--deep-text-3);
+    letter-spacing: 0.02em;
+  }
+  .project-cta {
+    margin-left: auto;
+    font-size: 13px;
+    color: var(--deep-text-2);
+    align-self: center;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .project-feature:hover .project-cta {
+    color: var(--deep-text);
+    transform: translateX(4px);
+  }
+
+  /* === EXPERIENCES === */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 24px;
+    padding: 1.5rem 0;
+    border-bottom: 0.5px solid var(--line);
+  }
+  .exp-item:last-of-type { border-bottom: none; }
+  .exp-date {
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  .exp-badge {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .exp-company {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  .exp-role {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: -0.005em;
+  }
+  .exp-desc {
+    font-size: 14px;
+    color: var(--ink-2);
+    margin-bottom: 12px;
+    line-height: 1.55;
+  }
+  .exp-list {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    padding-left: 18px;
+    line-height: 1.65;
+  }
+  .exp-list li { margin-bottom: 2px; }
+
+  @media (max-width: 640px) {
+    .exp-item { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  /* === TOOLS === */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+  }
+  .tool-card {
+    padding: 16px 18px;
+    border: 0.5px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--paper);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .tool-card:hover { border-color: var(--ink-3); background: var(--paper-2); }
+  .tool-cat {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .tool-list {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  /* === FORMATION === */
+  .edu-item {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 24px;
+    padding: 1rem 0;
+    border-bottom: 0.5px solid var(--line);
+  }
+  .edu-item:last-of-type { border-bottom: none; }
+  .edu-date {
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  .edu-title { font-size: 15px; font-weight: 500; }
+  .edu-school { font-size: 13px; color: var(--ink-2); margin-top: 3px; }
+
+  .certs {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cert {
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--paper-2);
+    color: var(--ink-2);
+    border: 0.5px solid var(--line);
+  }
+
+  @media (max-width: 640px) {
+    .edu-item { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  /* === BEYOND === */
+  .beyond-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .beyond-item-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .beyond-item-meta {
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+
+  /* === FOOTER === */
+  .footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+
+  /* === MOTION === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero, .section-header, .project-feature, .exp-item, .tools-grid, .edu-item, .beyond-grid {
+    animation: fadeUp 0.6s ease backwards;
+  }
+  .hero { animation-delay: 0.05s; }
+  .section-header:nth-of-type(1) { animation-delay: 0.1s; }
+  .project-feature { animation-delay: 0.15s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <header class="lang-switch" id="langSwitch">
+    <a href="#" class="lang-brand">William Suzan<span class="dot">.</span></a>
+    <div class="lang-buttons">
+      <button id="lang-fr" class="lang-btn active" aria-label="Français">FR</button>
+      <button id="lang-en" class="lang-btn" aria-label="English">EN</button>
+    </div>
+  </header>
+
+  <h1 class="sr-only">William Suzan — UX Product Designer</h1>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <p class="hero-eyebrow" data-fr="UX Product Designer" data-en="UX Product Designer">UX Product Designer</p>
+      <p class="hero-name" aria-hidden="true">William<br>Suzan<span class="dot">.</span></p>
+      <p class="hero-tagline"
+         data-fr="UX/UI Designer confirmé, spécialisé dans le design produit et la stratégie d'expérience utilisateur. Je conçois des expériences intuitives et engageantes, de la recherche utilisateur au delivery."
+         data-en="Senior UX/UI Designer, specialised in product design and user experience strategy. I craft intuitive, engaging experiences — from user research to delivery.">
+         UX/UI Designer confirmé, spécialisé dans le design produit et la stratégie d'expérience utilisateur. Je conçois des expériences intuitives et engageantes, de la recherche utilisateur au delivery.
+      </p>
+    </div>
+    <div class="hero-contact">
+      <div><span class="label">Email</span><a href="mailto:william.suzan@protonmail.com">william.suzan@protonmail.com</a></div>
+      <div><span class="label">Tél</span>+33 (0)6 71 46 18 41</div>
+      <div><span class="label" data-fr="Langue" data-en="Language">Langue</span><span data-fr="Anglais — Courant" data-en="English — Fluent">Anglais — Courant</span></div>
+      <div><span class="label">Web</span><a href="#" target="_blank" rel="noopener">Portfolio ↗</a></div>
+    </div>
+  </section>
+
+  <!-- 01 PROJET -->
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title" data-fr="Projet sélectionné" data-en="Selected work">Projet sélectionné</h2>
+    <span class="section-line"></span>
+    <span class="section-meta" data-fr="Case study" data-en="Case study">Case study</span>
+  </div>
+
+  <a href="#" class="project-feature">
+    <div class="project-feature-header">
+      <div>
+        <p class="project-feature-eyebrow" data-fr="01 — Lead UX/UI &amp; Product Owner" data-en="01 — Lead UX/UI &amp; Product Owner">01 — Lead UX/UI &amp; Product Owner</p>
+        <h3 class="project-feature-name">Artefact</h3>
+        <p class="project-feature-desc"
+           data-fr="Concevoir un SIEM cybersécurité (SaaS B2B) pour rendre l'analyse de menaces accessible aux équipes non-expertes."
+           data-en="Designing a cybersecurity SIEM (B2B SaaS) to make threat analysis accessible to non-expert teams.">
+           Concevoir un SIEM cybersécurité (SaaS B2B) pour rendre l'analyse de menaces accessible aux équipes non-expertes.
+        </p>
+      </div>
+      <span class="project-feature-date" data-fr="2023 — en cours" data-en="2023 — ongoing">2023 — en cours</span>
+    </div>
+    <div class="project-tags">
+      <span class="project-tag" data-fr="Cybersécurité" data-en="Cybersecurity">Cybersécurité</span>
+      <span class="project-tag">SaaS B2B</span>
+      <span class="project-tag">Design System</span>
+      <span class="project-tag" data-fr="Stratégie produit" data-en="Product Strategy">Stratégie produit</span>
+    </div>
+
+    <svg class="project-svg" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu dashboard SIEM Artefact">
+      <rect x="0" y="0" width="600" height="200" fill="#0C447C" rx="8"/>
+      <rect x="20" y="20" width="160" height="14" rx="3" fill="#185FA5"/>
+      <rect x="20" y="44" width="100" height="8" rx="2" fill="#378ADD" opacity="0.5"/>
+      <rect x="20" y="80" width="170" height="100" rx="6" fill="#042C53"/>
+      <text x="32" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Threats detected</text>
+      <text x="32" y="128" fill="#E6F1FB" font-size="28" font-family="Fraunces, serif" font-weight="500">247</text>
+      <rect x="32" y="148" width="80" height="3" rx="1" fill="#E24B4A"/>
+      <rect x="32" y="148" width="55" height="3" rx="1" fill="#EF9F27"/>
+      <text x="32" y="170" fill="#85B7EB" font-size="9" font-family="monospace">+12% vs last week</text>
+      <rect x="210" y="80" width="170" height="100" rx="6" fill="#042C53"/>
+      <text x="222" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Alert correlation</text>
+      <circle cx="240" cy="135" r="6" fill="#E24B4A"/>
+      <circle cx="265" cy="125" r="4" fill="#EF9F27"/>
+      <circle cx="290" cy="145" r="5" fill="#378ADD"/>
+      <circle cx="315" cy="120" r="3" fill="#5DCAA5"/>
+      <circle cx="340" cy="155" r="4" fill="#EF9F27"/>
+      <circle cx="365" cy="135" r="5" fill="#E24B4A"/>
+      <line x1="240" y1="135" x2="265" y2="125" stroke="#185FA5" stroke-width="0.5"/>
+      <line x1="265" y1="125" x2="290" y2="145" stroke="#185FA5" stroke-width="0.5"/>
+      <line x1="290" y1="145" x2="340" y2="155" stroke="#185FA5" stroke-width="0.5"/>
+      <line x1="340" y1="155" x2="365" y2="135" stroke="#185FA5" stroke-width="0.5"/>
+      <rect x="400" y="80" width="180" height="100" rx="6" fill="#042C53"/>
+      <text x="412" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Timeline</text>
+      <polyline points="412,160 432,150 452,155 472,140 492,145 512,125 532,135 552,115 572,120" fill="none" stroke="#5DCAA5" stroke-width="1.5"/>
+      <polyline points="412,168 432,165 452,160 472,158 492,150 512,148 532,140 552,142 572,138" fill="none" stroke="#EF9F27" stroke-width="1.5" opacity="0.6"/>
+    </svg>
+
+    <div class="project-stats">
+      <div>
+        <p class="stat-num">200+</p>
+        <p class="stat-label" data-fr="composants design system" data-en="design system components">composants design system</p>
+      </div>
+      <div>
+        <p class="stat-num">50+</p>
+        <p class="stat-label" data-fr="tests utilisateurs" data-en="user tests">tests utilisateurs</p>
+      </div>
+      <div>
+        <p class="stat-num">2</p>
+        <p class="stat-label" data-fr="partenariats démo" data-en="demo partnerships">partenariats démo</p>
+      </div>
+      <span class="project-cta" data-fr="Lire le case study →" data-en="Read case study →">Lire le case study →</span>
+    </div>
+  </a>
+
+  <!-- 02 EXPERIENCES -->
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title" data-fr="Expériences" data-en="Experience">Expériences</h2>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="exp-item">
+    <div>
+      <p class="exp-date">2023 — <span data-fr="présent" data-en="present">présent</span></p>
+      <span class="exp-badge" data-fr="En cours" data-en="Current">En cours</span>
+    </div>
+    <div>
+      <p class="exp-company">Artefact</p>
+      <h3 class="exp-role" data-fr="Lead UX/UI &amp; Product Owner — SIEM Cybersécurité" data-en="Lead UX/UI &amp; Product Owner — Cybersecurity SIEM">Lead UX/UI &amp; Product Owner — SIEM Cybersécurité</h3>
+      <p class="exp-desc"
+         data-fr="SaaS B2B. Rôle hybride product manager / lead designer sur un produit SIEM, de la vision à la mise en marché."
+         data-en="B2B SaaS. Hybrid product manager / lead designer role on a SIEM product, from vision to go-to-market.">
+         SaaS B2B. Rôle hybride product manager / lead designer sur un produit SIEM, de la vision à la mise en marché.
+      </p>
+      <ul class="exp-list">
+        <li data-fr="Vision produit &amp; coordination équipes techniques / métiers" data-en="Product vision &amp; coordination across engineering and business teams">Vision produit &amp; coordination équipes techniques / métiers</li>
+        <li data-fr="Design system dédié, scalabilité de l'interface" data-en="Dedicated design system, scalable interface architecture">Design system dédié, scalabilité de l'interface</li>
+        <li data-fr="Vulgarisation de concepts cyber complexes (logs, alertes corrélées)" data-en="Translating complex cyber concepts (logs, correlated alerts) into accessible UI">Vulgarisation de concepts cyber complexes (logs, alertes corrélées)</li>
+        <li data-fr="Roadmap design intégrée au backlog, ateliers de co-conception" data-en="Design roadmap integrated into the backlog, co-design workshops">Roadmap design intégrée au backlog, ateliers de co-conception</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div><p class="exp-date">2024 — 2025</p></div>
+    <div>
+      <p class="exp-company">ComAve</p>
+      <h3 class="exp-role">UX/UI Designer</h3>
+      <p class="exp-desc"
+         data-fr="Marketplace gamifiée pour fans de sports. Conception de l'application mobile au sein d'une équipe internationale."
+         data-en="Gamified marketplace for sports fans. Mobile app design within an international team.">
+         Marketplace gamifiée pour fans de sports. Conception de l'application mobile au sein d'une équipe internationale.
+      </p>
+      <ul class="exp-list">
+        <li data-fr="Extension d'un design system modulaire (cohérence multi-apps)" data-en="Extending a modular design system across sister apps">Extension d'un design system modulaire (cohérence multi-apps)</li>
+        <li data-fr="Parcours gamifiés : points, niveaux, tirages exclusifs" data-en="Gamified journeys: points, levels, exclusive draws">Parcours gamifiés : points, niveaux, tirages exclusifs</li>
+        <li data-fr="Accessibilité WCAG, micro-animations, feedbacks progressifs" data-en="WCAG accessibility, micro-animations, progressive feedback">Accessibilité WCAG, micro-animations, feedbacks progressifs</li>
+        <li data-fr="Collaboration distribuée (FR/UK/Europe de l'Est), rituels agiles en anglais" data-en="Distributed team (FR/UK/Eastern Europe), agile rituals in English">Collaboration distribuée (FR/UK/Europe de l'Est), rituels agiles en anglais</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div><p class="exp-date">2019 — 2026</p></div>
+    <div>
+      <p class="exp-company" data-fr="Freelance" data-en="Freelance">Freelance</p>
+      <h3 class="exp-role" data-fr="Designer freelance — Web UX/UI" data-en="Freelance designer — Web UX/UI">Designer freelance — Web UX/UI</h3>
+      <p class="exp-desc"
+         data-fr="Sites vitrines &amp; e-commerce. Stratégie UX, design systems légers, prototypage Figma, responsive et SEO-friendly. 10+ sites livrés, 2 chartes graphiques complètes, 30+ tests utilisateurs."
+         data-en="Marketing &amp; e-commerce sites. UX strategy, lightweight design systems, Figma prototyping, responsive &amp; SEO-friendly. 10+ sites delivered, 2 full brand identities, 30+ user tests.">
+         Sites vitrines &amp; e-commerce. Stratégie UX, design systems légers, prototypage Figma, responsive et SEO-friendly. 10+ sites livrés, 2 chartes graphiques complètes, 30+ tests utilisateurs.
+      </p>
+    </div>
+  </div>
+
+  <!-- 03 OUTILS -->
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title" data-fr="Outils &amp; expertise" data-en="Tools &amp; expertise">Outils &amp; expertise</h2>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <p class="tool-cat" data-fr="Design &amp; prototypage" data-en="Design &amp; prototyping">Design &amp; prototypage</p>
+      <p class="tool-list">Figma · FigJam · Adobe Xd · Suite Adobe · Framer · UX Pilot</p>
+    </div>
+    <div class="tool-card">
+      <p class="tool-cat" data-fr="No-code &amp; CMS" data-en="No-code &amp; CMS">No-code &amp; CMS</p>
+      <p class="tool-list">Webflow · WordPress · Wix · Squarespace · Make</p>
+    </div>
+    <div class="tool-card">
+      <p class="tool-cat" data-fr="Collaboration" data-en="Collaboration">Collaboration</p>
+      <p class="tool-list">Teams · Asana · Discord · Hubspot · Pharow</p>
+    </div>
+    <div class="tool-card">
+      <p class="tool-cat" data-fr="Dev / Code" data-en="Dev / Code">Dev / Code</p>
+      <p class="tool-list">HTML · CSS · JavaScript · Python</p>
+    </div>
+  </div>
+
+  <!-- 04 FORMATION -->
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title" data-fr="Formation" data-en="Education">Formation</h2>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="edu-item">
+    <p class="edu-date">2020</p>
+    <div>
+      <p class="edu-title" data-fr="Master — Arts Visuels" data-en="Master's — Visual Arts">Master — Arts Visuels</p>
+      <p class="edu-school">Université Grenoble-Alpes</p>
+    </div>
+  </div>
+
+  <div class="edu-item">
+    <p class="edu-date">2019</p>
+    <div>
+      <p class="edu-title">Specialization — UI/UX Design</p>
+      <p class="edu-school">California Institute of the Arts</p>
+    </div>
+  </div>
+
+  <div class="certs">
+    <span class="cert">Google SEO — UC Davis</span>
+    <span class="cert" data-fr="Management du changement — ESSEC" data-en="Change Management — ESSEC">Management du changement — ESSEC</span>
+    <span class="cert">Wireframes to Prototypes — CalArts</span>
+  </div>
+
+  <!-- 05 AU-DELÀ -->
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title" data-fr="Au-delà du design" data-en="Beyond design">Au-delà du design</h2>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="beyond-grid">
+    <div>
+      <p class="beyond-item-title" data-fr="Formateur BAFA" data-en="BAFA trainer">Formateur BAFA</p>
+      <p class="beyond-item-meta" data-fr="Depuis 2019 · 15+ sessions · 600+ stagiaires" data-en="Since 2019 · 15+ sessions · 600+ trainees">Depuis 2019 · 15+ sessions · 600+ stagiaires</p>
+    </div>
+    <div>
+      <p class="beyond-item-title" data-fr="Directeur d'Accueil Collectif de Mineurs" data-en="Youth camp director">Directeur d'Accueil Collectif de Mineurs</p>
+      <p class="beyond-item-meta" data-fr="Depuis 2017 · 10 directions menées" data-en="Since 2017 · 10 camps led">Depuis 2017 · 10 directions menées</p>
+    </div>
+    <div>
+      <p class="beyond-item-title" data-fr="Directeur de projets musicaux" data-en="Music project director">Directeur de projets musicaux</p>
+      <p class="beyond-item-meta" data-fr="40+ concerts · 2 albums publiés" data-en="40+ concerts · 2 albums released">40+ concerts · 2 albums publiés</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>William Suzan · UX Product Designer</span>
+    <span>© 2026</span>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  // Language switcher
+  const btnFR = document.getElementById('lang-fr');
+  const btnEN = document.getElementById('lang-en');
+  const root = document.body;
+
+  function setLang(lang) {
+    root.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-fr');
+    });
+    document.documentElement.lang = lang;
+    btnFR.classList.toggle('active', lang === 'fr');
+    btnEN.classList.toggle('active', lang === 'en');
+    try { localStorage.setItem('ws-lang', lang); } catch (e) {}
+  }
+
+  btnFR.addEventListener('click', () => setLang('fr'));
+  btnEN.addEventListener('click', () => setLang('en'));
+
+  // Restore preference
+  try {
+    const saved = localStorage.getItem('ws-lang');
+    if (saved === 'en' || saved === 'fr') setLang(saved);
+  } catch (e) {}
+
+  // Sticky header border on scroll
+  const langSwitch = document.getElementById('langSwitch');
+  window.addEventListener('scroll', () => {
+    langSwitch.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
