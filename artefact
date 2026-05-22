@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artefact — Case study · William Suzan</title>
+<meta name="description" content="Case study : Artefact, un SIEM cybersécurité conçu pour rendre l'analyse de menaces accessible aux équipes non-expertes.">
+<meta name="theme-color" content="#08090C">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #08090C;
+    --bg-2: #0E1015;
+    --surface: rgba(255, 255, 255, 0.025);
+    --surface-2: rgba(255, 255, 255, 0.04);
+    --ink: #ECEEF2;
+    --ink-2: #A8ADB8;
+    --ink-3: #5C6270;
+    --line: rgba(255, 255, 255, 0.06);
+    --line-2: rgba(255, 255, 255, 0.1);
+    --accent: #E8835A;
+    --accent-2: #B9C7FF;
+    --accent-3: #7BD9C4;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* === HALOS === */
+  .halos { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .halo { position: absolute; border-radius: 50%; filter: blur(160px); will-change: transform; }
+  .halo-1 { width: 600px; height: 600px; background: #4A5FC1; top: -200px; right: -150px; opacity: 0.1; animation: drift1 45s ease-in-out infinite; }
+  .halo-2 { width: 700px; height: 700px; background: #E8835A; top: 50%; left: -250px; opacity: 0.08; animation: drift2 52s ease-in-out infinite; }
+  @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-50px,80px) scale(1.1);} }
+  @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(80px,-50px) scale(0.95);} }
+  body::after {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    opacity: 0.03; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* === NAV (simplifiée, juste retour) === */
+  .nav {
+    position: fixed;
+    top: 16px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    padding: 10px 14px 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: rgba(8, 9, 12, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 0.5px solid var(--line-2);
+    border-radius: 999px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .nav-back {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-2);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    transition: color 0.18s, background 0.18s;
+  }
+  .nav-back:hover { color: var(--ink); background: var(--surface-2); }
+  .nav-divider { width: 0.5px; height: 14px; background: var(--line-2); }
+  .nav-current {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  .nav-right { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+  .nav-icon-link {
+    width: 30px; height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--ink-2);
+    transition: background 0.18s, color 0.18s;
+    text-decoration: none;
+  }
+  .nav-icon-link:hover { background: var(--surface-2); color: var(--ink); }
+  .nav-icon-link svg { width: 15px; height: 15px; }
+
+  /* === WRAPPER === */
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .narrow {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* === HERO === */
+  .case-hero {
+    padding: 160px 0 80px;
+  }
+  .case-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 40px;
+  }
+  .case-eyebrow .pill {
+    padding: 4px 10px;
+    background: rgba(123,217,196,0.1);
+    color: var(--accent-3);
+    border: 0.5px solid rgba(123,217,196,0.3);
+    border-radius: 999px;
+    font-size: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .case-eyebrow .pill::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.85);} }
+
+  .case-title {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 152px);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .case-title .it { font-style: italic; color: var(--ink-2); }
+  .case-title .grad {
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+  }
+
+  .case-subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.35;
+    color: var(--ink-2);
+    max-width: 720px;
+    margin-bottom: 80px;
+  }
+
+  /* === META TABLE === */
+  .case-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 0.5px solid var(--line);
+    border-bottom: 0.5px solid var(--line);
+    margin-bottom: 100px;
+  }
+  .meta-cell {
+    padding: 28px 0;
+    border-right: 0.5px solid var(--line);
+  }
+  .meta-cell:last-child { border-right: 0; }
+  .meta-cell:not(:first-child) { padding-left: 32px; }
+  .meta-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .meta-value {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  /* === HERO IMAGE === */
+  .case-hero-image {
+    aspect-ratio: 16/9;
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 0.5px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 120px;
+    position: relative;
+  }
+  .case-hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .case-hero-image .placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(232,131,90,0.15), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(74,95,193,0.22), transparent 50%),
+      linear-gradient(135deg, #0C447C 0%, #042C53 100%);
+    position: relative;
+  }
+  .placeholder-tag {
+    position: absolute;
+    top: 24px; left: 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    padding: 5px 11px;
+    border: 0.5px solid var(--line-2);
+    border-radius: 999px;
+    background: rgba(8,9,12,0.4);
+    backdrop-filter: blur(10px);
+  }
+  .placeholder-inner {
+    width: 70%; max-width: 700px;
+  }
+  .placeholder-inner svg { width: 100%; height: auto; display: block; }
+
+  /* === CHAPTER === */
+  .chapter {
+    padding: 80px 0;
+  }
+  .chapter-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .chapter-num::before {
+    content: '';
+    width: 28px; height: 0.5px;
+    background: var(--line-2);
+  }
+  .chapter-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin-bottom: 40px;
+  }
+  .chapter-title .it { font-style: italic; color: var(--ink-2); }
+
+  .prose {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-2);
+  }
+  .prose p { margin-bottom: 24px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--ink); font-weight: 500; }
+  .prose em { color: var(--ink); font-style: italic; }
+
+  .quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.35;
+    color: var(--ink);
+    padding: 40px 0 40px 32px;
+    border-left: 1px solid var(--accent);
+    margin: 40px 0;
+    max-width: 720px;
+  }
+  .quote-attr {
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-style: normal;
+  }
+
+  /* === IMAGE BLOCKS === */
+  .image-block {
+    margin: 60px 0;
+  }
+  .image-block.wide {
+    margin-left: calc(-1 * ((100vw - 760px) / 2 - 40px));
+    margin-right: calc(-1 * ((100vw - 760px) / 2 - 40px));
+    max-width: none;
+  }
+  .image-frame {
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 0.5px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    position: relative;
+  }
+  .image-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .image-frame .placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(circle at 30% 50%, rgba(232,131,90,0.1), transparent 50%),
+      linear-gradient(135deg, #0C2440 0%, #051628 100%);
+    position: relative;
+  }
+  .image-caption {
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    text-align: left;
+  }
+
+  .image-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 60px 0;
+  }
+  .image-pair .image-frame { aspect-ratio: 4/3; }
+
+  /* === KPI === */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 60px 0;
+    padding: 40px 0;
+    border-top: 0.5px solid var(--line);
+    border-bottom: 0.5px solid var(--line);
+  }
+  .kpi-cell {
+    padding: 0 24px;
+    border-right: 0.5px solid var(--line);
+  }
+  .kpi-cell:last-child { border-right: 0; }
+  .kpi-cell:first-child { padding-left: 0; }
+  .kpi-val {
+    font-family: var(--serif);
+    font-size: clamp(40px, 4vw, 56px);
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    font-style: italic;
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .kpi-val .plus { font-size: 0.6em; color: var(--ink-3); -webkit-text-fill-color: var(--ink-3); }
+  .kpi-lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    line-height: 1.4;
+  }
+
+  /* === PRINCIPLES === */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 0.5px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 60px 0;
+  }
+  .principle {
+    background: var(--bg-2);
+    padding: 32px 28px;
+  }
+  .principle-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-bottom: 16px;
+    letter-spacing: 0.08em;
+  }
+  .principle-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .principle-title .it { font-style: italic; color: var(--ink-2); }
+  .principle-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  /* === NEXT === */
+  .next {
+    padding: 120px 0 100px;
+    border-top: 0.5px solid var(--line);
+    text-align: left;
+  }
+  .next-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .next-label::before { content: ''; width: 28px; height: 0.5px; background: var(--line-2); }
+  .next-title {
+    font-family: var(--serif);
+    font-size: clamp(48px, 8vw, 144px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 48px;
+  }
+  .next-title .grad {
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+  }
+  .next-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 999px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(236,238,242,0.15); }
+  .cta-btn.ghost {
+    background: var(--surface);
+    color: var(--ink);
+    border: 0.5px solid var(--line-2);
+    backdrop-filter: blur(10px);
+  }
+  .cta-btn.ghost:hover { background: var(--surface-2); }
+
+  /* === FOOTER === */
+  .footer {
+    border-top: 0.5px solid var(--line);
+    padding: 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer a { color: var(--ink-2); text-decoration: none; }
+  .footer a:hover { color: var(--ink); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 980px) {
+    .wrap { padding: 0 20px; }
+    .narrow { padding: 0 20px; }
+    .nav { left: 12px; right: 12px; transform: none; padding: 8px 12px; gap: 10px; }
+    .case-hero { padding: 120px 0 60px; }
+    .case-meta { grid-template-columns: 1fr 1fr; }
+    .meta-cell { padding-left: 0 !important; padding-right: 16px; border-right: 0; border-bottom: 0.5px solid var(--line); }
+    .meta-cell:nth-child(2n) { padding-left: 16px !important; padding-right: 0; }
+    .meta-cell:nth-last-child(-n+2) { border-bottom: 0; }
+    .case-hero-image { margin-bottom: 60px; }
+    .image-block.wide { margin-left: 0; margin-right: 0; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; gap: 32px 0; padding: 32px 0; }
+    .kpi-cell { padding: 0 16px 0 0; border-right: 0.5px solid var(--line); }
+    .kpi-cell:nth-child(2n) { padding: 0 0 0 16px; border-right: 0; }
+    .principles { grid-template-columns: 1fr; }
+    .image-pair { grid-template-columns: 1fr; }
+    .chapter { padding: 50px 0; }
+    .quote { padding: 28px 0 28px 20px; }
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .case-eyebrow, .case-title, .case-subtitle { animation: fadeUp 0.8s ease backwards; }
+  .case-eyebrow { animation-delay: 0.05s; }
+  .case-title { animation-delay: 0.15s; }
+  .case-subtitle { animation-delay: 0.3s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .halo { animation: none !important; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="halos" aria-hidden="true">
+  <div class="halo halo-1"></div>
+  <div class="halo halo-2"></div>
+</div>
+
+<nav class="nav">
+  <a href="portfolio.html" class="nav-back">
+    <span>←</span>
+    <span data-fr="Tous les projets" data-en="All projects">Tous les projets</span>
+  </a>
+  <span class="nav-divider"></span>
+  <span class="nav-current">Artefact</span>
+  <div class="nav-right">
+    <a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener" class="nav-icon-link" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="wrap case-hero">
+  <div class="case-eyebrow">
+    <span data-fr="Case study · 01" data-en="Case study · 01">Case study · 01</span>
+    <span class="pill" data-fr="Projet en cours" data-en="Ongoing">Projet en cours</span>
+  </div>
+
+  <h1 class="case-title" aria-label="Artefact">
+    <span>Artefact</span><span style="color: var(--accent);">.</span><br>
+    <span class="it" data-fr="Rendre la" data-en="Making">Rendre la</span><br>
+    <span class="grad" data-fr="cyber lisible" data-en="cyber legible">cyber lisible</span>
+  </h1>
+
+  <p class="case-subtitle"
+     data-fr="Un SIEM cybersécurité conçu pour des équipes qui ne sont pas expertes. Un produit où les décisions ne se reprennent pas."
+     data-en="A cybersecurity SIEM designed for teams who aren't experts. A product where decisions can't be undone.">
+     Un SIEM cybersécurité conçu pour des équipes qui ne sont pas expertes. Un produit où les décisions ne se reprennent pas.
+  </p>
+
+  <div class="case-meta">
+    <div class="meta-cell">
+      <span class="meta-label" data-fr="Rôle" data-en="Role">Rôle</span>
+      <p class="meta-value">Lead UX/UI<br>&amp; Product Owner</p>
+    </div>
+    <div class="meta-cell">
+      <span class="meta-label" data-fr="Période" data-en="Timeline">Période</span>
+      <p class="meta-value">2023 — <span data-fr="présent" data-en="present">présent</span></p>
+    </div>
+    <div class="meta-cell">
+      <span class="meta-label" data-fr="Contexte" data-en="Context">Contexte</span>
+      <p class="meta-value">SaaS B2B<br><span data-fr="Cybersécurité" data-en="Cybersecurity">Cybersécurité</span></p>
+    </div>
+    <div class="meta-cell">
+      <span class="meta-label" data-fr="Équipe" data-en="Team">Équipe</span>
+      <p class="meta-value" data-fr="Dev, ingénieurs sécurité, métiers" data-en="Dev, security engineers, business">Dev, ingénieurs sécurité, métiers</p>
+    </div>
+  </div>
+
+  <!-- Image hero. Pour remplacer : retire la div .placeholder et mets <img src="assets/artefact-hero.png" alt="..."> à la place -->
+  <div class="case-hero-image">
+    <div class="placeholder">
+      <span class="placeholder-tag" data-fr="Remplacer par assets/artefact-hero.png" data-en="Replace with assets/artefact-hero.png">Remplacer par assets/artefact-hero.png</span>
+      <div class="placeholder-inner">
+        <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu du dashboard Artefact">
+          <rect x="0" y="0" width="180" height="450" fill="#042C53" rx="8"/>
+          <rect x="16" y="24" width="52" height="6" rx="2" fill="#85B7EB"/>
+          <rect x="16" y="48" width="148" height="28" rx="4" fill="#0C447C"/>
+          <circle cx="30" cy="62" r="5" fill="#85B7EB"/>
+          <rect x="42" y="59" width="80" height="5" rx="1" fill="#378ADD"/>
+          <rect x="16" y="84" width="148" height="28" rx="4" fill="rgba(133,183,235,0.08)"/>
+          <circle cx="30" cy="98" r="5" fill="#378ADD" opacity="0.6"/>
+          <rect x="42" y="95" width="64" height="5" rx="1" fill="#185FA5"/>
+          <rect x="16" y="120" width="148" height="28" rx="4" fill="rgba(133,183,235,0.08)"/>
+          <circle cx="30" cy="134" r="5" fill="#378ADD" opacity="0.6"/>
+          <rect x="42" y="131" width="98" height="5" rx="1" fill="#185FA5"/>
+
+          <rect x="200" y="24" width="120" height="10" rx="2" fill="#185FA5"/>
+          <rect x="200" y="44" width="80" height="6" rx="1" fill="#378ADD" opacity="0.5"/>
+
+          <rect x="200" y="72" width="180" height="130" rx="6" fill="#0C447C"/>
+          <text x="216" y="96" fill="#85B7EB" font-size="11" font-family="monospace">Threats detected</text>
+          <text x="216" y="138" fill="#E6F1FB" font-size="44" font-family="Instrument Serif, serif" font-style="italic">247</text>
+          <rect x="216" y="156" width="100" height="3" rx="1" fill="#7BD9C4"/>
+          <rect x="216" y="156" width="68" height="3" rx="1" fill="#E8835A"/>
+          <text x="216" y="180" fill="#7BD9C4" font-size="10" font-family="monospace">+12% vs last week</text>
+
+          <rect x="395" y="72" width="180" height="130" rx="6" fill="#0C447C"/>
+          <text x="411" y="96" fill="#85B7EB" font-size="11" font-family="monospace">Alert correlation</text>
+          <circle cx="425" cy="150" r="6" fill="#E24B4A"/>
+          <circle cx="450" cy="135" r="4" fill="#E8835A"/>
+          <circle cx="475" cy="160" r="5" fill="#B9C7FF"/>
+          <circle cx="500" cy="130" r="3" fill="#7BD9C4"/>
+          <circle cx="525" cy="165" r="4" fill="#E8835A"/>
+          <circle cx="550" cy="145" r="5" fill="#E24B4A"/>
+          <line x1="425" y1="150" x2="450" y2="135" stroke="#185FA5" stroke-width="0.5"/>
+          <line x1="450" y1="135" x2="475" y2="160" stroke="#185FA5" stroke-width="0.5"/>
+          <line x1="475" y1="160" x2="525" y2="165" stroke="#185FA5" stroke-width="0.5"/>
+          <line x1="525" y1="165" x2="550" y2="145" stroke="#185FA5" stroke-width="0.5"/>
+          <line x1="500" y1="130" x2="525" y2="165" stroke="#185FA5" stroke-width="0.5"/>
+
+          <rect x="590" y="72" width="190" height="130" rx="6" fill="#0C447C"/>
+          <text x="606" y="96" fill="#85B7EB" font-size="11" font-family="monospace">Timeline</text>
+          <polyline points="606,175 632,165 658,170 684,155 710,160 736,140 762,150" fill="none" stroke="#7BD9C4" stroke-width="1.5"/>
+          <polyline points="606,184 632,180 658,176 684,174 710,165 736,162 762,156" fill="none" stroke="#E8835A" stroke-width="1.5" opacity="0.6"/>
+
+          <rect x="200" y="222" width="580" height="206" rx="6" fill="#0C447C"/>
+          <rect x="216" y="240" width="64" height="6" rx="1" fill="#378ADD"/>
+          <rect x="216" y="262" width="548" height="0.5" fill="#185FA5"/>
+
+          <rect x="216" y="276" width="548" height="32" rx="3" fill="rgba(133,183,235,0.05)"/>
+          <circle cx="234" cy="292" r="5" fill="#E24B4A"/>
+          <rect x="248" y="285" width="120" height="5" rx="1" fill="#85B7EB"/>
+          <rect x="248" y="295" width="170" height="3.5" rx="1" fill="#378ADD" opacity="0.6"/>
+          <text x="708" y="295" fill="#E24B4A" font-size="10" font-family="monospace">CRITICAL</text>
+
+          <rect x="216" y="316" width="548" height="32" rx="3" fill="rgba(133,183,235,0.05)"/>
+          <circle cx="234" cy="332" r="5" fill="#E8835A"/>
+          <rect x="248" y="325" width="146" height="5" rx="1" fill="#85B7EB"/>
+          <rect x="248" y="335" width="148" height="3.5" rx="1" fill="#378ADD" opacity="0.6"/>
+          <text x="724" y="335" fill="#E8835A" font-size="10" font-family="monospace">HIGH</text>
+
+          <rect x="216" y="356" width="548" height="32" rx="3" fill="rgba(133,183,235,0.05)"/>
+          <circle cx="234" cy="372" r="5" fill="#7BD9C4"/>
+          <rect x="248" y="365" width="106" height="5" rx="1" fill="#85B7EB"/>
+          <rect x="248" y="375" width="190" height="3.5" rx="1" fill="#378ADD" opacity="0.6"/>
+          <text x="712" y="375" fill="#7BD9C4" font-size="10" font-family="monospace">RESOLVED</text>
+
+          <rect x="216" y="396" width="548" height="32" rx="3" fill="rgba(133,183,235,0.05)"/>
+          <circle cx="234" cy="412" r="5" fill="#B9C7FF"/>
+          <rect x="248" y="405" width="130" height="5" rx="1" fill="#85B7EB"/>
+          <rect x="248" y="415" width="140" height="3.5" rx="1" fill="#378ADD" opacity="0.6"/>
+          <text x="724" y="415" fill="#B9C7FF" font-size="10" font-family="monospace">INFO</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 — CONTEXTE -->
+<section class="narrow">
+  <div class="chapter">
+    <p class="chapter-num">01 — <span data-fr="Contexte" data-en="Context">Contexte</span></p>
+    <h2 class="chapter-title"><span data-fr="Le problème" data-en="The problem">Le problème</span> <span class="it" data-fr="que personne ne lit" data-en="nobody reads">que personne ne lit</span></h2>
+
+    <div class="prose">
+      <p data-fr="Les SIEM existants sont écrits pour des analystes SOC. Lignes de logs, champs JSON, requêtes en KQL ou SPL. C'est un langage d'expert, magnifique pour qui le maîtrise, mais opaque pour <strong>80% des équipes</strong> qui interagissent avec la cybersécurité au quotidien : RSSI, IT ops, métiers en charge d'un incident, dirigeants à qui présenter un rapport."
+         data-en="Existing SIEMs are written for SOC analysts. Log lines, JSON fields, KQL or SPL queries. It's an expert language, beautiful for those who master it, but opaque for <strong>80% of the teams</strong> who interact with cybersecurity daily: CISOs, IT ops, business owners handling an incident, leaders needing a report.">
+         Les SIEM existants sont écrits pour des analystes SOC. Lignes de logs, champs JSON, requêtes en KQL ou SPL. C'est un langage d'expert, magnifique pour qui le maîtrise, mais opaque pour <strong>80% des équipes</strong> qui interagissent avec la cybersécurité au quotidien : RSSI, IT ops, métiers en charge d'un incident, dirigeants à qui présenter un rapport.
+      </p>
+      <p data-fr="Artefact est né d'un constat : <em>les bonnes décisions de sécurité ne peuvent pas attendre qu'un analyste les traduise.</em> Il fallait un produit qui parle aux deux mondes — sans trahir ni l'un ni l'autre."
+         data-en="Artefact came from one observation: <em>good security decisions can't wait on an analyst to translate them.</em> The product had to speak to both worlds — without betraying either.">
+         Artefact est né d'un constat : <em>les bonnes décisions de sécurité ne peuvent pas attendre qu'un analyste les traduise.</em> Il fallait un produit qui parle aux deux mondes — sans trahir ni l'un ni l'autre.
+      </p>
+    </div>
+
+    <blockquote class="quote">
+      <span data-fr="« La cybersécurité ne devrait pas être un sport réservé à ceux qui en parlent le dialecte. »" data-en="“Cybersecurity shouldn't be a sport reserved for those who speak the dialect.”">« La cybersécurité ne devrait pas être un sport réservé à ceux qui en parlent le dialecte. »</span>
+      <p class="quote-attr" data-fr="Note d'atelier — 2023" data-en="Workshop note — 2023">Note d'atelier — 2023</p>
+    </blockquote>
+  </div>
+</section>
+
+<!-- 02 — APPROCHE -->
+<section class="narrow">
+  <div class="chapter">
+    <p class="chapter-num">02 — <span data-fr="Approche" data-en="Approach">Approche</span></p>
+    <h2 class="chapter-title"><span data-fr="Concevoir avec" data-en="Designing with">Concevoir avec</span> <span class="it" data-fr="ceux qui savent" data-en="those who know">ceux qui savent</span></h2>
+
+    <div class="prose">
+      <p data-fr="J'ai rejoint l'équipe avec une conviction : <strong>on ne peut pas designer un produit cyber depuis Figma seul.</strong> Les enjeux techniques se cachent dans des nuances que seuls les experts perçoivent — la différence entre une alerte vraie et un faux positif, le moment précis où une corrélation devient signifiante, la hiérarchie implicite entre des dizaines d'événements simultanés."
+         data-en="I joined the team with one conviction: <strong>you can't design a cyber product from Figma alone.</strong> The technical stakes hide in nuances only experts perceive — the difference between a true alert and a false positive, the exact moment correlation becomes meaningful, the implicit hierarchy between dozens of simultaneous events.">
+         J'ai rejoint l'équipe avec une conviction : <strong>on ne peut pas designer un produit cyber depuis Figma seul.</strong> Les enjeux techniques se cachent dans des nuances que seuls les experts perçoivent — la différence entre une alerte vraie et un faux positif, le moment précis où une corrélation devient signifiante, la hiérarchie implicite entre des dizaines d'événements simultanés.
+      </p>
+      <p data-fr="J'ai mis en place un rituel d'<strong>ateliers de co-conception</strong> avec les ingénieurs sécurité de l'équipe. Pas des restitutions. Pas des feedbacks Figma. De la conception simultanée, à la main, sur des écrans imprimés ou Miro. Chaque atelier durait deux heures et produisait une décision."
+         data-en="I set up a ritual of <strong>co-design workshops</strong> with the team's security engineers. Not review sessions. Not Figma feedback. Live design, by hand, on printed screens or Miro. Each workshop lasted two hours and produced one decision.">
+         J'ai mis en place un rituel d'<strong>ateliers de co-conception</strong> avec les ingénieurs sécurité de l'équipe. Pas des restitutions. Pas des feedbacks Figma. De la conception simultanée, à la main, sur des écrans imprimés ou Miro. Chaque atelier durait deux heures et produisait une décision.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE — atelier -->
+<section class="narrow">
+  <div class="image-block">
+    <div class="image-frame">
+      <div class="placeholder">
+        <span class="placeholder-tag" data-fr="Remplacer par assets/artefact-workshop.png" data-en="Replace with assets/artefact-workshop.png">Remplacer par assets/artefact-workshop.png</span>
+      </div>
+    </div>
+    <p class="image-caption" data-fr="Atelier de co-conception · Cartographie des alertes par criticité · 2024" data-en="Co-design workshop · Mapping alerts by criticality · 2024">Atelier de co-conception · Cartographie des alertes par criticité · 2024</p>
+  </div>
+</section>
+
+<!-- 03 — CONCEPTION -->
+<section class="narrow">
+  <div class="chapter">
+    <p class="chapter-num">03 — <span data-fr="Conception" data-en="Design">Conception</span></p>
+    <h2 class="chapter-title"><span data-fr="Trois principes" data-en="Three principles">Trois principes</span></h2>
+
+    <div class="prose">
+      <p data-fr="De ces ateliers, trois principes ont émergé. Ils ne sont pas écrits dans le design system — ils sont écrits dans l'usage."
+         data-en="From those workshops, three principles emerged. They're not written in the design system — they're written into the usage itself.">
+         De ces ateliers, trois principes ont émergé. Ils ne sont pas écrits dans le design system — ils sont écrits dans l'usage.
+      </p>
+    </div>
+
+    <div class="principles">
+      <div class="principle">
+        <p class="principle-num">01</p>
+        <h3 class="principle-title"><span class="it" data-fr="Lisible" data-en="Legible">Lisible</span> <span data-fr="par défaut" data-en="by default">par défaut</span></h3>
+        <p class="principle-desc"
+           data-fr="Le langage technique reste accessible en un clic. Mais l'interface parle d'abord en humain : conséquence, action recommandée, urgence."
+           data-en="Technical language stays one click away. But the interface speaks human first: consequence, recommended action, urgency.">
+           Le langage technique reste accessible en un clic. Mais l'interface parle d'abord en humain : conséquence, action recommandée, urgence.
+        </p>
+      </div>
+      <div class="principle">
+        <p class="principle-num">02</p>
+        <h3 class="principle-title"><span class="it" data-fr="Hiérarchisé" data-en="Hierarchical">Hiérarchisé</span> <span data-fr="par contexte" data-en="by context">par contexte</span></h3>
+        <p class="principle-desc"
+           data-fr="Une alerte CRITICAL pour un dirigeant n'est pas la même que pour un analyste. L'UI adapte son grain selon le rôle."
+           data-en="A CRITICAL alert means something different to an executive vs an analyst. The UI adapts its granularity by role.">
+           Une alerte CRITICAL pour un dirigeant n'est pas la même que pour un analyste. L'UI adapte son grain selon le rôle.
+        </p>
+      </div>
+      <div class="principle">
+        <p class="principle-num">03</p>
+        <h3 class="principle-title"><span class="it" data-fr="Réversible" data-en="Reversible">Réversible</span> <span data-fr="quand possible" data-en="when possible">quand possible</span></h3>
+        <p class="principle-desc"
+           data-fr="Les actions destructives demandent une confirmation contextuelle. Les actions souples s'annulent en un geste."
+           data-en="Destructive actions require contextual confirmation. Soft actions undo in a single gesture.">
+           Les actions destructives demandent une confirmation contextuelle. Les actions souples s'annulent en un geste.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE PAIR — avant/après -->
+<section class="narrow">
+  <div class="image-pair">
+    <div>
+      <div class="image-frame">
+        <div class="placeholder">
+          <span class="placeholder-tag" data-fr="assets/artefact-before.png" data-en="assets/artefact-before.png">assets/artefact-before.png</span>
+        </div>
+      </div>
+      <p class="image-caption" data-fr="Liste d'alertes — version initiale" data-en="Alert list — initial version">Liste d'alertes — version initiale</p>
+    </div>
+    <div>
+      <div class="image-frame">
+        <div class="placeholder">
+          <span class="placeholder-tag" data-fr="assets/artefact-after.png" data-en="assets/artefact-after.png">assets/artefact-after.png</span>
+        </div>
+      </div>
+      <p class="image-caption" data-fr="Liste d'alertes — après refonte par criticité" data-en="Alert list — after criticality redesign">Liste d'alertes — après refonte par criticité</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 — DESIGN SYSTEM -->
+<section class="narrow">
+  <div class="chapter">
+    <p class="chapter-num">04 — <span data-fr="Design System" data-en="Design System">Design System</span></p>
+    <h2 class="chapter-title"><span data-fr="Un système" data-en="A system">Un système</span> <span class="it" data-fr="qui tient debout" data-en="that holds up">qui tient debout</span></h2>
+
+    <div class="prose">
+      <p data-fr="Avec 200+ composants conçus de zéro, le design system d'Artefact est devenu la <strong>colonne vertébrale du produit</strong>. Pas juste une bibliothèque : un langage partagé entre design, dev et métiers."
+         data-en="With 200+ components built from scratch, Artefact's design system became the <strong>backbone of the product</strong>. Not just a library: a shared language between design, dev and business.">
+         Avec 200+ composants conçus de zéro, le design system d'Artefact est devenu la <strong>colonne vertébrale du produit</strong>. Pas juste une bibliothèque : un langage partagé entre design, dev et métiers.
+      </p>
+      <p data-fr="Chaque composant a sa <em>logique d'usage documentée</em> : pourquoi il existe, quand l'utiliser, quand l'éviter. Le design system n'est pas une vitrine : c'est un guide de décision."
+         data-en="Every component has its <em>documented usage logic</em>: why it exists, when to use it, when to avoid it. The design system isn't a showcase: it's a decision guide.">
+         Chaque composant a sa <em>logique d'usage documentée</em> : pourquoi il existe, quand l'utiliser, quand l'éviter. Le design system n'est pas une vitrine : c'est un guide de décision.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE — design system -->
+<section class="narrow">
+  <div class="image-block">
+    <div class="image-frame">
+      <div class="placeholder">
+        <span class="placeholder-tag" data-fr="assets/artefact-design-system.png" data-en="assets/artefact-design-system.png">assets/artefact-design-system.png</span>
+      </div>
+    </div>
+    <p class="image-caption" data-fr="Extrait du design system · Catégorisation par criticité, composants atomiques et tokens" data-en="Design system excerpt · Criticality categorisation, atomic components and tokens">Extrait du design system · Catégorisation par criticité, composants atomiques et tokens</p>
+  </div>
+</section>
+
+<!-- 05 — RÉSULTATS -->
+<section class="narrow">
+  <div class="chapter">
+    <p class="chapter-num">05 — <span data-fr="Résultats" data-en="Outcomes">Résultats</span></p>
+    <h2 class="chapter-title"><span data-fr="Ce que ça a" data-en="What it">Ce que ça a</span> <span class="it" data-fr="produit" data-en="produced">produit</span></h2>
+
+    <div class="kpi-grid">
+      <div class="kpi-cell">
+        <p class="kpi-val">200<span class="plus">+</span></p>
+        <p class="kpi-lbl" data-fr="Composants design system livrés" data-en="Design system components shipped">Composants design system livrés</p>
+      </div>
+      <div class="kpi-cell">
+        <p class="kpi-val">50<span class="plus">+</span></p>
+        <p class="kpi-lbl" data-fr="Tests utilisateurs pilotés" data-en="User tests piloted">Tests utilisateurs pilotés</p>
+      </div>
+      <div class="kpi-cell">
+        <p class="kpi-val">2</p>
+        <p class="kpi-lbl" data-fr="Partenariats de démonstration" data-en="Demo partnerships secured">Partenariats de démonstration</p>
+      </div>
+      <div class="kpi-cell">
+        <p class="kpi-val">3<span class="plus" data-fr=" ans" data-en=" yrs"> ans</span></p>
+        <p class="kpi-lbl" data-fr="Engagement produit continu" data-en="Continuous product engagement">Engagement produit continu</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p data-fr="Au-delà des chiffres : <strong>le produit a trouvé un langage</strong> qui parle aux deux côtés du fossé. Les RSSI peuvent montrer un dashboard à leur direction. Les analystes ne sont plus interrompus pour traduire des alertes."
+         data-en="Beyond the numbers: <strong>the product found a language</strong> that speaks to both sides of the gap. CISOs can show a dashboard to their leadership. Analysts are no longer interrupted to translate alerts.">
+         Au-delà des chiffres : <strong>le produit a trouvé un langage</strong> qui parle aux deux côtés du fossé. Les RSSI peuvent montrer un dashboard à leur direction. Les analystes ne sont plus interrompus pour traduire des alertes.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 — APPRENTISSAGES -->
+<section class="narrow">
+  <div class="chapter">
+    <p class="chapter-num">06 — <span data-fr="Apprentissages" data-en="Lessons">Apprentissages</span></p>
+    <h2 class="chapter-title"><span data-fr="Ce que" data-en="What">Ce que</span> <span class="it" data-fr="ça m'a appris" data-en="it taught me">ça m'a appris</span></h2>
+
+    <div class="prose">
+      <p data-fr="<strong>Co-concevoir, ce n'est pas demander un avis.</strong> C'est s'asseoir avec quelqu'un qui sait des choses que je ne sais pas, et accepter que ma première idée sera révisée. Plus j'ai laissé tomber l'illusion du designer héros, plus le produit est devenu juste."
+         data-en="<strong>Co-design isn't asking for feedback.</strong> It's sitting down with someone who knows things I don't, and accepting that my first idea will be revised. The more I let go of the hero designer fantasy, the more accurate the product became.">
+         <strong>Co-concevoir, ce n'est pas demander un avis.</strong> C'est s'asseoir avec quelqu'un qui sait des choses que je ne sais pas, et accepter que ma première idée sera révisée. Plus j'ai laissé tomber l'illusion du designer héros, plus le produit est devenu juste.
+      </p>
+      <p data-fr="<strong>Un design system ne tient pas par ses composants.</strong> Il tient par sa documentation d'usage. Un bouton est facile à dessiner ; le pourquoi de son existence, c'est ça qui tient dans le temps."
+         data-en="<strong>A design system doesn't hold up through its components.</strong> It holds up through its usage documentation. A button is easy to draw; the reason for its existence is what holds over time.">
+         <strong>Un design system ne tient pas par ses composants.</strong> Il tient par sa documentation d'usage. Un bouton est facile à dessiner ; le pourquoi de son existence, c'est ça qui tient dans le temps.
+      </p>
+      <p data-fr="<strong>La cyber n'est pas une discipline.</strong> C'est un état d'esprit où chaque mot pèse, où chaque alerte peut être un faux positif coûteux ou un vrai incident plus coûteux encore. Designer pour ce contexte, c'est apprendre à respecter le doute."
+         data-en="<strong>Cyber isn't a discipline.</strong> It's a state of mind where every word counts, where every alert can be a costly false positive or a real incident even costlier. Designing for that context is learning to respect doubt.">
+         <strong>La cyber n'est pas une discipline.</strong> C'est un état d'esprit où chaque mot pèse, où chaque alerte peut être un faux positif coûteux ou un vrai incident plus coûteux encore. Designer pour ce contexte, c'est apprendre à respecter le doute.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT -->
+<section class="wrap next">
+  <p class="next-label" data-fr="Suite" data-en="Next">Suite</p>
+  <h2 class="next-title">
+    <span data-fr="Voir d'autres" data-en="See more">Voir d'autres</span><br>
+    <span class="grad" data-fr="projets ?" data-en="work ?">projets ?</span>
+  </h2>
+  <div class="next-row">
+    <a href="portfolio.html" class="cta-btn">
+      <span data-fr="Tous les projets" data-en="All projects">Tous les projets</span>
+      <span>↗</span>
+    </a>
+    <a href="cv.html" class="cta-btn ghost">
+      <span data-fr="Voir mon CV" data-en="View my CV">Voir mon CV</span>
+      <span>↗</span>
+    </a>
+  </div>
+</section>
+
+<footer class="wrap footer">
+  <span>© 2026 William Suzan</span>
+  <span>Artefact · Case study 01</span>
+  <span><a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener">LinkedIn ↗</a></span>
+</footer>
+
+</body>
+</html>
