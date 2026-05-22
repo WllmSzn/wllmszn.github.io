@@ -3,738 +3,1319 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>William Suzan — UX Product Designer</title>
-<meta name="description" content="UX Product Designer based in France. Lead UX/UI & Product Owner on a B2B cybersecurity SIEM. Available for senior product design roles.">
+<title>William Suzan — Senior UX Product Designer</title>
+<meta name="description" content="Senior UX/UI Product Designer specialised in B2B SaaS, cybersecurity dashboards and design systems. Lead UX/UI &amp; Product Owner.">
+<meta name="theme-color" content="#0B0D11">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --ink: #1A1A1A;
-    --ink-2: #4A4A4A;
-    --ink-3: #8C8C8C;
-    --line: #E4E1DA;
-    --paper: #FAF8F3;
-    --paper-2: #F2EFE6;
-    --accent: #D85A30;
-    --accent-soft: #FAEEDA;
-    --deep: #042C53;
-    --deep-2: #0C447C;
-    --deep-3: #185FA5;
-    --deep-text: #E6F1FB;
-    --deep-text-2: #B5D4F4;
-    --deep-text-3: #85B7EB;
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
-    --serif: 'Fraunces', Georgia, serif;
-    --sans: 'Inter Tight', -apple-system, sans-serif;
+    --bg: #0B0D11;
+    --bg-2: #11141A;
+    --bg-3: #161A22;
+    --surface: rgba(255, 255, 255, 0.03);
+    --surface-2: rgba(255, 255, 255, 0.05);
+    --ink: #ECEEF2;
+    --ink-2: #A8ADB8;
+    --ink-3: #6B7280;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-2: rgba(255, 255, 255, 0.12);
+    --accent: #E8835A;
+    --accent-2: #B9C7FF;
+    --accent-3: #7BD9C4;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
     font-family: var(--sans);
     color: var(--ink);
-    background: var(--paper);
-    line-height: 1.6;
+    background: var(--bg);
+    line-height: 1.5;
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-weight: 400;
+    position: relative;
+    min-height: 100vh;
   }
 
-  .sr-only {
-    position: absolute;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
+  /* === BACKGROUND HALOS === */
+  .halos {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
     overflow: hidden;
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-    border: 0;
+  }
+  .halo {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    will-change: transform;
+  }
+  .halo-1 {
+    width: 600px; height: 600px;
+    background: #E8835A;
+    top: -100px; right: -150px;
+    opacity: 0.22;
+    animation: drift1 28s ease-in-out infinite;
+  }
+  .halo-2 {
+    width: 700px; height: 700px;
+    background: #4A5FC1;
+    top: 30%; left: -200px;
+    opacity: 0.18;
+    animation: drift2 32s ease-in-out infinite;
+  }
+  .halo-3 {
+    width: 550px; height: 550px;
+    background: #7BD9C4;
+    bottom: -100px; right: 10%;
+    opacity: 0.12;
+    animation: drift3 36s ease-in-out infinite;
+  }
+  @keyframes drift1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-50px, 60px) scale(1.1); }
+  }
+  @keyframes drift2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(80px, -40px) scale(0.95); }
+  }
+  @keyframes drift3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-60px, -80px) scale(1.05); }
   }
 
-  .container {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 4rem;
+  /* Subtle grain */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* === LANGUAGE SWITCHER === */
-  .lang-switch {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--paper);
-    padding: 1rem 0;
-    margin: -3rem 0 1.5rem;
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* === NAV === */
+  .nav {
+    position: fixed;
+    top: 16px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    padding: 10px 14px 10px 24px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 0.5px solid transparent;
-    transition: border-color 0.2s ease;
+    gap: 24px;
+    background: rgba(11, 13, 17, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 0.5px solid var(--line-2);
+    border-radius: 999px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.04);
   }
-  .lang-switch.scrolled { border-color: var(--line); }
-  .lang-brand {
-    font-family: var(--serif);
-    font-size: 14px;
-    letter-spacing: -0.01em;
+  .nav-brand {
+    font-family: var(--mono);
+    font-size: 11px;
     color: var(--ink);
-    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .lang-brand .dot { color: var(--accent); }
-  .lang-buttons { display: flex; gap: 4px; }
-  .lang-btn {
+  .nav-brand .badge {
+    width: 6px; height: 6px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-3);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+  .nav-divider { width: 0.5px; height: 16px; background: var(--line-2); }
+  .nav-links { display: flex; gap: 18px; list-style: none; }
+  .nav-link {
     font-family: var(--sans);
-    font-size: 12px;
-    padding: 5px 11px;
-    border-radius: var(--radius-sm);
-    border: 0.5px solid var(--line);
-    background: transparent;
+    font-size: 13px;
+    font-weight: 400;
     color: var(--ink-2);
-    cursor: pointer;
-    transition: all 0.18s ease;
-    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: color 0.18s;
   }
-  .lang-btn:hover { color: var(--ink); border-color: var(--ink-3); }
-  .lang-btn.active {
-    background: var(--ink);
-    color: var(--paper);
-    border-color: var(--ink);
+  .nav-link:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 6px; margin-left: 4px; }
+  .nav-icon-link {
+    width: 32px; height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--ink-2);
+    transition: background 0.18s, color 0.18s;
+    text-decoration: none;
+  }
+  .nav-icon-link:hover { background: var(--surface-2); color: var(--ink); }
+  .nav-icon-link svg { width: 16px; height: 16px; }
+  .lang-buttons { display: flex; align-items: center; padding: 0 6px; gap: 2px; }
+  .lang-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 8px;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: color 0.18s;
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+  }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-btn.active { color: var(--ink); }
+  .lang-sep { color: var(--ink-3); font-family: var(--mono); font-size: 11px; }
+
+  /* === WRAPPER === */
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
   }
 
   /* === HERO === */
   .hero {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    gap: 32px;
-    align-items: end;
-    padding-bottom: 1.75rem;
-    border-bottom: 0.5px solid var(--line);
-    margin-bottom: 3rem;
+    padding: 160px 0 100px;
+    position: relative;
   }
   .hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 12px;
-    font-weight: 500;
-  }
-  .hero-name {
-    font-family: var(--serif);
-    font-size: clamp(48px, 7vw, 68px);
-    font-weight: 500;
-    line-height: 0.95;
-    letter-spacing: -0.025em;
-    margin-bottom: 18px;
-  }
-  .hero-name .dot { color: var(--accent); }
-  .hero-tagline {
-    font-size: 15px;
-    color: var(--ink-2);
-    max-width: 480px;
-    line-height: 1.55;
-  }
-  .hero-contact {
-    font-size: 13px;
-    color: var(--ink-2);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-bottom: 8px;
-  }
-  .hero-contact a { color: var(--accent); text-decoration: none; border-bottom: 0.5px solid transparent; transition: border-color 0.18s; }
-  .hero-contact a:hover { border-color: var(--accent); }
-  .hero-contact .label {
-    display: inline-block;
-    width: 64px;
-    color: var(--ink-3);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 640px) {
-    .hero { grid-template-columns: 1fr; gap: 24px; }
-  }
-
-  /* === SECTION HEADERS === */
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin: 3.5rem 0 2rem;
-  }
-  .section-num {
-    font-family: var(--serif);
-    font-size: 13px;
-    color: var(--ink-3);
-    font-style: italic;
-    font-weight: 400;
-  }
-  .section-title {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: -0.005em;
-  }
-  .section-line {
-    flex: 1;
-    height: 0.5px;
-    background: var(--line);
-  }
-  .section-meta {
-    font-size: 11px;
-    color: var(--ink-3);
-    letter-spacing: 0.04em;
-  }
-
-  /* === PROJET ARTEFACT (BANDEAU) === */
-  .project-feature {
-    background: var(--deep);
-    border-radius: var(--radius-lg);
-    padding: 2.5rem 2rem 0;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    margin-bottom: 24px;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .project-feature:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 40px -20px rgba(4, 44, 83, 0.4);
-  }
-  .project-feature-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    gap: 16px;
-  }
-  .project-feature-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--deep-text-3);
-    margin-bottom: 10px;
-    font-weight: 500;
-  }
-  .project-feature-name {
-    font-family: var(--serif);
-    font-size: 32px;
-    font-weight: 500;
-    color: var(--deep-text);
-    letter-spacing: -0.015em;
-    margin-bottom: 12px;
-    line-height: 1;
-  }
-  .project-feature-desc {
-    font-size: 14px;
-    color: var(--deep-text-2);
-    max-width: 420px;
-    line-height: 1.55;
-  }
-  .project-feature-date {
-    font-size: 11px;
-    padding: 5px 11px;
-    border-radius: 999px;
-    background: rgba(133, 183, 235, 0.15);
-    color: var(--deep-text-2);
-    white-space: nowrap;
-    letter-spacing: 0.04em;
-  }
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 1.75rem;
-  }
-  .project-tag {
-    font-size: 11px;
-    padding: 4px 11px;
-    border-radius: 999px;
-    border: 0.5px solid rgba(133, 183, 235, 0.3);
-    color: var(--deep-text-2);
-    letter-spacing: 0.02em;
-  }
-  .project-svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .project-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 36px;
-    padding: 1.75rem 0;
-    border-top: 0.5px solid rgba(133, 183, 235, 0.2);
-    margin-top: 1.5rem;
+    display: inline-flex;
     align-items: center;
-  }
-  .stat-num {
-    font-family: var(--serif);
-    font-size: 26px;
-    font-weight: 500;
-    color: var(--deep-text);
-    line-height: 1;
-    margin-bottom: 6px;
-    letter-spacing: -0.01em;
-  }
-  .stat-label {
-    font-size: 11px;
-    color: var(--deep-text-3);
-    letter-spacing: 0.02em;
-  }
-  .project-cta {
-    margin-left: auto;
-    font-size: 13px;
-    color: var(--deep-text-2);
-    align-self: center;
-    transition: color 0.2s, transform 0.2s;
-  }
-  .project-feature:hover .project-cta {
-    color: var(--deep-text);
-    transform: translateX(4px);
-  }
-
-  /* === EXPERIENCES === */
-  .exp-item {
-    display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
-    gap: 24px;
-    padding: 1.5rem 0;
-    border-bottom: 0.5px solid var(--line);
-  }
-  .exp-item:last-of-type { border-bottom: none; }
-  .exp-date {
-    font-size: 12px;
-    color: var(--ink-3);
-    letter-spacing: 0.04em;
-  }
-  .exp-badge {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 10px;
-    padding: 3px 9px;
+    gap: 10px;
+    padding: 6px 14px 6px 10px;
+    border: 0.5px solid var(--line-2);
     border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  .exp-company {
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: var(--mono);
     font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 5px;
-    font-weight: 500;
-  }
-  .exp-role {
-    font-size: 17px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    letter-spacing: -0.005em;
-  }
-  .exp-desc {
-    font-size: 14px;
+    letter-spacing: 0.06em;
     color: var(--ink-2);
-    margin-bottom: 12px;
-    line-height: 1.55;
+    margin-bottom: 40px;
   }
-  .exp-list {
-    font-size: 13.5px;
-    color: var(--ink-2);
-    padding-left: 18px;
-    line-height: 1.65;
-  }
-  .exp-list li { margin-bottom: 2px; }
-
-  @media (max-width: 640px) {
-    .exp-item { grid-template-columns: 1fr; gap: 8px; }
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-3);
+    animation: pulse 2.4s ease-in-out infinite;
   }
 
-  /* === TOOLS === */
-  .tools-grid {
+  .hero-intro {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 12px;
+    grid-template-columns: 88px 1fr;
+    gap: 28px;
+    margin-bottom: 60px;
+    align-items: center;
+    max-width: 720px;
   }
-  .tool-card {
-    padding: 16px 18px;
-    border: 0.5px solid var(--line);
-    border-radius: var(--radius-md);
-    background: var(--paper);
-    transition: border-color 0.2s, background 0.2s;
+  .hero-avatar {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 34px;
+    font-style: italic;
+    color: var(--bg);
+    border: 0.5px solid var(--line-2);
+    box-shadow: 0 8px 32px rgba(232, 131, 90, 0.2);
+    position: relative;
   }
-  .tool-card:hover { border-color: var(--ink-3); background: var(--paper-2); }
-  .tool-cat {
+  .hero-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: inherit;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.4;
+  }
+  .hero-intro-text {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.2vw, 28px);
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--ink-2);
+    max-width: 520px;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(64px, 11vw, 200px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    margin-bottom: 56px;
+    color: var(--ink);
+  }
+  .hero-title .it { font-style: italic; color: var(--ink-2); }
+  .hero-title .grad {
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: end;
+    margin-top: 40px;
+  }
+  .hero-tagline {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 580px;
+  }
+  .cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 999px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+    border: 0.5px solid transparent;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(236, 238, 242, 0.15); }
+  .cta-btn .arrow { font-size: 16px; line-height: 1; }
+  .cta-btn.ghost {
+    background: var(--surface);
+    color: var(--ink);
+    border-color: var(--line-2);
+    backdrop-filter: blur(10px);
+  }
+  .cta-btn.ghost:hover { background: var(--surface-2); }
+
+  /* === SECTION === */
+  .section {
+    padding: 100px 0;
+    position: relative;
+  }
+  .section + .section { border-top: 0.5px solid var(--line); }
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 64px;
+    align-items: end;
+  }
+  .section-label {
+    font-family: var(--mono);
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-3);
-    margin-bottom: 10px;
-    font-weight: 500;
+    margin-bottom: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
   }
-  .tool-list {
-    font-size: 13px;
-    line-height: 1.7;
+  .section-label::before {
+    content: '';
+    width: 28px; height: 0.5px;
+    background: var(--line-2);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(44px, 5.5vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-weight: 400;
     color: var(--ink);
   }
+  .section-title .it { font-style: italic; color: var(--ink-2); }
+  .section-aside {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 460px;
+    padding-bottom: 8px;
+  }
 
-  /* === FORMATION === */
-  .edu-item {
+  /* === CASE === */
+  .case {
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 0.5px solid var(--line-2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    transition: transform 0.4s ease, border-color 0.3s;
+  }
+  .case:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+  .case-visual {
+    padding: 40px;
+    aspect-ratio: 16/10;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(232, 131, 90, 0.15), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(74, 95, 193, 0.2), transparent 50%),
+      linear-gradient(135deg, #0C447C 0%, #042C53 100%);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 0.5px solid var(--line-2);
+  }
+  .case-svg { width: 100%; height: 100%; display: block; }
+  .case-body { padding: 36px 40px 40px; }
+  .case-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+  .case-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 0.5px solid var(--line);
+  }
+  .case-title {
+    font-family: var(--serif);
+    font-size: clamp(34px, 3.6vw, 52px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+  .case-title .it { font-style: italic; color: var(--ink-2); }
+  .case-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin-bottom: 32px;
+    max-width: 620px;
+  }
+  .case-stats {
     display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    padding: 1rem 0;
+    margin-bottom: 32px;
+    padding: 28px 0;
+    border-top: 0.5px solid var(--line);
     border-bottom: 0.5px solid var(--line);
   }
-  .edu-item:last-of-type { border-bottom: none; }
-  .edu-date {
-    font-size: 12px;
-    color: var(--ink-3);
-    letter-spacing: 0.04em;
+  .stat-val {
+    font-family: var(--serif);
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
   }
-  .edu-title { font-size: 15px; font-weight: 500; }
-  .edu-school { font-size: 13px; color: var(--ink-2); margin-top: 3px; }
+  .stat-val .plus { color: var(--ink-3); font-size: 24px; }
+  .stat-val .small { font-size: 22px; color: var(--ink-3); }
+  .stat-lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    line-height: 1.4;
+  }
+  .case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 10px 0;
+    transition: gap 0.2s;
+  }
+  .case-link:hover { gap: 14px; color: var(--accent); }
+  .case-link .arrow { font-size: 14px; }
 
-  .certs {
-    margin-top: 1.5rem;
+  /* === EXPERIENCES === */
+  .exp-list { border-top: 0.5px solid var(--line); }
+  .exp-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1.2fr;
+    gap: 48px;
+    padding: 44px 0;
+    border-bottom: 0.5px solid var(--line);
+    align-items: start;
+    position: relative;
+    transition: padding-left 0.3s;
+  }
+  .exp-row::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  .exp-row:hover { padding-left: 24px; }
+  .exp-row:hover::before { width: 16px; }
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
+  }
+  .exp-period .now {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 10px;
+    padding: 2px 9px;
+    font-size: 9px;
+    background: rgba(123, 217, 196, 0.12);
+    color: var(--accent-3);
+    border: 0.5px solid rgba(123, 217, 196, 0.3);
+    border-radius: 999px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .exp-period .now::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    margin-top: 6px;
+  }
+  .exp-role-block .role {
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .exp-detail {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+
+  /* === SKILLS === */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 0.5px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .skill-cell {
+    background: var(--bg-2);
+    padding: 36px 32px;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .skill-cell:hover { background: var(--bg-3); }
+  .skill-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-bottom: 18px;
+    letter-spacing: 0.08em;
+  }
+  .skill-title {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .skill-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  /* === STACK === */
+  .stack-list {
+    border-top: 0.5px solid var(--line);
+  }
+  .stack-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    padding: 28px 0;
+    border-bottom: 0.5px solid var(--line);
+    align-items: baseline;
+  }
+  .stack-cat {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .stack-tools {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .stack-tools .sep { color: var(--ink-3); margin: 0 8px; }
+
+  /* === EDUCATION === */
+  .edu-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1.2fr;
+    gap: 48px;
+    padding: 32px 0;
+    border-bottom: 0.5px solid var(--line);
+    align-items: baseline;
+  }
+  .edu-row:first-of-type { border-top: 0.5px solid var(--line); }
+  .edu-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
+  }
+  .edu-school {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .edu-prog {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .certs-row {
+    margin-top: 32px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
-  .cert {
-    font-size: 12px;
-    padding: 5px 12px;
-    border-radius: 999px;
-    background: var(--paper-2);
+  .cert-chip {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--ink-2);
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--surface);
     border: 0.5px solid var(--line);
   }
 
-  @media (max-width: 640px) {
-    .edu-item { grid-template-columns: 1fr; gap: 4px; }
-  }
-
   /* === BEYOND === */
-  .beyond-grid {
+  .beyond {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
-  .beyond-item-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 4px;
+  .beyond-item {
+    padding: 36px 32px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 0.5px solid var(--line);
+    backdrop-filter: blur(20px);
+    transition: border-color 0.3s, transform 0.3s;
   }
-  .beyond-item-meta {
-    font-size: 12px;
-    color: var(--ink-2);
+  .beyond-item:hover {
+    border-color: var(--line-2);
+    transform: translateY(-4px);
   }
+  .beyond-num {
+    font-family: var(--serif);
+    font-size: 60px;
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+    font-style: italic;
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .beyond-num .plus { font-size: 32px; }
+  .beyond-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .beyond-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* === CONTACT === */
+  .contact {
+    padding: 140px 0 120px;
+    border-top: 0.5px solid var(--line);
+    position: relative;
+  }
+  .contact-title {
+    font-family: var(--serif);
+    font-size: clamp(56px, 10vw, 184px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+  .contact-title .grad {
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+  }
+  .contact-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .cta-btn.lg { padding: 18px 32px; font-size: 14px; }
 
   /* === FOOTER === */
   .footer {
-    margin-top: 4rem;
-    padding-top: 1.5rem;
     border-top: 0.5px solid var(--line);
+    padding: 36px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
     color: var(--ink-3);
-    letter-spacing: 0.02em;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer a { color: var(--ink-2); text-decoration: none; transition: color 0.18s; display: inline-flex; align-items: center; gap: 6px; }
+  .footer a:hover { color: var(--ink); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 980px) {
+    .wrap { padding-left: 20px; padding-right: 20px; }
+    .nav { left: 12px; right: 12px; transform: none; padding: 10px 14px; gap: 12px; justify-content: space-between; }
+    .nav-divider, .nav-links { display: none; }
+    .hero { padding: 120px 0 80px; }
+    .hero-intro { grid-template-columns: 64px 1fr; gap: 18px; }
+    .hero-avatar { width: 64px; height: 64px; font-size: 26px; }
+    .hero-bottom { grid-template-columns: 1fr; gap: 32px; }
+    .section { padding: 70px 0; }
+    .section-header { grid-template-columns: 1fr; gap: 24px; }
+    .exp-row, .edu-row { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
+    .exp-row:hover { padding-left: 0; }
+    .exp-row::before { display: none; }
+    .stack-row { grid-template-columns: 1fr; gap: 8px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .beyond { grid-template-columns: 1fr; }
+    .case-body { padding: 28px 24px; }
+    .case-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   }
 
   /* === MOTION === */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .hero, .section-header, .project-feature, .exp-item, .tools-grid, .edu-item, .beyond-grid {
-    animation: fadeUp 0.6s ease backwards;
-  }
-  .hero { animation-delay: 0.05s; }
-  .section-header:nth-of-type(1) { animation-delay: 0.1s; }
-  .project-feature { animation-delay: 0.15s; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-eyebrow, .hero-intro, .hero-title, .hero-bottom { animation: fadeUp 0.8s ease backwards; }
+  .hero-eyebrow { animation-delay: 0.05s; }
+  .hero-intro { animation-delay: 0.15s; }
+  .hero-title { animation-delay: 0.25s; }
+  .hero-bottom { animation-delay: 0.4s; }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .halo { animation: none !important; }
   }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="halos" aria-hidden="true">
+  <div class="halo halo-1"></div>
+  <div class="halo halo-2"></div>
+  <div class="halo halo-3"></div>
+</div>
 
-  <header class="lang-switch" id="langSwitch">
-    <a href="#" class="lang-brand">William Suzan<span class="dot">.</span></a>
-    <div class="lang-buttons">
+<nav class="nav">
+  <a href="#" class="nav-brand">
+    <span class="badge"></span>
+    William Suzan
+  </a>
+  <span class="nav-divider"></span>
+  <ul class="nav-links">
+    <li><a href="#cases" class="nav-link" data-fr="Cas" data-en="Cases">Cas</a></li>
+    <li><a href="#experience" class="nav-link" data-fr="Expérience" data-en="Experience">Expérience</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://search-hefty-13033537.figma.site" target="_blank" rel="noopener" class="nav-icon-link" aria-label="Portfolio Figma">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.5 3h3v6h-3a3 3 0 010-6z" fill="currentColor"/>
+        <path d="M5.5 12a3 3 0 013-3h3v6h-3a3 3 0 01-3-3z" fill="currentColor" opacity="0.85"/>
+        <path d="M5.5 21a3 3 0 013-3h3v3a3 3 0 11-6 0z" fill="currentColor" opacity="0.7"/>
+        <path d="M11.5 3h3a3 3 0 110 6h-3V3z" fill="currentColor" opacity="0.55"/>
+        <circle cx="14.5" cy="12" r="3" fill="currentColor" opacity="0.4"/>
+      </svg>
+    </a>
+    <a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener" class="nav-icon-link" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    </a>
+    <div class="lang-buttons" role="group" aria-label="Language switcher">
       <button id="lang-fr" class="lang-btn active" aria-label="Français">FR</button>
+      <span class="lang-sep">/</span>
       <button id="lang-en" class="lang-btn" aria-label="English">EN</button>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <h1 class="sr-only">William Suzan — UX Product Designer</h1>
+<h1 class="sr-only">William Suzan — Senior UX Product Designer</h1>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <p class="hero-eyebrow" data-fr="UX Product Designer" data-en="UX Product Designer">UX Product Designer</p>
-      <p class="hero-name" aria-hidden="true">William<br>Suzan<span class="dot">.</span></p>
-      <p class="hero-tagline"
-         data-fr="UX/UI Designer confirmé, spécialisé dans le design produit et la stratégie d'expérience utilisateur. Je conçois des expériences intuitives et engageantes, de la recherche utilisateur au delivery."
-         data-en="Senior UX/UI Designer, specialised in product design and user experience strategy. I craft intuitive, engaging experiences — from user research to delivery.">
-         UX/UI Designer confirmé, spécialisé dans le design produit et la stratégie d'expérience utilisateur. Je conçois des expériences intuitives et engageantes, de la recherche utilisateur au delivery.
-      </p>
-    </div>
-    <div class="hero-contact">
-      <div><span class="label" data-fr="Langue" data-en="Language">Langue</span><span data-fr="Anglais — Courant" data-en="English — Fluent">Anglais — Courant</span></div>
-      <div><span class="label">Web</span><a href="#" target="https://search-hefty-13033537.figma.site" rel="noopener">Portfolio ↗</a></div>
-    </div>
-  </section>
+<!-- Hero -->
+<section class="wrap hero">
+  <span class="hero-eyebrow">
+    <span class="dot"></span>
+    <span data-fr="Disponible pour de nouveaux projets · Mars 2026" data-en="Available for new roles · March 2026">Disponible pour de nouveaux projets · Mars 2026</span>
+  </span>
 
-  <!-- 01 PROJET -->
-  <div class="section-header">
-    <span class="section-num">01</span>
-    <h2 class="section-title" data-fr="Projet sélectionné" data-en="Selected work">Projet sélectionné</h2>
-    <span class="section-line"></span>
-    <span class="section-meta" data-fr="Case study" data-en="Case study">Case study</span>
+  <div class="hero-intro">
+    <div class="hero-avatar" aria-hidden="true">WS</div>
+    <p class="hero-intro-text"
+       data-fr="Je conçois des systèmes B2B complexes pour qu'ils deviennent simples à utiliser."
+       data-en="I design complex B2B systems so they become simple to use.">
+       Je conçois des systèmes B2B complexes pour qu'ils deviennent simples à utiliser.
+    </p>
   </div>
 
-  <a href="#" class="project-feature">
-    <div class="project-feature-header">
+  <h2 class="hero-title" aria-hidden="true">
+    <span data-fr="UX produit" data-en="Product UX">UX produit</span><br>
+    <span class="it" data-fr="pour la cyber," data-en="for cybersecurity,">pour la cyber,</span><br>
+    <span data-fr="le SaaS et les" data-en="SaaS &amp; the">le SaaS et les</span>
+    <span class="grad" data-fr="systèmes" data-en="systems">systèmes</span>
+  </h2>
+
+  <div class="hero-bottom">
+    <p class="hero-tagline"
+       data-fr="Je conçois des plateformes SaaS, des dashboards techniques et des design systems pour des produits où les décisions ne se reprennent pas. Actuellement Lead UX/UI &amp; Product Owner sur un SIEM cybersécurité."
+       data-en="I design SaaS platforms, technical dashboards and design systems for products where decisions can't be undone. Currently Lead UX/UI &amp; Product Owner on a cybersecurity SIEM.">
+       Je conçois des plateformes SaaS, des dashboards techniques et des design systems pour des produits où les décisions ne se reprennent pas. Actuellement Lead UX/UI &amp; Product Owner sur un SIEM cybersécurité.
+    </p>
+    <div class="cta-group">
+      <a href="https://search-hefty-13033537.figma.site" target="_blank" rel="noopener" class="cta-btn">
+        <span data-fr="Voir le portfolio" data-en="View portfolio">Voir le portfolio</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener" class="cta-btn ghost">
+        <span>LinkedIn</span>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Specialization -->
+<section class="section" style="border-top: 0.5px solid var(--line);">
+  <div class="wrap">
+    <div class="section-header">
       <div>
-        <p class="project-feature-eyebrow" data-fr="01 — Lead UX/UI &amp; Product Owner" data-en="01 — Lead UX/UI &amp; Product Owner">01 — Lead UX/UI &amp; Product Owner</p>
-        <h3 class="project-feature-name">Artefact</h3>
-        <p class="project-feature-desc"
-           data-fr="Concevoir un SIEM cybersécurité (SaaS B2B) pour rendre l'analyse de menaces accessible aux équipes non-expertes."
-           data-en="Designing a cybersecurity SIEM (B2B SaaS) to make threat analysis accessible to non-expert teams.">
-           Concevoir un SIEM cybersécurité (SaaS B2B) pour rendre l'analyse de menaces accessible aux équipes non-expertes.
+        <p class="section-label" data-fr="Spécialisation" data-en="Specialization">Spécialisation</p>
+        <h2 class="section-title">
+          <span data-fr="Je suis spécialisé en" data-en="I specialise in">Je suis spécialisé en</span>
+          <span class="it" data-fr="design produit B2B," data-en="B2B product design,">design produit B2B,</span>
+          <span data-fr="design systems et" data-en="design systems &amp;">design systems et</span>
+          <span class="it" data-fr="interfaces critiques" data-en="critical interfaces">interfaces critiques</span>
+        </h2>
+      </div>
+      <p class="section-aside"
+         data-fr="Je suis actuellement ouvert à des postes Senior / Lead Product Designer en SaaS B2B, cybersécurité ou produits techniques. Disponible également pour des missions à fort impact."
+         data-en="Currently open to Senior / Lead Product Designer roles in B2B SaaS, cybersecurity, or technical products. Also available for selected high-impact engagements.">
+         Je suis actuellement ouvert à des postes Senior / Lead Product Designer en SaaS B2B, cybersécurité ou produits techniques. Disponible également pour des missions à fort impact.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Selected cases -->
+<section class="section" id="cases">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label" data-fr="01 — Travail sélectionné" data-en="01 — Selected work">01 — Travail sélectionné</p>
+        <h2 class="section-title">
+          <span data-fr="Cas" data-en="Featured">Cas</span>
+          <span class="it" data-fr="sélectionné" data-en="case">sélectionné</span>
+        </h2>
+      </div>
+      <p class="section-aside"
+         data-fr="7 ans de design produit. Freelance, agence, en interne, projets personnels — j'ai vu les contextes des deux côtés."
+         data-en="7 years of product design. Freelance, agency, in-house, personal projects — I've seen the trade-offs from both sides.">
+         7 ans de design produit. Freelance, agence, en interne, projets personnels — j'ai vu les contextes des deux côtés.
+      </p>
+    </div>
+
+    <article class="case">
+      <div class="case-visual">
+        <svg class="case-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu dashboard SIEM Artefact">
+          <rect x="0" y="0" width="220" height="500" fill="#042C53"/>
+          <rect x="20" y="30" width="60" height="6" rx="2" fill="#85B7EB"/>
+          <rect x="20" y="60" width="180" height="32" rx="4" fill="#0C447C"/>
+          <circle cx="36" cy="76" r="6" fill="#85B7EB"/>
+          <rect x="52" y="73" width="100" height="6" rx="1" fill="#378ADD"/>
+          <rect x="20" y="100" width="180" height="32" rx="4" fill="rgba(133,183,235,0.08)"/>
+          <circle cx="36" cy="116" r="6" fill="#378ADD" opacity="0.6"/>
+          <rect x="52" y="113" width="80" height="6" rx="1" fill="#185FA5"/>
+          <rect x="20" y="140" width="180" height="32" rx="4" fill="rgba(133,183,235,0.08)"/>
+          <circle cx="36" cy="156" r="6" fill="#378ADD" opacity="0.6"/>
+          <rect x="52" y="153" width="120" height="6" rx="1" fill="#185FA5"/>
+          <rect x="20" y="180" width="180" height="32" rx="4" fill="rgba(133,183,235,0.08)"/>
+          <circle cx="36" cy="196" r="6" fill="#378ADD" opacity="0.6"/>
+          <rect x="52" y="193" width="90" height="6" rx="1" fill="#185FA5"/>
+
+          <rect x="240" y="30" width="120" height="10" rx="2" fill="#185FA5"/>
+          <rect x="240" y="48" width="80" height="6" rx="1" fill="#378ADD" opacity="0.5"/>
+
+          <rect x="240" y="80" width="170" height="130" rx="6" fill="#0C447C"/>
+          <text x="252" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Threats detected</text>
+          <text x="252" y="138" fill="#E6F1FB" font-size="38" font-family="Instrument Serif, serif" font-style="italic">247</text>
+          <rect x="252" y="158" width="80" height="3" rx="1" fill="#7BD9C4"/>
+          <rect x="252" y="158" width="55" height="3" rx="1" fill="#E8835A"/>
+          <text x="252" y="180" fill="#7BD9C4" font-size="9" font-family="monospace">+12% vs last week</text>
+
+          <rect x="425" y="80" width="170" height="130" rx="6" fill="#0C447C"/>
+          <text x="437" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Alert correlation</text>
+          <circle cx="455" cy="155" r="6" fill="#E24B4A"/>
+          <circle cx="480" cy="140" r="4" fill="#E8835A"/>
+          <circle cx="505" cy="165" r="5" fill="#B9C7FF"/>
+          <circle cx="530" cy="135" r="3" fill="#7BD9C4"/>
+          <circle cx="555" cy="170" r="4" fill="#E8835A"/>
+          <circle cx="580" cy="150" r="5" fill="#E24B4A"/>
+          <line x1="455" y1="155" x2="480" y2="140" stroke="#185FA5" stroke-width="0.5"/>
+          <line x1="480" y1="140" x2="505" y2="165" stroke="#185FA5" stroke-width="0.5"/>
+          <line x1="505" y1="165" x2="555" y2="170" stroke="#185FA5" stroke-width="0.5"/>
+          <line x1="555" y1="170" x2="580" y2="150" stroke="#185FA5" stroke-width="0.5"/>
+          <line x1="530" y1="135" x2="555" y2="170" stroke="#185FA5" stroke-width="0.5"/>
+
+          <rect x="610" y="80" width="170" height="130" rx="6" fill="#0C447C"/>
+          <text x="622" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Timeline</text>
+          <polyline points="622,180 642,170 662,175 682,160 702,165 722,145 742,155 762,135" fill="none" stroke="#7BD9C4" stroke-width="1.5"/>
+          <polyline points="622,188 642,185 662,180 682,178 702,170 722,168 742,160 762,162" fill="none" stroke="#E8835A" stroke-width="1.5" opacity="0.6"/>
+
+          <rect x="240" y="230" width="540" height="240" rx="6" fill="#0C447C"/>
+          <rect x="260" y="250" width="60" height="6" rx="1" fill="#378ADD"/>
+          <rect x="260" y="270" width="500" height="0.5" fill="#185FA5"/>
+
+          <rect x="260" y="285" width="500" height="36" rx="3" fill="rgba(133,183,235,0.05)"/>
+          <circle cx="280" cy="303" r="5" fill="#E24B4A"/>
+          <rect x="295" y="296" width="100" height="5" rx="1" fill="#85B7EB"/>
+          <rect x="295" y="307" width="160" height="4" rx="1" fill="#378ADD" opacity="0.6"/>
+          <text x="700" y="307" fill="#E24B4A" font-size="9" font-family="monospace">CRITICAL</text>
+
+          <rect x="260" y="325" width="500" height="36" rx="3" fill="rgba(133,183,235,0.05)"/>
+          <circle cx="280" cy="343" r="5" fill="#E8835A"/>
+          <rect x="295" y="336" width="120" height="5" rx="1" fill="#85B7EB"/>
+          <rect x="295" y="347" width="140" height="4" rx="1" fill="#378ADD" opacity="0.6"/>
+          <text x="710" y="347" fill="#E8835A" font-size="9" font-family="monospace">HIGH</text>
+
+          <rect x="260" y="365" width="500" height="36" rx="3" fill="rgba(133,183,235,0.05)"/>
+          <circle cx="280" cy="383" r="5" fill="#7BD9C4"/>
+          <rect x="295" y="376" width="90" height="5" rx="1" fill="#85B7EB"/>
+          <rect x="295" y="387" width="180" height="4" rx="1" fill="#378ADD" opacity="0.6"/>
+          <text x="704" y="387" fill="#7BD9C4" font-size="9" font-family="monospace">RESOLVED</text>
+
+          <rect x="260" y="405" width="500" height="36" rx="3" fill="rgba(133,183,235,0.05)"/>
+          <circle cx="280" cy="423" r="5" fill="#B9C7FF"/>
+          <rect x="295" y="416" width="110" height="5" rx="1" fill="#85B7EB"/>
+          <rect x="295" y="427" width="130" height="4" rx="1" fill="#378ADD" opacity="0.6"/>
+          <text x="710" y="427" fill="#B9C7FF" font-size="9" font-family="monospace">INFO</text>
+        </svg>
+      </div>
+      <div class="case-body">
+        <div class="case-tags">
+          <span class="case-tag">UX / UI</span>
+          <span class="case-tag">Design System</span>
+          <span class="case-tag" data-fr="Stratégie produit" data-en="Product Strategy">Stratégie produit</span>
+          <span class="case-tag">SaaS B2B</span>
+          <span class="case-tag" data-fr="Cybersécurité" data-en="Cybersecurity">Cybersécurité</span>
+        </div>
+        <h3 class="case-title">Artefact <span class="it" data-fr="— SIEM Cybersécurité" data-en="— Cybersecurity SIEM">— SIEM Cybersécurité</span></h3>
+        <p class="case-desc"
+           data-fr="Un SIEM cybersécurité pensé pour rendre l'analyse de menaces accessible aux équipes non-expertes. Vision produit, design system dédié, ateliers de co-conception avec experts cyber, roadmap design intégrée au backlog."
+           data-en="A cybersecurity SIEM designed to make threat analysis accessible to non-expert teams. Product vision, dedicated design system, co-design workshops with cyber experts, design roadmap baked into the backlog.">
+           Un SIEM cybersécurité pensé pour rendre l'analyse de menaces accessible aux équipes non-expertes. Vision produit, design system dédié, ateliers de co-conception avec experts cyber, roadmap design intégrée au backlog.
+        </p>
+        <div class="case-stats">
+          <div>
+            <p class="stat-val">200<span class="plus">+</span></p>
+            <p class="stat-lbl" data-fr="Composants design system" data-en="Design system components">Composants design system</p>
+          </div>
+          <div>
+            <p class="stat-val">50<span class="plus">+</span></p>
+            <p class="stat-lbl" data-fr="Tests utilisateurs" data-en="User tests">Tests utilisateurs</p>
+          </div>
+          <div>
+            <p class="stat-val">2</p>
+            <p class="stat-lbl" data-fr="Partenariats démo" data-en="Demo partnerships">Partenariats démo</p>
+          </div>
+          <div>
+            <p class="stat-val">3<span class="small" data-fr=" ans" data-en=" yrs"> ans</span></p>
+            <p class="stat-lbl" data-fr="Engagement produit" data-en="Product engagement">Engagement produit</p>
+          </div>
+        </div>
+        <a href="#" class="case-link">
+          <span data-fr="Lire le case study" data-en="Read the case study">Lire le case study</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Experience -->
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label" data-fr="02 — Parcours" data-en="02 — Track record">02 — Parcours</p>
+        <h2 class="section-title">
+          <span data-fr="Là où j'ai" data-en="Where I've">Là où j'ai</span>
+          <span class="it" data-fr="travaillé" data-en="worked">travaillé</span>
+        </h2>
+      </div>
+      <p class="section-aside"
+         data-fr="De freelance à lead produit, en passant par des projets dans le sport, la cyber et le SaaS. Toujours au croisement du design, du produit et de la stratégie."
+         data-en="From freelance to product lead, across sports, cyber and SaaS. Always at the crossroads of design, product and strategy.">
+         De freelance à lead produit, en passant par des projets dans le sport, la cyber et le SaaS. Toujours au croisement du design, du produit et de la stratégie.
+      </p>
+    </div>
+
+    <div class="exp-list">
+      <div class="exp-row">
+        <div>
+          <p class="exp-period">2023 — <span data-fr="présent" data-en="present">présent</span><span class="now">Now</span></p>
+          <p class="exp-company">Artefact · SaaS B2B</p>
+        </div>
+        <div class="exp-role-block">
+          <h3 class="role">Lead UX/UI &amp; Product Owner</h3>
+        </div>
+        <p class="exp-detail"
+           data-fr="Vision produit et coordination équipes techniques / métiers. Design system dédié, scalabilité de l'interface. Vulgarisation de concepts cyber complexes (logs, alertes corrélées) en interfaces accessibles. Roadmap design intégrée au backlog, ateliers de co-conception."
+           data-en="Product vision and coordination across engineering and business teams. Dedicated design system, scalable interface architecture. Translating complex cyber concepts (logs, correlated alerts) into accessible UI. Design roadmap baked into the backlog, co-design workshops.">
+           Vision produit et coordination équipes techniques / métiers. Design system dédié, scalabilité de l'interface. Vulgarisation de concepts cyber complexes (logs, alertes corrélées) en interfaces accessibles. Roadmap design intégrée au backlog, ateliers de co-conception.
         </p>
       </div>
-      <span class="project-feature-date" data-fr="2023 — en cours" data-en="2023 — ongoing">2023 — en cours</span>
-    </div>
-    <div class="project-tags">
-      <span class="project-tag" data-fr="Cybersécurité" data-en="Cybersecurity">Cybersécurité</span>
-      <span class="project-tag">SaaS B2B</span>
-      <span class="project-tag">Design System</span>
-      <span class="project-tag" data-fr="Stratégie produit" data-en="Product Strategy">Stratégie produit</span>
-    </div>
 
-    <svg class="project-svg" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu dashboard SIEM Artefact">
-      <rect x="0" y="0" width="600" height="200" fill="#0C447C" rx="8"/>
-      <rect x="20" y="20" width="160" height="14" rx="3" fill="#185FA5"/>
-      <rect x="20" y="44" width="100" height="8" rx="2" fill="#378ADD" opacity="0.5"/>
-      <rect x="20" y="80" width="170" height="100" rx="6" fill="#042C53"/>
-      <text x="32" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Threats detected</text>
-      <text x="32" y="128" fill="#E6F1FB" font-size="28" font-family="Fraunces, serif" font-weight="500">247</text>
-      <rect x="32" y="148" width="80" height="3" rx="1" fill="#E24B4A"/>
-      <rect x="32" y="148" width="55" height="3" rx="1" fill="#EF9F27"/>
-      <text x="32" y="170" fill="#85B7EB" font-size="9" font-family="monospace">+12% vs last week</text>
-      <rect x="210" y="80" width="170" height="100" rx="6" fill="#042C53"/>
-      <text x="222" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Alert correlation</text>
-      <circle cx="240" cy="135" r="6" fill="#E24B4A"/>
-      <circle cx="265" cy="125" r="4" fill="#EF9F27"/>
-      <circle cx="290" cy="145" r="5" fill="#378ADD"/>
-      <circle cx="315" cy="120" r="3" fill="#5DCAA5"/>
-      <circle cx="340" cy="155" r="4" fill="#EF9F27"/>
-      <circle cx="365" cy="135" r="5" fill="#E24B4A"/>
-      <line x1="240" y1="135" x2="265" y2="125" stroke="#185FA5" stroke-width="0.5"/>
-      <line x1="265" y1="125" x2="290" y2="145" stroke="#185FA5" stroke-width="0.5"/>
-      <line x1="290" y1="145" x2="340" y2="155" stroke="#185FA5" stroke-width="0.5"/>
-      <line x1="340" y1="155" x2="365" y2="135" stroke="#185FA5" stroke-width="0.5"/>
-      <rect x="400" y="80" width="180" height="100" rx="6" fill="#042C53"/>
-      <text x="412" y="100" fill="#85B7EB" font-size="10" font-family="monospace">Timeline</text>
-      <polyline points="412,160 432,150 452,155 472,140 492,145 512,125 532,135 552,115 572,120" fill="none" stroke="#5DCAA5" stroke-width="1.5"/>
-      <polyline points="412,168 432,165 452,160 472,158 492,150 512,148 532,140 552,142 572,138" fill="none" stroke="#EF9F27" stroke-width="1.5" opacity="0.6"/>
-    </svg>
-
-    <div class="project-stats">
-      <div>
-        <p class="stat-num">200+</p>
-        <p class="stat-label" data-fr="composants design system" data-en="design system components">composants design system</p>
+      <div class="exp-row">
+        <div>
+          <p class="exp-period">2024 — 2025</p>
+          <p class="exp-company">ComAve · <span data-fr="Marketplace mobile" data-en="Mobile marketplace">Marketplace mobile</span></p>
+        </div>
+        <div class="exp-role-block">
+          <h3 class="role">UX/UI Designer</h3>
+        </div>
+        <p class="exp-detail"
+           data-fr="Marketplace gamifiée pour fans de sports. Extension d'un design system modulaire. Parcours gamifiés (points, niveaux, tirages). Accessibilité WCAG, micro-animations. Équipe distribuée FR/UK/Europe de l'Est, rituels agiles en anglais."
+           data-en="Gamified marketplace for sports fans. Extending a modular design system. Gamified journeys (points, levels, draws). WCAG accessibility, micro-animations. Distributed FR/UK/Eastern Europe team, agile rituals in English.">
+           Marketplace gamifiée pour fans de sports. Extension d'un design system modulaire. Parcours gamifiés (points, niveaux, tirages). Accessibilité WCAG, micro-animations. Équipe distribuée FR/UK/Europe de l'Est, rituels agiles en anglais.
+        </p>
       </div>
-      <div>
-        <p class="stat-num">50+</p>
-        <p class="stat-label" data-fr="tests utilisateurs" data-en="user tests">tests utilisateurs</p>
-      </div>
-      <div>
-        <p class="stat-num">2</p>
-        <p class="stat-label" data-fr="partenariats démo" data-en="demo partnerships">partenariats démo</p>
-      </div>
-      <span class="project-cta" data-fr="Lire le case study →" data-en="Read case study →">Lire le case study →</span>
-    </div>
-  </a>
 
-  <!-- 02 EXPERIENCES -->
-  <div class="section-header">
-    <span class="section-num">02</span>
-    <h2 class="section-title" data-fr="Expériences" data-en="Experience">Expériences</h2>
-    <span class="section-line"></span>
-  </div>
-
-  <div class="exp-item">
-    <div>
-      <p class="exp-date">2023 — <span data-fr="présent" data-en="present">présent</span></p>
-      <span class="exp-badge" data-fr="En cours" data-en="Current">En cours</span>
-    </div>
-    <div>
-      <p class="exp-company">Artefact</p>
-      <h3 class="exp-role" data-fr="Lead UX/UI &amp; Product Owner — SIEM Cybersécurité" data-en="Lead UX/UI &amp; Product Owner — Cybersecurity SIEM">Lead UX/UI &amp; Product Owner — SIEM Cybersécurité</h3>
-      <p class="exp-desc"
-         data-fr="SaaS B2B. Rôle hybride product manager / lead designer sur un produit SIEM, de la vision à la mise en marché."
-         data-en="B2B SaaS. Hybrid product manager / lead designer role on a SIEM product, from vision to go-to-market.">
-         SaaS B2B. Rôle hybride product manager / lead designer sur un produit SIEM, de la vision à la mise en marché.
-      </p>
-      <ul class="exp-list">
-        <li data-fr="Vision produit &amp; coordination équipes techniques / métiers" data-en="Product vision &amp; coordination across engineering and business teams">Vision produit &amp; coordination équipes techniques / métiers</li>
-        <li data-fr="Design system dédié, scalabilité de l'interface" data-en="Dedicated design system, scalable interface architecture">Design system dédié, scalabilité de l'interface</li>
-        <li data-fr="Vulgarisation de concepts cyber complexes (logs, alertes corrélées)" data-en="Translating complex cyber concepts (logs, correlated alerts) into accessible UI">Vulgarisation de concepts cyber complexes (logs, alertes corrélées)</li>
-        <li data-fr="Roadmap design intégrée au backlog, ateliers de co-conception" data-en="Design roadmap integrated into the backlog, co-design workshops">Roadmap design intégrée au backlog, ateliers de co-conception</li>
-      </ul>
+      <div class="exp-row">
+        <div>
+          <p class="exp-period">2019 — 2026</p>
+          <p class="exp-company" data-fr="Freelance" data-en="Freelance">Freelance</p>
+        </div>
+        <div class="exp-role-block">
+          <h3 class="role" data-fr="Designer freelance — Web UX/UI" data-en="Freelance designer — Web UX/UI">Designer freelance — Web UX/UI</h3>
+        </div>
+        <p class="exp-detail"
+           data-fr="10+ sites end-to-end (vitrines, e-commerce). 2 chartes graphiques complètes. 30+ tests utilisateurs en autonomie. Design systems légers, responsive, SEO-friendly. Stratégie UX, prototypage Figma, accompagnement clients."
+           data-en="10+ end-to-end sites (marketing, e-commerce). 2 full brand identities. 30+ self-run user tests. Lightweight design systems, responsive, SEO-friendly. UX strategy, Figma prototyping, client guidance.">
+           10+ sites end-to-end (vitrines, e-commerce). 2 chartes graphiques complètes. 30+ tests utilisateurs en autonomie. Design systems légers, responsive, SEO-friendly. Stratégie UX, prototypage Figma, accompagnement clients.
+        </p>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="exp-item">
-    <div><p class="exp-date">2024 — 2025</p></div>
-    <div>
-      <p class="exp-company">ComAve</p>
-      <h3 class="exp-role">UX/UI Designer</h3>
-      <p class="exp-desc"
-         data-fr="Marketplace gamifiée pour fans de sports. Conception de l'application mobile au sein d'une équipe internationale."
-         data-en="Gamified marketplace for sports fans. Mobile app design within an international team.">
-         Marketplace gamifiée pour fans de sports. Conception de l'application mobile au sein d'une équipe internationale.
-      </p>
-      <ul class="exp-list">
-        <li data-fr="Extension d'un design system modulaire (cohérence multi-apps)" data-en="Extending a modular design system across sister apps">Extension d'un design system modulaire (cohérence multi-apps)</li>
-        <li data-fr="Parcours gamifiés : points, niveaux, tirages exclusifs" data-en="Gamified journeys: points, levels, exclusive draws">Parcours gamifiés : points, niveaux, tirages exclusifs</li>
-        <li data-fr="Accessibilité WCAG, micro-animations, feedbacks progressifs" data-en="WCAG accessibility, micro-animations, progressive feedback">Accessibilité WCAG, micro-animations, feedbacks progressifs</li>
-        <li data-fr="Collaboration distribuée (FR/UK/Europe de l'Est), rituels agiles en anglais" data-en="Distributed team (FR/UK/Eastern Europe), agile rituals in English">Collaboration distribuée (FR/UK/Europe de l'Est), rituels agiles en anglais</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="exp-item">
-    <div><p class="exp-date">2019 — 2026</p></div>
-    <div>
-      <p class="exp-company" data-fr="Freelance" data-en="Freelance">Freelance</p>
-      <h3 class="exp-role" data-fr="Designer freelance — Web UX/UI" data-en="Freelance designer — Web UX/UI">Designer freelance — Web UX/UI</h3>
-      <p class="exp-desc"
-         data-fr="Sites vitrines &amp; e-commerce. Stratégie UX, design systems légers, prototypage Figma, responsive et SEO-friendly. 10+ sites livrés, 2 chartes graphiques complètes, 30+ tests utilisateurs."
-         data-en="Marketing &amp; e-commerce sites. UX strategy, lightweight design systems, Figma prototyping, responsive &amp; SEO-friendly. 10+ sites delivered, 2 full brand identities, 30+ user tests.">
-         Sites vitrines &amp; e-commerce. Stratégie UX, design systems légers, prototypage Figma, responsive et SEO-friendly. 10+ sites livrés, 2 chartes graphiques complètes, 30+ tests utilisateurs.
+<!-- Skills -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label" data-fr="03 — Compétences" data-en="03 — Skills">03 — Compétences</p>
+        <h2 class="section-title">
+          <span data-fr="Ce que" data-en="What">Ce que</span>
+          <span class="it" data-fr="je fais bien" data-en="I do well">je fais bien</span>
+        </h2>
+      </div>
+      <p class="section-aside"
+         data-fr="De la recherche à la livraison. Mes compétences couvrent toute la chaîne du design produit, avec une appétence particulière pour les problèmes complexes et les sujets techniques."
+         data-en="From research to delivery. My skills span the full product design chain, with a particular appetite for complex problems and technical subjects.">
+         De la recherche à la livraison. Mes compétences couvrent toute la chaîne du design produit, avec une appétence particulière pour les problèmes complexes et les sujets techniques.
       </p>
     </div>
-  </div>
 
-  <!-- 03 OUTILS -->
-  <div class="section-header">
-    <span class="section-num">03</span>
-    <h2 class="section-title" data-fr="Outils &amp; expertise" data-en="Tools &amp; expertise">Outils &amp; expertise</h2>
-    <span class="section-line"></span>
-  </div>
-
-  <div class="tools-grid">
-    <div class="tool-card">
-      <p class="tool-cat" data-fr="Design &amp; prototypage" data-en="Design &amp; prototyping">Design &amp; prototypage</p>
-      <p class="tool-list">Figma · FigJam · Adobe Xd · Suite Adobe · Framer · UX Pilot</p>
-    </div>
-    <div class="tool-card">
-      <p class="tool-cat" data-fr="No-code &amp; CMS" data-en="No-code &amp; CMS">No-code &amp; CMS</p>
-      <p class="tool-list">Webflow · WordPress · Wix · Squarespace · Make</p>
-    </div>
-    <div class="tool-card">
-      <p class="tool-cat" data-fr="Collaboration" data-en="Collaboration">Collaboration</p>
-      <p class="tool-list">Teams · Asana · Discord · Hubspot · Pharow</p>
-    </div>
-    <div class="tool-card">
-      <p class="tool-cat" data-fr="Dev / Code" data-en="Dev / Code">Dev / Code</p>
-      <p class="tool-list">HTML · CSS · JavaScript · Python</p>
-    </div>
-  </div>
-
-  <!-- 04 FORMATION -->
-  <div class="section-header">
-    <span class="section-num">04</span>
-    <h2 class="section-title" data-fr="Formation" data-en="Education">Formation</h2>
-    <span class="section-line"></span>
-  </div>
-
-  <div class="edu-item">
-    <p class="edu-date">2020</p>
-    <div>
-      <p class="edu-title" data-fr="Master — Arts Visuels" data-en="Master's — Visual Arts">Master — Arts Visuels</p>
-      <p class="edu-school">Université Grenoble-Alpes</p>
-    </div>
-  </div>
-
-  <div class="edu-item">
-    <p class="edu-date">2019</p>
-    <div>
-      <p class="edu-title">Specialization — UI/UX Design</p>
-      <p class="edu-school">California Institute of the Arts</p>
-    </div>
-  </div>
-
-  <div class="certs">
-    <span class="cert">Google SEO — UC Davis</span>
-    <span class="cert" data-fr="Management du changement — ESSEC" data-en="Change Management — ESSEC">Management du changement — ESSEC</span>
-    <span class="cert">Wireframes to Prototypes — CalArts</span>
-  </div>
-
-  <!-- 05 AU-DELÀ -->
-  <div class="section-header">
-    <span class="section-num">05</span>
-    <h2 class="section-title" data-fr="Au-delà du design" data-en="Beyond design">Au-delà du design</h2>
-    <span class="section-line"></span>
-  </div>
-
-  <div class="beyond-grid">
-    <div>
-      <p class="beyond-item-title" data-fr="Formateur BAFA" data-en="BAFA trainer">Formateur BAFA</p>
-      <p class="beyond-item-meta" data-fr="Depuis 2019 · 15+ sessions · 600+ stagiaires" data-en="Since 2019 · 15+ sessions · 600+ trainees">Depuis 2019 · 15+ sessions · 600+ stagiaires</p>
-    </div>
-    <div>
-      <p class="beyond-item-title" data-fr="Directeur d'Accueil Collectif de Mineurs" data-en="Youth camp director">Directeur d'Accueil Collectif de Mineurs</p>
-      <p class="beyond-item-meta" data-fr="Depuis 2017 · 10 directions menées" data-en="Since 2017 · 10 camps led">Depuis 2017 · 10 directions menées</p>
-    </div>
-    <div>
-      <p class="beyond-item-title" data-fr="Directeur de projets musicaux" data-en="Music project director">Directeur de projets musicaux</p>
-      <p class="beyond-item-meta" data-fr="40+ concerts · 2 albums publiés" data-en="40+ concerts · 2 albums released">40+ concerts · 2 albums publiés</p>
+    <div class="skills-grid">
+      <div class="skill-cell">
+        <p class="skill-num">01</p>
+        <h3 class="skill-title">UX &amp; UI</h3>
+        <p class="skill-desc"
+           data-fr="Design produit avec un focus sur la clarté de l'information, les données et la sobriété. De la recherche utilisateur à l'UI haute-fidélité."
+           data-en="Product design with a focus on information clarity, data, and restraint. From user research to high-fidelity UI.">
+           Design produit avec un focus sur la clarté de l'information, les données et la sobriété. De la recherche utilisateur à l'UI haute-fidélité.
+        </p>
+      </div>
+      <div class="skill-cell">
+        <p class="skill-num">02</p>
+        <h3 class="skill-title">Design Systems</h3>
+        <p class="skill-desc"
+           data-fr="Création et maintenance de design systems, incluant la documentation. 200+ composants livrés sur le projet en cours."
+           data-en="Building and maintaining design systems, with documentation. 200+ components shipped on the current project.">
+           Création et maintenance de design systems, incluant la documentation. 200+ composants livrés sur le projet en cours.
+        </p>
+      </div>
+      <div class="skill-cell">
+        <p class="skill-num">03</p>
+        <h3 class="skill-title" data-fr="Stratégie produit" data-en="Product Strategy">Stratégie produit</h3>
+        <p class="skill-desc"
+           data-fr="Vision produit, roadmap, coordination équipes techniques et métiers. Rôle hybride product manager / designer."
+           data-en="Product vision, roadmap, coordination across engineering and business. Hybrid product manager / designer role.">
+           Vision produit, roadmap, coordination équipes techniques et métiers. Rôle hybride product manager / designer.
+        </p>
+      </div>
+      <div class="skill-cell">
+        <p class="skill-num">04</p>
+        <h3 class="skill-title" data-fr="Direction créative IA" data-en="AI creative direction">Direction créative IA</h3>
+        <p class="skill-desc"
+           data-fr="Direction créative augmentée avec Claude, GPT et UX Pilot. Recherche, copy, documentation, prototypage rapide. Garder la vision humaine, accélérer l'exécution."
+           data-en="AI-augmented creative direction with Claude, GPT and UX Pilot. Research, copy, documentation, fast prototyping. Human vision, accelerated execution.">
+           Direction créative augmentée avec Claude, GPT et UX Pilot. Recherche, copy, documentation, prototypage rapide. Garder la vision humaine, accélérer l'exécution.
+        </p>
+      </div>
+      <div class="skill-cell">
+        <p class="skill-num">05</p>
+        <h3 class="skill-title" data-fr="Recherche utilisateur" data-en="User Research">Recherche utilisateur</h3>
+        <p class="skill-desc"
+           data-fr="50+ tests utilisateurs pilotés sur le SIEM. 30+ tests en autonomie sur projets freelance. Quick tests, ateliers, personas, parcours."
+           data-en="50+ user tests run on the SIEM. 30+ self-run tests on freelance projects. Quick tests, workshops, personas, journeys.">
+           50+ tests utilisateurs pilotés sur le SIEM. 30+ tests en autonomie sur projets freelance. Quick tests, ateliers, personas, parcours.
+        </p>
+      </div>
+      <div class="skill-cell">
+        <p class="skill-num">06</p>
+        <h3 class="skill-title" data-fr="Accessibilité &amp; inclusivité" data-en="Accessibility &amp; inclusivity">Accessibilité &amp; inclusivité</h3>
+        <p class="skill-desc"
+           data-fr="Intégration des principes WCAG dans tous mes projets. Design pour des publics non-experts, vulgarisation, parcours adaptés."
+           data-en="WCAG principles built into every project. Designing for non-expert audiences, translating complexity, accessible journeys.">
+           Intégration des principes WCAG dans tous mes projets. Design pour des publics non-experts, vulgarisation, parcours adaptés.
+        </p>
+      </div>
     </div>
   </div>
+</section>
 
-  <footer class="footer">
-    <span>William Suzan · UX Product Designer</span>
-    <span>© 2026</span>
-  </footer>
+<!-- Stack -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label" data-fr="04 — Stack" data-en="04 — Stack">04 — Stack</p>
+        <h2 class="section-title">
+          <span data-fr="Outils" data-en="Tools I">Outils</span>
+          <span class="it" data-fr="quotidiens" data-en="use daily">quotidiens</span>
+        </h2>
+      </div>
+    </div>
 
-</div>
+    <div class="stack-list">
+      <div class="stack-row">
+        <p class="stack-cat" data-fr="Design &amp; prototypage" data-en="Design &amp; prototyping">Design &amp; prototypage</p>
+        <p class="stack-tools">Figma<span class="sep">·</span>FigJam<span class="sep">·</span>Adobe Xd<span class="sep">·</span>Framer<span class="sep">·</span>UX Pilot</p>
+      </div>
+      <div class="stack-row">
+        <p class="stack-cat" data-fr="Suite Adobe" data-en="Adobe Suite">Suite Adobe</p>
+        <p class="stack-tools">Illustrator<span class="sep">·</span>Photoshop<span class="sep">·</span>InDesign<span class="sep">·</span>After Effects</p>
+      </div>
+      <div class="stack-row">
+        <p class="stack-cat" data-fr="No-code &amp; CMS" data-en="No-code &amp; CMS">No-code &amp; CMS</p>
+        <p class="stack-tools">Webflow<span class="sep">·</span>WordPress<span class="sep">·</span>Wix<span class="sep">·</span>Squarespace<span class="sep">·</span>Make</p>
+      </div>
+      <div class="stack-row">
+        <p class="stack-cat" data-fr="Collaboration" data-en="Collaboration">Collaboration</p>
+        <p class="stack-tools">Teams<span class="sep">·</span>Asana<span class="sep">·</span>Discord<span class="sep">·</span>Hubspot<span class="sep">·</span>Pharow</p>
+      </div>
+      <div class="stack-row">
+        <p class="stack-cat" data-fr="Méthodes" data-en="Methods">Méthodes</p>
+        <p class="stack-tools" data-fr="Design Thinking · WCAG · User Research · Agile" data-en="Design Thinking · WCAG · User Research · Agile">Design Thinking<span class="sep">·</span>WCAG<span class="sep">·</span>User Research<span class="sep">·</span>Agile</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label" data-fr="05 — Formation" data-en="05 — Education">05 — Formation</p>
+        <h2 class="section-title">
+          <span data-fr="Là où" data-en="Where">Là où</span>
+          <span class="it" data-fr="j'ai appris" data-en="I learned">j'ai appris</span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="edu-row">
+      <p class="edu-year">2020</p>
+      <h3 class="edu-school">Université Grenoble-Alpes</h3>
+      <p class="edu-prog" data-fr="Master — Arts Visuels" data-en="Master's — Visual Arts">Master — Arts Visuels</p>
+    </div>
+    <div class="edu-row">
+      <p class="edu-year">2019</p>
+      <h3 class="edu-school">California Institute of the Arts</h3>
+      <p class="edu-prog">Specialization — UI/UX Design</p>
+    </div>
+
+    <div class="certs-row">
+      <span class="cert-chip">Google SEO · UC Davis</span>
+      <span class="cert-chip" data-fr="Management du changement · ESSEC" data-en="Change Management · ESSEC">Management du changement · ESSEC</span>
+      <span class="cert-chip">Wireframes to Prototypes · CalArts</span>
+    </div>
+  </div>
+</section>
+
+<!-- Beyond -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label" data-fr="06 — Hors écran" data-en="06 — Off-screen">06 — Hors écran</p>
+        <h2 class="section-title">
+          <span data-fr="Projets" data-en="Personal">Projets</span>
+          <span class="it" data-fr="personnels" data-en="projects">personnels</span>
+        </h2>
+      </div>
+      <p class="section-aside"
+         data-fr="Ce que je fais quand je ne suis pas devant Figma. Encadrement, transmission, scène. Tous ces contextes nourrissent ma pratique du design."
+         data-en="What I do when I'm not in Figma. Mentoring, teaching, performing. All of these feed my design practice.">
+         Ce que je fais quand je ne suis pas devant Figma. Encadrement, transmission, scène. Tous ces contextes nourrissent ma pratique du design.
+      </p>
+    </div>
+
+    <div class="beyond">
+      <div class="beyond-item">
+        <p class="beyond-num">600<span class="plus">+</span></p>
+        <h3 class="beyond-title" data-fr="Stagiaires formés" data-en="Trainees mentored">Stagiaires formés</h3>
+        <p class="beyond-meta" data-fr="Formateur BAFA · depuis 2019" data-en="BAFA trainer · since 2019">Formateur BAFA · depuis 2019</p>
+      </div>
+      <div class="beyond-item">
+        <p class="beyond-num">10</p>
+        <h3 class="beyond-title" data-fr="Directions menées" data-en="Camps led">Directions menées</h3>
+        <p class="beyond-meta" data-fr="ACM · depuis 2017" data-en="Youth camps · since 2017">ACM · depuis 2017</p>
+      </div>
+      <div class="beyond-item">
+        <p class="beyond-num">40<span class="plus">+</span></p>
+        <h3 class="beyond-title" data-fr="Concerts &amp; 2 albums" data-en="Concerts &amp; 2 albums">Concerts &amp; 2 albums</h3>
+        <p class="beyond-meta" data-fr="Directeur de projets musicaux" data-en="Music project director">Directeur de projets musicaux</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="wrap contact" id="contact">
+  <h2 class="contact-title">
+    <span data-fr="Travaillons" data-en="Let's work">Travaillons</span><br>
+    <span class="grad" data-fr="ensemble." data-en="together.">ensemble.</span>
+  </h2>
+  <div class="contact-row">
+    <a href="https://search-hefty-13033537.figma.site" target="_blank" rel="noopener" class="cta-btn lg">
+      <span data-fr="Voir le portfolio" data-en="View portfolio">Voir le portfolio</span>
+      <span class="arrow">↗</span>
+    </a>
+    <a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener" class="cta-btn ghost lg">
+      <span>LinkedIn</span>
+      <span class="arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<footer class="wrap footer">
+  <span>© 2026 William Suzan</span>
+  <span data-fr="UX Product Designer · Disponible mars 2026" data-en="UX Product Designer · Available March 2026">UX Product Designer · Disponible mars 2026</span>
+  <span><a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener">LinkedIn ↗</a></span>
+</footer>
 
 <script>
 (function() {
-  // Language switcher
   const btnFR = document.getElementById('lang-fr');
   const btnEN = document.getElementById('lang-en');
-  const root = document.body;
 
   function setLang(lang) {
-    root.querySelectorAll('[data-fr]').forEach(el => {
+    document.querySelectorAll('[data-fr]').forEach(el => {
       el.innerHTML = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-fr');
     });
     document.documentElement.lang = lang;
@@ -746,17 +1327,10 @@
   btnFR.addEventListener('click', () => setLang('fr'));
   btnEN.addEventListener('click', () => setLang('en'));
 
-  // Restore preference
   try {
     const saved = localStorage.getItem('ws-lang');
     if (saved === 'en' || saved === 'fr') setLang(saved);
   } catch (e) {}
-
-  // Sticky header border on scroll
-  const langSwitch = document.getElementById('langSwitch');
-  window.addEventListener('scroll', () => {
-    langSwitch.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
 })();
 </script>
 
