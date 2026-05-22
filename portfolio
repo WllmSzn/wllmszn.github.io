@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William Suzan — Portfolio</title>
+<meta name="description" content="Portfolio de William Suzan, UX Product Designer. Le design qu'on remarque quand il manque.">
+<meta name="theme-color" content="#08090C">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #08090C;
+    --bg-2: #0E1015;
+    --surface: rgba(255, 255, 255, 0.025);
+    --surface-2: rgba(255, 255, 255, 0.04);
+    --ink: #ECEEF2;
+    --ink-2: #A8ADB8;
+    --ink-3: #5C6270;
+    --line: rgba(255, 255, 255, 0.06);
+    --line-2: rgba(255, 255, 255, 0.1);
+    --accent: #E8835A;
+    --accent-2: #B9C7FF;
+    --accent-3: #7BD9C4;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-weight: 400;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* === HALOS === */
+  .halos {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .halo {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(160px);
+    will-change: transform;
+  }
+  .halo-1 {
+    width: 700px; height: 700px;
+    background: #E8835A;
+    top: -200px; right: -200px;
+    opacity: 0.15;
+    animation: drift1 40s ease-in-out infinite;
+  }
+  .halo-2 {
+    width: 800px; height: 800px;
+    background: #4A5FC1;
+    top: 40%; left: -300px;
+    opacity: 0.12;
+    animation: drift2 48s ease-in-out infinite;
+  }
+  .halo-3 {
+    width: 600px; height: 600px;
+    background: #7BD9C4;
+    bottom: -200px; right: 20%;
+    opacity: 0.08;
+    animation: drift3 56s ease-in-out infinite;
+  }
+  @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-60px,80px) scale(1.1);} }
+  @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(100px,-60px) scale(0.95);} }
+  @keyframes drift3 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-80px,-100px) scale(1.05);} }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.03;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* === NAV === */
+  .nav {
+    position: fixed;
+    top: 16px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    padding: 10px 14px 10px 22px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    background: rgba(8, 9, 12, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 0.5px solid var(--line-2);
+    border-radius: 999px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .nav-brand {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-brand .badge {
+    width: 6px; height: 6px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-3);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.85);} }
+  .nav-divider { width: 0.5px; height: 14px; background: var(--line-2); }
+  .nav-links { display: flex; gap: 18px; list-style: none; }
+  .nav-link { font-family: var(--sans); font-size: 13px; color: var(--ink-2); text-decoration: none; transition: color 0.18s; }
+  .nav-link:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 4px; margin-left: 2px; }
+  .nav-icon-link {
+    width: 30px; height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--ink-2);
+    transition: background 0.18s, color 0.18s;
+    text-decoration: none;
+  }
+  .nav-icon-link:hover { background: var(--surface-2); color: var(--ink); }
+  .nav-icon-link svg { width: 15px; height: 15px; }
+  .lang-buttons { display: flex; align-items: center; padding: 0 6px; gap: 2px; }
+  .lang-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 7px;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: color 0.18s;
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+  }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-btn.active { color: var(--ink); }
+  .lang-sep { color: var(--ink-3); font-family: var(--mono); font-size: 11px; }
+
+  /* === WRAPPER === */
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* === HERO — minimal, plus de respiration === */
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 0 60px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 48px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 0.5px;
+    background: var(--line-2);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9.5vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    max-width: 1100px;
+    margin-bottom: 80px;
+  }
+  .hero-title .it { font-style: italic; color: var(--ink-2); }
+  .hero-title .grad {
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+  }
+
+  .hero-foot {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 60px;
+    margin-top: auto;
+    padding-top: 60px;
+    border-top: 0.5px solid var(--line);
+  }
+  .hero-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    line-height: 1.8;
+  }
+  .hero-meta strong { color: var(--ink); font-weight: 400; }
+  .hero-scroll {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .hero-scroll:hover { color: var(--ink); }
+  .hero-scroll .arrow {
+    width: 20px; height: 20px;
+    border: 0.5px solid currentColor;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    transition: transform 0.3s;
+  }
+  .hero-scroll:hover .arrow { transform: translateY(2px); }
+
+  /* === SECTION === */
+  .section {
+    padding: 140px 0;
+    position: relative;
+  }
+  .section + .section { padding-top: 0; }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+  }
+  .section-label::before {
+    content: '';
+    width: 28px; height: 0.5px;
+    background: var(--line-2);
+  }
+  .section-aside {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.35;
+    color: var(--ink-2);
+    max-width: 620px;
+  }
+  .section-aside em { color: var(--ink); font-style: italic; }
+
+  /* === EXPERTISES === */
+  .expertises {
+    border-top: 0.5px solid var(--line);
+    margin-top: 80px;
+  }
+  .expertise-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 0.8fr;
+    gap: 40px;
+    padding: 36px 0;
+    border-bottom: 0.5px solid var(--line);
+    align-items: center;
+    cursor: default;
+    transition: padding-left 0.4s ease;
+  }
+  .expertise-row:hover { padding-left: 24px; }
+  .expertise-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+  }
+  .expertise-name {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+  .expertise-name .it { font-style: italic; color: var(--ink-2); }
+  .expertise-row:hover .expertise-name { color: var(--ink); }
+  .expertise-row:hover .expertise-name .it { color: var(--accent); }
+  .expertise-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-3);
+    transition: color 0.3s;
+  }
+  .expertise-row:hover .expertise-desc { color: var(--ink-2); }
+
+  /* === PROJECTS === */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 40px 24px;
+    margin-top: 40px;
+  }
+  .project-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover { transform: translateY(-6px); }
+  .project-card.size-lg { grid-column: span 8; }
+  .project-card.size-md { grid-column: span 4; margin-top: 80px; }
+  .project-card.size-md-alt { grid-column: span 5; }
+  .project-card.size-lg-alt { grid-column: span 7; margin-top: 60px; }
+
+  .project-visual {
+    aspect-ratio: 4/3;
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 0.5px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .project-card:hover .project-visual { border-color: var(--line-2); }
+  .project-visual img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .project-card:hover .project-visual img { transform: scale(1.02); }
+
+  /* Variantes de placeholder pour différencier les projets */
+  .project-visual.v-artefact {
+    background:
+      radial-gradient(circle at 20% 30%, rgba(232,131,90,0.18), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(74,95,193,0.25), transparent 50%),
+      linear-gradient(135deg, #0C447C 0%, #042C53 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .project-visual.v-comave {
+    background:
+      radial-gradient(circle at 30% 40%, rgba(232,131,90,0.3), transparent 60%),
+      linear-gradient(135deg, #6B1D38 0%, #2A0814 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .project-visual.v-cashback {
+    background:
+      radial-gradient(circle at 70% 50%, rgba(123,217,196,0.22), transparent 60%),
+      linear-gradient(135deg, #1F4A3D 0%, #0A1F18 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .project-visual.v-freelance {
+    background:
+      radial-gradient(circle at 40% 60%, rgba(185,199,255,0.2), transparent 60%),
+      linear-gradient(135deg, #2A2438 0%, #0F0C18 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .project-visual-inner {
+    width: 70%; height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .project-visual-inner svg { width: 100%; height: 100%; }
+
+  .project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .project-cat {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .project-year {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+  }
+  .project-title {
+    font-family: var(--serif);
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .project-title .it { font-style: italic; color: var(--ink-2); }
+  .project-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin-top: 4px;
+    max-width: 480px;
+  }
+
+  /* === MANIFESTO === */
+  .manifesto {
+    padding: 160px 0;
+    text-align: left;
+    border-top: 0.5px solid var(--line);
+  }
+  .manifesto-text {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4.5vw, 64px);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    max-width: 1000px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .manifesto-text .it { font-style: italic; color: var(--ink-2); }
+  .manifesto-text .grad {
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+  }
+  .manifesto-sign {
+    margin-top: 60px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .manifesto-sign::before {
+    content: '';
+    width: 40px; height: 0.5px;
+    background: var(--line-2);
+  }
+
+  /* === CONTACT === */
+  .contact {
+    padding: 140px 0 100px;
+    border-top: 0.5px solid var(--line);
+  }
+  .contact-title {
+    font-family: var(--serif);
+    font-size: clamp(56px, 10vw, 184px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+  .contact-title .grad {
+    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 720px;
+  }
+  .contact-link {
+    text-decoration: none;
+    color: inherit;
+    padding: 28px 32px;
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 0.5px solid var(--line);
+    border-radius: 14px;
+    backdrop-filter: blur(20px);
+    transition: border-color 0.3s, transform 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .contact-link:hover { border-color: var(--line-2); transform: translateY(-3px); }
+  .contact-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .contact-link-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .contact-link-value {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .contact-link .arrow { color: var(--ink-2); transition: transform 0.3s; }
+  .contact-link:hover .arrow { transform: translate(3px, -3px); color: var(--accent); }
+
+  /* === FOOTER === */
+  .footer {
+    border-top: 0.5px solid var(--line);
+    padding: 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer a { color: var(--ink-2); text-decoration: none; transition: color 0.18s; }
+  .footer a:hover { color: var(--ink); }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 980px) {
+    .wrap { padding: 0 20px; }
+    .nav { left: 12px; right: 12px; transform: none; padding: 10px 14px; gap: 12px; justify-content: space-between; }
+    .nav-divider, .nav-links { display: none; }
+    .hero { padding: 100px 0 40px; min-height: 85vh; }
+    .hero-foot { grid-template-columns: 1fr; gap: 24px; }
+    .section { padding: 80px 0; }
+    .section-head { grid-template-columns: 1fr; gap: 32px; margin-bottom: 48px; }
+    .expertise-row { grid-template-columns: 40px 1fr; gap: 16px; padding: 24px 0; }
+    .expertise-row:hover { padding-left: 0; }
+    .expertise-desc { grid-column: 2; font-size: 13px; margin-top: 8px; }
+    .projects { grid-template-columns: 1fr; gap: 32px; }
+    .project-card.size-lg, .project-card.size-md, .project-card.size-md-alt, .project-card.size-lg-alt { grid-column: span 1; margin-top: 0; }
+    .manifesto { padding: 100px 0; }
+    .contact { padding: 100px 0 80px; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+
+  /* === MOTION === */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-eyebrow, .hero-title, .hero-foot { animation: fadeUp 0.8s ease backwards; }
+  .hero-eyebrow { animation-delay: 0.05s; }
+  .hero-title { animation-delay: 0.2s; }
+  .hero-foot { animation-delay: 0.4s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .halo { animation: none !important; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="halos" aria-hidden="true">
+  <div class="halo halo-1"></div>
+  <div class="halo halo-2"></div>
+  <div class="halo halo-3"></div>
+</div>
+
+<nav class="nav">
+  <a href="#" class="nav-brand">
+    <span class="badge"></span>
+    William Suzan
+  </a>
+  <span class="nav-divider"></span>
+  <ul class="nav-links">
+    <li><a href="#work" class="nav-link" data-fr="Projets" data-en="Work">Projets</a></li>
+    <li><a href="#expertises" class="nav-link">Expertises</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+    <li><a href="cv.html" class="nav-link">CV</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener" class="nav-icon-link" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    </a>
+    <div class="lang-buttons" role="group" aria-label="Language switcher">
+      <button id="lang-fr" class="lang-btn active" aria-label="Français">FR</button>
+      <span class="lang-sep">/</span>
+      <button id="lang-en" class="lang-btn" aria-label="English">EN</button>
+    </div>
+  </div>
+</nav>
+
+<h1 class="sr-only">William Suzan — UX Product Designer Portfolio</h1>
+
+<!-- HERO -->
+<section class="wrap hero">
+  <span class="hero-eyebrow" data-fr="William Suzan / UX Product Designer" data-en="William Suzan / UX Product Designer">William Suzan / UX Product Designer</span>
+
+  <h2 class="hero-title" aria-hidden="true">
+    <span data-fr="Le design" data-en="The design">Le design</span><br>
+    <span class="it" data-fr="qu'on remarque" data-en="you notice">qu'on remarque</span><br>
+    <span data-fr="quand il" data-en="when it's">quand il</span> <span class="grad" data-fr="manque" data-en="gone">manque</span><span style="color: var(--accent);">.</span>
+  </h2>
+
+  <div class="hero-foot">
+    <p class="hero-meta">
+      <strong data-fr="Basé à Paris, France" data-en="Based in Paris, France">Basé à Paris, France</strong><br>
+      <span data-fr="Lead UX/UI &amp; Product Owner @ Artefact" data-en="Lead UX/UI &amp; Product Owner @ Artefact">Lead UX/UI &amp; Product Owner @ Artefact</span><br>
+      <span data-fr="Disponible mars 2026 · FR / EN" data-en="Available March 2026 · FR / EN">Disponible mars 2026 · FR / EN</span>
+    </p>
+    <a href="#work" class="hero-scroll">
+      <span data-fr="Découvrir les projets" data-en="Browse the work">Découvrir les projets</span>
+      <span class="arrow">↓</span>
+    </a>
+  </div>
+</section>
+
+<!-- EXPERTISES -->
+<section class="wrap section" id="expertises">
+  <div class="section-head">
+    <p class="section-label">Expertises</p>
+    <p class="section-aside"
+       data-fr="Quatre métiers <em>tenus ensemble</em>. Un produit ne tient pas debout sans l'un d'eux."
+       data-en="Four crafts <em>held together</em>. A product doesn't stand without any of them.">
+       Quatre métiers <em>tenus ensemble</em>. Un produit ne tient pas debout sans l'un d'eux.
+    </p>
+  </div>
+
+  <div class="expertises">
+    <div class="expertise-row">
+      <span class="expertise-num">01</span>
+      <h3 class="expertise-name">
+        <span data-fr="Expérience" data-en="User">Expérience</span>
+        <span class="it" data-fr="utilisateur" data-en="experience">utilisateur</span>
+      </h3>
+      <p class="expertise-desc"
+         data-fr="Recherche, tests, parcours, personas. Comprendre avant de dessiner."
+         data-en="Research, testing, journeys, personas. Understanding before drawing.">
+         Recherche, tests, parcours, personas. Comprendre avant de dessiner.
+      </p>
+    </div>
+    <div class="expertise-row">
+      <span class="expertise-num">02</span>
+      <h3 class="expertise-name">
+        <span data-fr="Interface" data-en="User">Interface</span>
+        <span class="it" data-fr="utilisateur" data-en="interface">utilisateur</span>
+      </h3>
+      <p class="expertise-desc"
+         data-fr="Design systems, composants, micro-interactions. La pratique du détail."
+         data-en="Design systems, components, micro-interactions. The discipline of detail.">
+         Design systems, composants, micro-interactions. La pratique du détail.
+      </p>
+    </div>
+    <div class="expertise-row">
+      <span class="expertise-num">03</span>
+      <h3 class="expertise-name">
+        <span data-fr="Product" data-en="Product">Product</span>
+        <span class="it">manager</span>
+      </h3>
+      <p class="expertise-desc"
+         data-fr="Vision, roadmap, arbitrages. Le design comme stratégie, pas comme finition."
+         data-en="Vision, roadmap, trade-offs. Design as strategy, not finish.">
+         Vision, roadmap, arbitrages. Le design comme stratégie, pas comme finition.
+      </p>
+    </div>
+    <div class="expertise-row">
+      <span class="expertise-num">04</span>
+      <h3 class="expertise-name">
+        <span data-fr="Direction" data-en="Creative">Direction</span>
+        <span class="it" data-fr="artistique" data-en="direction">artistique</span>
+      </h3>
+      <p class="expertise-desc"
+         data-fr="Identité, langage visuel, posture de marque. Donner un visage au produit."
+         data-en="Identity, visual language, brand posture. Giving a product its face.">
+         Identité, langage visuel, posture de marque. Donner un visage au produit.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="wrap section" id="work">
+  <div class="section-head">
+    <p class="section-label" data-fr="Projets sélectionnés" data-en="Selected work">Projets sélectionnés</p>
+    <p class="section-aside"
+       data-fr="Quatre projets parmi <em>ceux qui m'ont appris</em> quelque chose. Le reste vit sur LinkedIn."
+       data-en="Four projects among those that <em>taught me something</em>. The rest lives on LinkedIn.">
+       Quatre projets parmi <em>ceux qui m'ont appris</em> quelque chose. Le reste vit sur LinkedIn.
+    </p>
+  </div>
+
+  <div class="projects">
+
+    <!-- Artefact — large, cliquable vers la case study -->
+    <a href="artefact.html" class="project-card size-lg">
+      <div class="project-visual v-artefact">
+        <!-- Placeholder SVG en attendant les vraies images. Remplace ce bloc par <img src="assets/artefact.png" alt="Artefact SIEM"> quand prêt -->
+        <div class="project-visual-inner">
+          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu Artefact SIEM">
+            <rect x="0" y="0" width="120" height="280" fill="#042C53" rx="6"/>
+            <rect x="14" y="20" width="40" height="5" rx="1" fill="#85B7EB"/>
+            <rect x="14" y="40" width="92" height="22" rx="3" fill="#0C447C"/>
+            <circle cx="26" cy="51" r="4" fill="#85B7EB"/>
+            <rect x="36" y="49" width="50" height="4" rx="1" fill="#378ADD"/>
+            <rect x="14" y="70" width="92" height="22" rx="3" fill="rgba(133,183,235,0.08)"/>
+            <circle cx="26" cy="81" r="4" fill="#378ADD" opacity="0.6"/>
+            <rect x="36" y="79" width="40" height="4" rx="1" fill="#185FA5"/>
+            <rect x="14" y="100" width="92" height="22" rx="3" fill="rgba(133,183,235,0.08)"/>
+            <circle cx="26" cy="111" r="4" fill="#378ADD" opacity="0.6"/>
+            <rect x="36" y="109" width="60" height="4" rx="1" fill="#185FA5"/>
+
+            <rect x="134" y="20" width="80" height="80" rx="6" fill="#0C447C"/>
+            <text x="142" y="38" fill="#85B7EB" font-size="7" font-family="monospace">Threats</text>
+            <text x="142" y="68" fill="#E6F1FB" font-size="28" font-family="Instrument Serif, serif" font-style="italic">247</text>
+            <rect x="142" y="78" width="50" height="2" rx="1" fill="#7BD9C4"/>
+            <rect x="142" y="78" width="34" height="2" rx="1" fill="#E8835A"/>
+
+            <rect x="224" y="20" width="80" height="80" rx="6" fill="#0C447C"/>
+            <text x="232" y="38" fill="#85B7EB" font-size="7" font-family="monospace">Correlation</text>
+            <circle cx="245" cy="68" r="4" fill="#E24B4A"/>
+            <circle cx="262" cy="58" r="3" fill="#E8835A"/>
+            <circle cx="280" cy="72" r="3" fill="#B9C7FF"/>
+            <circle cx="295" cy="62" r="3" fill="#7BD9C4"/>
+            <line x1="245" y1="68" x2="262" y2="58" stroke="#185FA5" stroke-width="0.4"/>
+            <line x1="262" y1="58" x2="280" y2="72" stroke="#185FA5" stroke-width="0.4"/>
+            <line x1="280" y1="72" x2="295" y2="62" stroke="#185FA5" stroke-width="0.4"/>
+
+            <rect x="314" y="20" width="72" height="80" rx="6" fill="#0C447C"/>
+            <text x="322" y="38" fill="#85B7EB" font-size="7" font-family="monospace">Timeline</text>
+            <polyline points="322,84 334,76 346,80 358,68 370,72 382,58" fill="none" stroke="#7BD9C4" stroke-width="1.2"/>
+
+            <rect x="134" y="110" width="252" height="150" rx="6" fill="#0C447C"/>
+            <rect x="146" y="124" width="40" height="4" rx="1" fill="#378ADD"/>
+
+            <rect x="146" y="138" width="228" height="22" rx="2" fill="rgba(133,183,235,0.05)"/>
+            <circle cx="158" cy="149" r="3" fill="#E24B4A"/>
+            <rect x="168" y="143" width="60" height="3" rx="1" fill="#85B7EB"/>
+            <rect x="168" y="150" width="100" height="2.5" rx="1" fill="#378ADD" opacity="0.6"/>
+            <text x="332" y="151" fill="#E24B4A" font-size="6" font-family="monospace">CRITICAL</text>
+
+            <rect x="146" y="166" width="228" height="22" rx="2" fill="rgba(133,183,235,0.05)"/>
+            <circle cx="158" cy="177" r="3" fill="#E8835A"/>
+            <rect x="168" y="171" width="76" height="3" rx="1" fill="#85B7EB"/>
+            <rect x="168" y="178" width="90" height="2.5" rx="1" fill="#378ADD" opacity="0.6"/>
+            <text x="346" y="179" fill="#E8835A" font-size="6" font-family="monospace">HIGH</text>
+
+            <rect x="146" y="194" width="228" height="22" rx="2" fill="rgba(133,183,235,0.05)"/>
+            <circle cx="158" cy="205" r="3" fill="#7BD9C4"/>
+            <rect x="168" y="199" width="56" height="3" rx="1" fill="#85B7EB"/>
+            <rect x="168" y="206" width="116" height="2.5" rx="1" fill="#378ADD" opacity="0.6"/>
+            <text x="336" y="207" fill="#7BD9C4" font-size="6" font-family="monospace">RESOLVED</text>
+
+            <rect x="146" y="222" width="228" height="22" rx="2" fill="rgba(133,183,235,0.05)"/>
+            <circle cx="158" cy="233" r="3" fill="#B9C7FF"/>
+            <rect x="168" y="227" width="68" height="3" rx="1" fill="#85B7EB"/>
+            <rect x="168" y="234" width="82" height="2.5" rx="1" fill="#378ADD" opacity="0.6"/>
+            <text x="346" y="235" fill="#B9C7FF" font-size="6" font-family="monospace">INFO</text>
+          </svg>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-meta">
+          <span class="project-cat" data-fr="SaaS B2B · Cybersécurité · Design System" data-en="B2B SaaS · Cybersecurity · Design System">SaaS B2B · Cybersécurité · Design System</span>
+          <span class="project-year">2023 — <span data-fr="présent" data-en="present">présent</span></span>
+        </div>
+        <h3 class="project-title">Artefact <span class="it" data-fr="— Rendre la cyber lisible" data-en="— Making cyber legible">— Rendre la cyber lisible</span></h3>
+        <p class="project-desc"
+           data-fr="Un SIEM conçu pour des équipes qui ne sont pas expertes en cybersécurité. Vision produit, design system de 200+ composants, vulgarisation d'alertes corrélées."
+           data-en="A SIEM designed for teams who aren't cyber experts. Product vision, design system of 200+ components, translating correlated alerts.">
+           Un SIEM conçu pour des équipes qui ne sont pas expertes en cybersécurité. Vision produit, design system de 200+ composants, vulgarisation d'alertes corrélées.
+        </p>
+      </div>
+    </a>
+
+    <!-- ComAve — médium, décalé vers le bas -->
+    <a href="#" class="project-card size-md">
+      <div class="project-visual v-comave">
+        <div class="project-visual-inner">
+          <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu ComAve marketplace mobile">
+            <rect x="44" y="20" width="112" height="240" rx="20" fill="#1A0510"/>
+            <rect x="44" y="20" width="112" height="36" rx="20" fill="#E8835A"/>
+            <text x="56" y="42" fill="#2A0814" font-size="10" font-family="Instrument Serif, serif" font-style="italic">ComAve</text>
+            <circle cx="142" cy="38" r="6" fill="rgba(42,8,20,0.4)"/>
+            <text x="56" y="78" fill="#E8835A" font-size="13" font-family="Instrument Serif, serif" font-style="italic">Niveau 7</text>
+            <rect x="56" y="86" width="88" height="3" rx="1.5" fill="rgba(232,131,90,0.25)"/>
+            <rect x="56" y="86" width="62" height="3" rx="1.5" fill="#E8835A"/>
+            <text x="56" y="100" fill="#A8585A" font-size="6" font-family="monospace">1240 / 1800 PTS</text>
+            <rect x="56" y="112" width="42" height="46" rx="6" fill="rgba(232,131,90,0.12)"/>
+            <text x="64" y="128" fill="#E8835A" font-size="7" font-family="monospace">DÉFIS</text>
+            <text x="64" y="148" fill="#E8835A" font-size="18" font-family="Instrument Serif, serif" font-style="italic">12</text>
+            <rect x="102" y="112" width="42" height="46" rx="6" fill="rgba(232,131,90,0.12)"/>
+            <text x="110" y="128" fill="#E8835A" font-size="7" font-family="monospace">TIRAGES</text>
+            <text x="110" y="148" fill="#E8835A" font-size="18" font-family="Instrument Serif, serif" font-style="italic">3</text>
+            <rect x="56" y="170" width="88" height="36" rx="6" fill="rgba(232,131,90,0.08)"/>
+            <circle cx="68" cy="188" r="4" fill="#E8835A"/>
+            <rect x="78" y="183" width="50" height="3" rx="1" fill="#E8835A" opacity="0.8"/>
+            <rect x="78" y="190" width="40" height="2.5" rx="1" fill="#A8585A" opacity="0.6"/>
+            <rect x="56" y="216" width="88" height="28" rx="14" fill="#E8835A"/>
+            <text x="74" y="234" fill="#2A0814" font-size="7" font-family="monospace">VOIR COLLECTION</text>
+          </svg>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-meta">
+          <span class="project-cat" data-fr="Mobile · Gamification" data-en="Mobile · Gamification">Mobile · Gamification</span>
+          <span class="project-year">2024 — 2025</span>
+        </div>
+        <h3 class="project-title">ComAve <span class="it" data-fr="— Récompenser le fan" data-en="— Rewarding the fan">— Récompenser le fan</span></h3>
+        <p class="project-desc"
+           data-fr="Marketplace gamifiée pour fans de sports. Points, niveaux, tirages exclusifs."
+           data-en="Gamified marketplace for sports fans. Points, levels, exclusive draws.">
+           Marketplace gamifiée pour fans de sports. Points, niveaux, tirages exclusifs.
+        </p>
+      </div>
+    </a>
+
+    <!-- Cashback — medium, sur la gauche cette fois -->
+    <a href="#" class="project-card size-md-alt">
+      <div class="project-visual v-cashback">
+        <div class="project-visual-inner">
+          <svg viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg" aria-label="Refonte cashback app">
+            <rect x="20" y="30" width="90" height="200" rx="14" fill="#FFFFFF" stroke="rgba(123,217,196,0.3)" stroke-dasharray="3,3" stroke-width="0.5"/>
+            <text x="28" y="46" fill="#1F4A3D" font-size="7" font-family="monospace">AVANT</text>
+            <rect x="32" y="56" width="66" height="22" rx="3" fill="#9FE1CB" opacity="0.4"/>
+            <rect x="32" y="84" width="44" height="6" rx="1" fill="#9FE1CB" opacity="0.4"/>
+            <rect x="32" y="94" width="36" height="4" rx="1" fill="#9FE1CB" opacity="0.3"/>
+            <rect x="32" y="108" width="66" height="36" rx="3" fill="#9FE1CB" opacity="0.25"/>
+            <rect x="32" y="150" width="66" height="24" rx="3" fill="#9FE1CB" opacity="0.25"/>
+            <rect x="32" y="180" width="66" height="14" rx="3" fill="#9FE1CB" opacity="0.5"/>
+            <text x="50" y="190" fill="#0F3329" font-size="6" font-family="sans-serif">Acheter</text>
+
+            <text x="116" y="135" fill="#7BD9C4" font-size="13" font-family="Instrument Serif, serif" font-style="italic" text-anchor="middle">→</text>
+
+            <rect x="130" y="30" width="90" height="200" rx="14" fill="#FFFFFF"/>
+            <text x="138" y="46" fill="#0F6E56" font-size="7" font-family="monospace" font-weight="500">APRÈS</text>
+            <rect x="142" y="56" width="66" height="18" rx="3" fill="#7BD9C4"/>
+            <text x="146" y="68" fill="#0F3329" font-size="6" font-family="sans-serif" font-weight="600">+12€ pré-crédités</text>
+            <rect x="142" y="82" width="52" height="6" rx="1" fill="#0F3329"/>
+            <rect x="142" y="94" width="36" height="3" rx="1" fill="#7BD9C4" opacity="0.7"/>
+            <rect x="142" y="106" width="66" height="36" rx="3" fill="rgba(123,217,196,0.18)"/>
+            <circle cx="156" cy="124" r="6" fill="#7BD9C4"/>
+            <rect x="170" y="118" width="34" height="3" rx="1" fill="#0F3329"/>
+            <rect x="170" y="126" width="26" height="2.5" rx="1" fill="#1F4A3D" opacity="0.6"/>
+            <rect x="142" y="148" width="66" height="26" rx="3" fill="rgba(123,217,196,0.18)"/>
+            <rect x="142" y="180" width="66" height="16" rx="3" fill="#7BD9C4"/>
+            <text x="148" y="190" fill="#0F3329" font-size="6" font-family="sans-serif" font-weight="600">Récupérer cashback</text>
+          </svg>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-meta">
+          <span class="project-cat" data-fr="Audit UX · Refonte" data-en="UX audit · Redesign">Audit UX · Refonte</span>
+          <span class="project-year">2024</span>
+        </div>
+        <h3 class="project-title" data-fr="Cashback app" data-en="Cashback app">Cashback app <span class="it" data-fr="— Avant / après" data-en="— Before / after">— Avant / après</span></h3>
+        <p class="project-desc"
+           data-fr="Marché français. Audit, personas, refonte écran par écran. Du point-of-sale au pré-créditement."
+           data-en="French market. Audit, personas, screen-by-screen redesign. From point-of-sale to pre-crediting.">
+           Marché français. Audit, personas, refonte écran par écran. Du point-of-sale au pré-créditement.
+        </p>
+      </div>
+    </a>
+
+    <!-- Freelance — large -->
+    <a href="#" class="project-card size-lg-alt">
+      <div class="project-visual v-freelance">
+        <div class="project-visual-inner">
+          <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg" aria-label="Sites freelance — collection">
+            <rect x="0" y="28" width="110" height="144" rx="6" fill="#F1EFE8"/>
+            <rect x="0" y="28" width="110" height="22" rx="6" fill="#5F5E5A"/>
+            <rect x="8" y="58" width="32" height="3" rx="1" fill="#B4B2A9"/>
+            <rect x="8" y="66" width="94" height="44" rx="3" fill="#D3D1C7"/>
+            <rect x="8" y="118" width="58" height="3" rx="1" fill="#B4B2A9"/>
+            <rect x="8" y="126" width="40" height="3" rx="1" fill="#B4B2A9"/>
+            <rect x="8" y="138" width="60" height="14" rx="3" fill="#5F5E5A"/>
+            <text x="22" y="148" fill="#F1EFE8" font-size="6" font-family="sans-serif">En savoir plus</text>
+
+            <rect x="125" y="14" width="110" height="172" rx="6" fill="#FBEAF0"/>
+            <rect x="125" y="14" width="110" height="22" rx="6" fill="#D4537E"/>
+            <text x="135" y="29" fill="#FBEAF0" font-size="6" font-family="Instrument Serif, serif" font-style="italic">Atelier</text>
+            <circle cx="180" cy="76" r="22" fill="#ED93B1"/>
+            <rect x="135" y="112" width="50" height="3" rx="1" fill="#993556"/>
+            <rect x="135" y="122" width="80" height="2.5" rx="1" fill="#D4537E" opacity="0.6"/>
+            <rect x="135" y="132" width="60" height="2.5" rx="1" fill="#D4537E" opacity="0.6"/>
+            <rect x="135" y="146" width="40" height="14" rx="7" fill="#D4537E"/>
+            <text x="143" y="156" fill="#FBEAF0" font-size="6" font-family="sans-serif">Découvrir</text>
+
+            <rect x="250" y="40" width="110" height="128" rx="6" fill="#E1F5EE"/>
+            <rect x="250" y="40" width="110" height="22" rx="6" fill="#0F6E56"/>
+            <text x="260" y="55" fill="#E1F5EE" font-size="6" font-family="sans-serif">Studio</text>
+            <rect x="258" y="72" width="94" height="22" rx="3" fill="#9FE1CB"/>
+            <rect x="258" y="100" width="44" height="22" rx="3" fill="#9FE1CB"/>
+            <rect x="308" y="100" width="44" height="22" rx="3" fill="#9FE1CB"/>
+            <rect x="258" y="128" width="94" height="3" rx="1" fill="#0F6E56" opacity="0.5"/>
+            <rect x="258" y="138" width="64" height="3" rx="1" fill="#0F6E56" opacity="0.5"/>
+            <rect x="258" y="150" width="94" height="12" rx="6" fill="#1D9E75"/>
+          </svg>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-meta">
+          <span class="project-cat" data-fr="Sites web · Identités" data-en="Websites · Identities">Sites web · Identités</span>
+          <span class="project-year">2019 — 2026</span>
+        </div>
+        <h3 class="project-title" data-fr="Freelance" data-en="Freelance">Freelance <span class="it" data-fr="— 10+ sites livrés" data-en="— 10+ sites shipped">— 10+ sites livrés</span></h3>
+        <p class="project-desc"
+           data-fr="Vitrines, e-commerce, identités complètes. Sept ans de pratique en autonomie."
+           data-en="Marketing sites, e-commerce, full identities. Seven years of self-directed practice.">
+           Vitrines, e-commerce, identités complètes. Sept ans de pratique en autonomie.
+        </p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="wrap manifesto">
+  <p class="manifesto-text">
+    <span data-fr="Un bon produit" data-en="A good product">Un bon produit</span>
+    <span class="it" data-fr="ne se voit pas." data-en="goes unnoticed.">ne se voit pas.</span><br>
+    <span data-fr="Il" data-en="It">Il</span>
+    <span class="grad" data-fr="se sent." data-en="is felt.">se sent.</span>
+    <span data-fr="Il" data-en="It">Il</span>
+    <span class="it" data-fr="résiste au temps," data-en="resists time,">résiste au temps,</span>
+    <span data-fr="à la fatigue, aux versions." data-en="fatigue, versions.">à la fatigue, aux versions.</span>
+  </p>
+  <p class="manifesto-sign" data-fr="Note de travail — 2026" data-en="Working note — 2026">Note de travail — 2026</p>
+</section>
+
+<!-- CONTACT -->
+<section class="wrap contact" id="contact">
+  <h2 class="contact-title">
+    <span data-fr="Parlons" data-en="Let's">Parlons</span><br>
+    <span class="grad" data-fr="d'un projet." data-en="talk.">d'un projet.</span>
+  </h2>
+  <div class="contact-grid">
+    <a href="mailto:william.suzan@protonmail.com" class="contact-link">
+      <div class="contact-link-text">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-value">william.suzan@protonmail.com</span>
+      </div>
+      <span class="arrow">↗</span>
+    </a>
+    <a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener" class="contact-link">
+      <div class="contact-link-text">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-value">/in/williamsuzan</span>
+      </div>
+      <span class="arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<footer class="wrap footer">
+  <span>© 2026 William Suzan</span>
+  <span data-fr="UX Product Designer · Paris" data-en="UX Product Designer · Paris">UX Product Designer · Paris</span>
+  <span><a href="cv.html" data-fr="Voir le CV ↗" data-en="View CV ↗">Voir le CV ↗</a></span>
+</footer>
+
+<script>
+(function() {
+  const btnFR = document.getElementById('lang-fr');
+  const btnEN = document.getElementById('lang-en');
+
+  function setLang(lang) {
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.innerHTML = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-fr');
+    });
+    document.documentElement.lang = lang;
+    btnFR.classList.toggle('active', lang === 'fr');
+    btnEN.classList.toggle('active', lang === 'en');
+    try { localStorage.setItem('ws-lang', lang); } catch (e) {}
+  }
+
+  btnFR.addEventListener('click', () => setLang('fr'));
+  btnEN.addEventListener('click', () => setLang('en'));
+
+  try {
+    const saved = localStorage.getItem('ws-lang');
+    if (saved === 'en' || saved === 'fr') setLang(saved);
+  } catch (e) {}
+})();
+</script>
+
+</body>
+</html>
