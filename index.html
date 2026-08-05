@@ -6,6 +6,24 @@
 <title>William Suzan - Senior UX Product Designer</title>
 <meta name="description" content="Senior UX/UI Product Designer specialised in B2B SaaS, cybersecurity dashboards and design systems. Lead UX/UI &amp; Product Owner.">
 <meta name="theme-color" content="#0B0D11">
+<link rel="canonical" href="https://wllmszn.github.io/">
+
+<!-- Partage social -->
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://wllmszn.github.io/">
+<meta property="og:title" content="William Suzan — Senior UX Product Designer">
+<meta property="og:description" content="Product designer en SaaS B2B, cybersécurité et design systems. Lead UX/UI &amp; Product Owner sur un SIEM.">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dashboard Artefact : alertes classées par criticité">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="William Suzan — Senior UX Product Designer">
+<meta name="twitter:description" content="Product designer en SaaS B2B, cybersécurité et design systems. Lead UX/UI &amp; Product Owner sur un SIEM.">
+<meta name="twitter:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230B0D11'/><text x='50' y='70' font-family='Georgia,serif' font-size='60' fill='%23E8835A' text-anchor='middle'>W</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +31,7 @@
 
 <style>
   :root {
+    color-scheme: dark;
     --bg: #0B0D11;
     --bg-2: #11141A;
     --bg-3: #161A22;
@@ -20,7 +39,8 @@
     --surface-2: rgba(255, 255, 255, 0.05);
     --ink: #ECEEF2;
     --ink-2: #A8ADB8;
-    --ink-3: #6B7280;
+    /* #6B7280 donnait 4,1:1 sur --bg : échec WCAG AA (4,5:1). #8B92A0 = 6,0:1. */
+    --ink-3: #8B92A0;
     --line: rgba(255, 255, 255, 0.08);
     --line-2: rgba(255, 255, 255, 0.12);
     --accent: #E8835A;
@@ -33,6 +53,25 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+
+  /* Sans ça, chaque ancre atterrit sous la nav flottante. */
+  [id] { scroll-margin-top: 96px; }
+
+  /* Focus clavier dessiné (il n'y en avait aucun). */
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent-3);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Lien d'évitement */
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 100;
+    background: var(--bg-2); color: var(--ink); border: 1px solid var(--line-2);
+    padding: 10px 16px; border-radius: 8px; font-size: 14px; text-decoration: none;
+    transition: top 0.15s;
+  }
+  .skip-link:focus { top: 12px; }
 
   body {
     font-family: var(--sans);
@@ -111,7 +150,8 @@
   .nav-icon-link:hover { background: var(--surface-2); color: var(--ink); }
   .nav-icon-link svg { width: 16px; height: 16px; }
   .lang-buttons { display: flex; align-items: center; padding: 0 6px; gap: 2px; }
-  .lang-btn { font-family: var(--mono); font-size: 11px; padding: 4px 8px; border: 0; background: transparent; color: var(--ink-3); cursor: pointer; transition: color 0.18s; letter-spacing: 0.04em; border-radius: 4px; }
+  /* min-height/width 24px : cible tactile minimale (WCAG 2.5.8). */
+  .lang-btn { font-family: var(--mono); font-size: 11px; padding: 4px 8px; border: 0; background: transparent; color: var(--ink-3); cursor: pointer; transition: color 0.18s; letter-spacing: 0.04em; border-radius: 4px; min-height: 24px; min-width: 24px; display: inline-flex; align-items: center; justify-content: center; }
   .lang-btn:hover { color: var(--ink); }
   .lang-btn.active { color: var(--ink); }
   .lang-sep { color: var(--ink-3); font-family: var(--mono); font-size: 11px; }
@@ -222,7 +262,8 @@
   .case:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.18); }
   .case-visual {
     padding: 40px;
-    aspect-ratio: 16/10;
+    /* 2/1 = ratio exact de artefact-overview.webp (1600x800) : aucun rognage. */
+    aspect-ratio: 2/1;
     background:
       radial-gradient(circle at 20% 30%, rgba(232, 131, 90, 0.15), transparent 50%),
       radial-gradient(circle at 80% 70%, rgba(74, 95, 193, 0.2), transparent 50%),
@@ -503,6 +544,12 @@
     .case-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   }
 
+  /* Très petits écrans (iPhone SE, Galaxy Fold replié) : l'adresse e-mail
+     dans un bouton en white-space:nowrap débordait de 11px à 320px. */
+  @media (max-width: 400px) {
+    .cta-btn { white-space: normal; overflow-wrap: anywhere; max-width: 100%; padding: 12px 18px; }
+  }
+
   /* === MOTION === */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .hero-intro, .hero-title, .hero-bottom { animation: fadeUp 0.8s ease backwards; }
@@ -513,11 +560,25 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     .halo { animation: none !important; }
+    /* Le scroll fluide est précisément ce qui déclenche les troubles vestibulaires. */
+    html { scroll-behavior: auto !important; }
+  }
+
+  /* Contraste forcé (Windows) : sans ça, tous les chiffres en dégradé
+     deviennent invisibles — text-fill-color: transparent gagne sur la couleur forcée. */
+  @media (forced-colors: active) {
+    .grad, .beyond-num, .impact-val .grad, .hero-title .grad, .contact-title .grad {
+      -webkit-text-fill-color: currentColor;
+      background: none;
+    }
+    .halos, body::after { display: none; }
   }
 </style>
 </head>
 
 <body>
+
+<a href="#main" class="skip-link" data-fr="Aller au contenu" data-en="Skip to content">Aller au contenu</a>
 
 <div class="halos" aria-hidden="true">
   <div class="halo halo-1"></div>
@@ -651,7 +712,7 @@
     <li><a href="#contact" class="nav-link">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="portfolio.html" class="nav-icon-link" aria-label="Portfolio Figma">
+    <a href="portfolio.html" class="nav-icon-link" aria-label="Portfolio">
       <svg viewBox="0 0 24 24" fill="none">
         <path d="M8.5 3h3v6h-3a3 3 0 010-6z" fill="currentColor"/>
         <path d="M5.5 12a3 3 0 013-3h3v6h-3a3 3 0 01-3-3z" fill="currentColor" opacity="0.85"/>
@@ -666,12 +727,14 @@
       </svg>
     </a>
     <div class="lang-buttons" role="group" aria-label="Language switcher">
-      <button id="lang-fr" class="lang-btn active" aria-label="Français">FR</button>
+      <button id="lang-fr" class="lang-btn active" aria-label="Français" aria-pressed="true">FR</button>
       <span class="lang-sep">/</span>
-      <button id="lang-en" class="lang-btn" aria-label="English">EN</button>
+      <button id="lang-en" class="lang-btn" aria-label="English" aria-pressed="false">EN</button>
     </div>
   </div>
 </nav>
+
+<main id="main">
 
 <h1 class="sr-only">William Suzan — Senior UX Product Designer</h1>
 
@@ -748,13 +811,15 @@
       <p class="section-aside"
          data-fr="7 ans de design produit. Freelance, agence, en interne, projets personnels — j'ai vu les contextes des deux côtés."
          data-en="7 years of product design. Freelance, agency, in-house, personal projects — I've seen the trade-offs from both sides.">
-         7 ans de design produit. Freelance, en interne, projets personnels, j'ai construis une expérience solide des contextes.
+         7 ans de design produit. Freelance, agence, en interne, projets personnels — j'ai vu les contextes des deux côtés.
       </p>
     </div>
 
     <article class="case">
       <div class="case-visual" style="padding: 0;">
-        <img src="assets/artefact-dashboard.png" alt="Aperçu dashboard SIEM Artefact" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <!-- L'ancienne image (assets/artefact-dashboard.png) était l'écran de CONNEXION, pas un dashboard.
+             Remplacée par la vraie vue produit, redimensionnée en WebP : 878 Ko → 49 Ko. -->
+        <img src="assets/artefact-overview.webp" alt="Dashboard Artefact : état des alertes, actifs à risque classés par criticité et règles de détection actives (tactiques MITRE ATT&amp;CK)" width="1600" height="800" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
       <div class="case-body">
         <div class="case-tags">
@@ -788,7 +853,7 @@
             <p class="stat-lbl" data-fr="Engagement produit" data-en="Product engagement">Engagement produit</p>
           </div>
         </div>
-        <a href="#" class="case-link">
+        <a href="artefact.html" class="case-link">
           <span data-fr="Lire le case study" data-en="Read the case study">Lire le case study</span>
           <span class="arrow">→</span>
         </a>
@@ -1141,7 +1206,11 @@
     <span class="grad" data-fr="ensemble." data-en="together.">ensemble.</span>
   </h2>
   <div class="contact-row">
-    <a href="portfolio.html" class="cta-btn lg">
+    <a href="mailto:william.suzan@protonmail.com" class="cta-btn lg">
+      <span>william.suzan@protonmail.com</span>
+      <span class="arrow">↗</span>
+    </a>
+    <a href="portfolio.html" class="cta-btn ghost lg">
       <span data-fr="Voir le portfolio" data-en="View portfolio">Voir le portfolio</span>
       <span class="arrow">↗</span>
     </a>
@@ -1152,9 +1221,12 @@
   </div>
 </section>
 
+</main>
+
 <footer class="wrap footer">
   <span>© 2026 William Suzan</span>
-  <span data-fr="UX Product Designer · Disponible mars 2026" data-en="UX Product Designer · Available March 2026">UX Product Designer · Disponible mars 2026</span>
+  <!-- Date de disponibilité retirée : « mars 2026 » était périmé. Remets-la si elle est à jour. -->
+  <span data-fr="UX Product Designer · Lyon" data-en="UX Product Designer · Lyon">UX Product Designer · Lyon</span>
   <span><a href="https://www.linkedin.com/in/william-suzan/" target="_blank" rel="noopener">LinkedIn ↗</a></span>
 </footer>
 
@@ -1165,11 +1237,17 @@
 
   function setLang(lang) {
     document.querySelectorAll('[data-fr]').forEach(el => {
+      // Garde-fou : un élément qui contient lui-même un [data-fr] détruirait
+      // son enfant en réécrivant innerHTML. On laisse l'enfant se traduire seul.
+      if (el.querySelector('[data-fr]')) return;
       el.innerHTML = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-fr');
     });
     document.documentElement.lang = lang;
     btnFR.classList.toggle('active', lang === 'fr');
     btnEN.classList.toggle('active', lang === 'en');
+    // L'état actif ne doit pas être signalé que par la couleur (WCAG 1.4.1).
+    btnFR.setAttribute('aria-pressed', String(lang === 'fr'));
+    btnEN.setAttribute('aria-pressed', String(lang === 'en'));
     try { localStorage.setItem('ws-lang', lang); } catch (e) {}
   }
 

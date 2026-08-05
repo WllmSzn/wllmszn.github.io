@@ -6,6 +6,24 @@
 <title>Artefact — Case study · William Suzan</title>
 <meta name="description" content="Case study : Artefact, un SIEM cybersécurité conçu pour rendre l'analyse de menaces accessible aux équipes non-expertes.">
 <meta name="theme-color" content="#08090C">
+<link rel="canonical" href="https://wllmszn.github.io/artefact.html">
+
+<!-- Partage social -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://wllmszn.github.io/artefact.html">
+<meta property="og:title" content="Artefact — Rendre la cyber lisible · Case study">
+<meta property="og:description" content="Un SIEM cybersécurité conçu pour des équipes qui ne sont pas expertes. Case study de William Suzan.">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dashboard Artefact : alertes classées par criticité">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Artefact — Rendre la cyber lisible · Case study">
+<meta name="twitter:description" content="Un SIEM cybersécurité conçu pour des équipes qui ne sont pas expertes. Case study de William Suzan.">
+<meta name="twitter:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230B0D11'/><text x='50' y='70' font-family='Georgia,serif' font-size='60' fill='%23E8835A' text-anchor='middle'>W</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +31,15 @@
 
 <style>
   :root {
+    color-scheme: dark;
     --bg: #08090C;
     --bg-2: #0E1015;
     --surface: rgba(255, 255, 255, 0.025);
     --surface-2: rgba(255, 255, 255, 0.04);
     --ink: #ECEEF2;
     --ink-2: #A8ADB8;
-    --ink-3: #5C6270;
+    /* #5C6270 donnait 3,3:1 sur --bg : échec WCAG AA. #7E8595 = 5,2:1. */
+    --ink-3: #7E8595;
     --line: rgba(255, 255, 255, 0.06);
     --line-2: rgba(255, 255, 255, 0.1);
     --accent: #E8835A;
@@ -32,6 +52,40 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  /* .placeholder est en display:flex, qui écrase l'attribut hidden sans ça. */
+  [hidden] { display: none !important; }
+
+  /* Sans ça, chaque ancre atterrit sous la nav flottante. */
+  [id] { scroll-margin-top: 96px; }
+
+  /* Focus clavier dessiné (il n'y en avait aucun). */
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent-3);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Lien d'évitement */
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 100;
+    background: var(--bg-2); color: var(--ink); border: 1px solid var(--line-2);
+    padding: 10px 16px; border-radius: 8px; font-size: 14px; text-decoration: none;
+    transition: top 0.15s;
+  }
+  .skip-link:focus { top: 12px; }
+
+  /* Sélecteur de langue (la page portait 63 traductions sans moyen de les afficher). */
+  .lang-buttons { display: flex; align-items: center; padding: 0 6px; gap: 2px; }
+  .lang-btn {
+    font-family: var(--mono); font-size: 11px; padding: 4px 7px; border: 0;
+    background: transparent; color: var(--ink-3); cursor: pointer;
+    transition: color 0.18s; letter-spacing: 0.04em; border-radius: 4px;
+    min-height: 24px; min-width: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .lang-btn:hover, .lang-btn.active { color: var(--ink); }
+  .lang-sep { color: var(--ink-3); font-family: var(--mono); font-size: 11px; }
+
   body {
     font-family: var(--sans);
     color: var(--ink);
@@ -220,7 +274,9 @@
 
   /* === HERO IMAGE === */
   .case-hero-image {
-    aspect-ratio: 16/9;
+    /* 2/1 = ratio exact de artefact-overview.webp (1600x800) : aucun rognage.
+       Le 16/9 d'origine coupait la barre latérale de navigation du produit. */
+    aspect-ratio: 2/1;
     background: linear-gradient(180deg, var(--surface-2), var(--surface));
     border: 0.5px solid var(--line);
     border-radius: 16px;
@@ -516,6 +572,12 @@
     .wrap { padding: 0 20px; }
     .narrow { padding: 0 20px; }
     .nav { left: 12px; right: 12px; transform: none; padding: 8px 12px; gap: 10px; }
+    /* Sous 400px, « Artefact » + le sélecteur de langue font déborder la nav de 2px.
+       Le titre de la page est juste en dessous, l'étiquette est redondante. */
+    @media (max-width: 400px) {
+      .nav-current, .nav-divider { display: none; }
+      .lang-buttons { padding: 0 2px; }
+    }
     .case-hero { padding: 120px 0 60px; }
     .case-meta { grid-template-columns: 1fr 1fr; }
     .meta-cell { padding-left: 0 !important; padding-right: 16px; border-right: 0; border-bottom: 0.5px solid var(--line); }
@@ -541,11 +603,24 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     .halo { animation: none !important; }
+    /* Le scroll fluide est précisément ce qui déclenche les troubles vestibulaires. */
+    html { scroll-behavior: auto !important; }
+  }
+
+  /* Contraste forcé (Windows) : sans ça, les 4 KPI et les titres en dégradé sont invisibles. */
+  @media (forced-colors: active) {
+    .grad, .case-title .grad, .next-title .grad, .kpi-val {
+      -webkit-text-fill-color: currentColor;
+      background: none;
+    }
+    .halos, body::after { display: none; }
   }
 </style>
 </head>
 
 <body>
+
+<a href="#main" class="skip-link" data-fr="Aller au contenu" data-en="Skip to content">Aller au contenu</a>
 
 <div class="halos" aria-hidden="true">
   <div class="halo halo-1"></div>
@@ -560,13 +635,20 @@
   <span class="nav-divider"></span>
   <span class="nav-current">Artefact</span>
   <div class="nav-right">
-    <a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener" class="nav-icon-link" aria-label="LinkedIn">
+    <a href="https://www.linkedin.com/in/william-suzan/" target="_blank" rel="noopener" class="nav-icon-link" aria-label="LinkedIn">
       <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
       </svg>
     </a>
+    <div class="lang-buttons" role="group" aria-label="Language switcher">
+      <button id="lang-fr" class="lang-btn active" aria-label="Français" aria-pressed="true">FR</button>
+      <span class="lang-sep">/</span>
+      <button id="lang-en" class="lang-btn" aria-label="English" aria-pressed="false">EN</button>
+    </div>
   </div>
 </nav>
+
+<main id="main">
 
 <!-- HERO -->
 <section class="wrap case-hero">
@@ -575,7 +657,8 @@
     <span class="pill" data-fr="Projet en cours" data-en="Ongoing">Projet en cours</span>
   </div>
 
-  <h1 class="case-title" aria-label="Artefact">
+  <!-- Pas d'aria-label ici : il remplaçait le nom accessible et tronquait « Rendre la cyber lisible ». -->
+  <h1 class="case-title">
     <span>Artefact</span><span style="color: var(--accent);">.</span><br>
     <span class="it" data-fr="Rendre la" data-en="Making">Rendre la</span><br>
     <span class="grad" data-fr="cyber lisible" data-en="cyber legible">cyber lisible</span>
@@ -606,10 +689,11 @@
     </div>
   </div>
 
-  <!-- Image hero. Pour remplacer : retire la div .placeholder et mets <img src="assets/artefact-hero.png" alt="..."> à la place -->
+  <!-- Image hero : vraie capture produit (WebP, 49 Ko). Le schéma SVG d'origine est conservé
+       juste en dessous, masqué — retire `hidden` et supprime l'<img> pour revenir à l'abstraction. -->
   <div class="case-hero-image">
-    <div class="placeholder">
-      <span class="placeholder-tag" data-fr="Remplacer par assets/artefact-hero.png" data-en="Replace with assets/artefact-hero.png">Remplacer par assets/artefact-hero.png</span>
+    <img src="assets/artefact-overview.webp" alt="Dashboard Artefact : état des alertes, actifs à risque classés par criticité et règles de détection actives (tactiques MITRE ATT&amp;CK)" width="1600" height="800" decoding="async">
+    <div class="placeholder" hidden>
       <div class="placeholder-inner">
         <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu du dashboard Artefact">
           <rect x="0" y="0" width="180" height="450" fill="#042C53" rx="8"/>
@@ -729,17 +813,18 @@
   </div>
 </section>
 
-<!-- IMAGE — atelier -->
+<!-- IMAGE — atelier · RETIRÉ TEMPORAIREMENT
+     Le cadre était vide et affichait « Remplacer par assets/artefact-workshop.png » au visiteur.
+     Pour le restaurer : décommenter et remplacer .placeholder par <img src="assets/artefact-workshop.png" alt="...">.
 <section class="narrow">
   <div class="image-block">
     <div class="image-frame">
-      <div class="placeholder">
-        <span class="placeholder-tag" data-fr="Remplacer par assets/artefact-workshop.png" data-en="Replace with assets/artefact-workshop.png">Remplacer par assets/artefact-workshop.png</span>
-      </div>
+      <div class="placeholder"></div>
     </div>
     <p class="image-caption" data-fr="Atelier de co-conception · Cartographie des alertes par criticité · 2024" data-en="Co-design workshop · Mapping alerts by criticality · 2024">Atelier de co-conception · Cartographie des alertes par criticité · 2024</p>
   </div>
 </section>
+-->
 
 <!-- 03 — CONCEPTION -->
 <section class="narrow">
@@ -786,27 +871,27 @@
   </div>
 </section>
 
-<!-- IMAGE PAIR — avant/après -->
+<!-- IMAGE PAIR — avant/après · RETIRÉ TEMPORAIREMENT
+     Les deux cadres étaient vides et affichaient leur nom de fichier au visiteur.
+     C'est le bloc le plus précieux à restaurer en priorité : un avant/après est la
+     meilleure preuve visuelle d'une décision produit.
 <section class="narrow">
   <div class="image-pair">
     <div>
       <div class="image-frame">
-        <div class="placeholder">
-          <span class="placeholder-tag" data-fr="assets/artefact-before.png" data-en="assets/artefact-before.png">assets/artefact-before.png</span>
-        </div>
+        <div class="placeholder"></div>
       </div>
       <p class="image-caption" data-fr="Liste d'alertes — version initiale" data-en="Alert list — initial version">Liste d'alertes — version initiale</p>
     </div>
     <div>
       <div class="image-frame">
-        <div class="placeholder">
-          <span class="placeholder-tag" data-fr="assets/artefact-after.png" data-en="assets/artefact-after.png">assets/artefact-after.png</span>
-        </div>
+        <div class="placeholder"></div>
       </div>
       <p class="image-caption" data-fr="Liste d'alertes — après refonte par criticité" data-en="Alert list — after criticality redesign">Liste d'alertes — après refonte par criticité</p>
     </div>
   </div>
 </section>
+-->
 
 <!-- 04 — DESIGN SYSTEM -->
 <section class="narrow">
@@ -827,17 +912,17 @@
   </div>
 </section>
 
-<!-- IMAGE — design system -->
+<!-- IMAGE — design system · RETIRÉ TEMPORAIREMENT
+     Cadre vide qui affichait son nom de fichier au visiteur.
 <section class="narrow">
   <div class="image-block">
     <div class="image-frame">
-      <div class="placeholder">
-        <span class="placeholder-tag" data-fr="assets/artefact-design-system.png" data-en="assets/artefact-design-system.png">assets/artefact-design-system.png</span>
-      </div>
+      <div class="placeholder"></div>
     </div>
     <p class="image-caption" data-fr="Extrait du design system · Catégorisation par criticité, composants atomiques et tokens" data-en="Design system excerpt · Criticality categorisation, atomic components and tokens">Extrait du design system · Catégorisation par criticité, composants atomiques et tokens</p>
   </div>
 </section>
+-->
 
 <!-- 05 — RÉSULTATS -->
 <section class="narrow">
@@ -908,18 +993,51 @@
       <span data-fr="Tous les projets" data-en="All projects">Tous les projets</span>
       <span>↗</span>
     </a>
-    <a href="cv.html" class="cta-btn ghost">
+    <a href="index.html" class="cta-btn ghost">
       <span data-fr="Voir mon CV" data-en="View my CV">Voir mon CV</span>
       <span>↗</span>
     </a>
   </div>
 </section>
 
+</main>
+
 <footer class="wrap footer">
   <span>© 2026 William Suzan</span>
   <span>Artefact · Case study 01</span>
-  <span><a href="https://www.linkedin.com/in/williamsuzan/" target="_blank" rel="noopener">LinkedIn ↗</a></span>
+  <span><a href="https://www.linkedin.com/in/william-suzan/" target="_blank" rel="noopener">LinkedIn ↗</a></span>
 </footer>
+
+<script>
+(function() {
+  const btnFR = document.getElementById('lang-fr');
+  const btnEN = document.getElementById('lang-en');
+
+  function setLang(lang) {
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      // Garde-fou : un élément qui contient lui-même un [data-fr] détruirait
+      // son enfant en réécrivant innerHTML. On laisse l'enfant se traduire seul.
+      if (el.querySelector('[data-fr]')) return;
+      el.innerHTML = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-fr');
+    });
+    document.documentElement.lang = lang;
+    btnFR.classList.toggle('active', lang === 'fr');
+    btnEN.classList.toggle('active', lang === 'en');
+    // L'état actif ne doit pas être signalé que par la couleur (WCAG 1.4.1).
+    btnFR.setAttribute('aria-pressed', String(lang === 'fr'));
+    btnEN.setAttribute('aria-pressed', String(lang === 'en'));
+    try { localStorage.setItem('ws-lang', lang); } catch (e) {}
+  }
+
+  btnFR.addEventListener('click', () => setLang('fr'));
+  btnEN.addEventListener('click', () => setLang('en'));
+
+  try {
+    const saved = localStorage.getItem('ws-lang');
+    if (saved === 'en' || saved === 'fr') setLang(saved);
+  } catch (e) {}
+})();
+</script>
 
 </body>
 </html>
