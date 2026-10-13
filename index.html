@@ -417,6 +417,8 @@
     letter-spacing: 0.06em; color: var(--ink-3);
     text-transform: uppercase;
   }
+  .certs-text { margin-top: 20px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+  .stack-text { font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
   .stack-tools {
     display: flex;
     flex-wrap: wrap;
@@ -933,13 +935,6 @@
         <img src="assets/artefact-overview.webp" alt="Dashboard Artefact : état des alertes, actifs à risque classés par criticité et règles de détection actives (tactiques MITRE ATT&amp;CK)" width="1600" height="800" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
       <div class="case-body">
-        <div class="case-tags">
-          <span class="case-tag">UX / UI</span>
-          <span class="case-tag">Design System</span>
-          <span class="case-tag" data-fr="Stratégie produit" data-en="Product Strategy">Stratégie produit</span>
-          <span class="case-tag">SaaS B2B</span>
-          <span class="case-tag" data-fr="Cybersécurité" data-en="Cybersecurity">Cybersécurité</span>
-        </div>
         <h3 class="case-title">Artefact <span class="it" data-fr="· Investigation SOC" data-en="· SOC investigation">· Investigation SOC</span></h3>
         <p class="case-desc"
            data-fr="Plateforme SaaS pour analystes SOC : alertes, investigation, réponse aux incidents. Protocole de test du workflow cœur, audit heuristique, design system réaligné sur le code, arbitrages produit tracés jusqu'au ticket."
@@ -953,7 +948,7 @@
           </div>
           <div>
             <p class="stat-val">18<span class="small">→2</span></p>
-            <p class="stat-lbl" data-fr="Niveaux de questions dans les guides d'investigation" data-en="Question levels in investigation guides">Niveaux de questions dans les guides d'investigation</p>
+            <p class="stat-lbl" data-fr="Niveaux de questions dans les guides d'investigation : limite décidée après les tests" data-en="Question levels in investigation guides: limit decided after testing">Niveaux de questions dans les guides d'investigation : limite décidée après les tests</p>
           </div>
           <div>
             <p class="stat-val">12</p>
@@ -1064,15 +1059,13 @@
         <div class="exp-role-block">
           <h3 class="role" data-fr="Product Designer UX/UI · mission" data-en="UX/UI Product Designer · engagement">Product Designer UX/UI · mission</h3>
           <p class="exp-detail exp-detail-mb"
-             data-fr="Refonte du parcours cashback vers l'épargne retraite (PER) d'une app mobile au double enjeu B2B et B2C. Audit UX, personas, refonte écran par écran, appuyée sur un design system modulaire."
-             data-en="Redesign of a mobile app's cashback-to-retirement-savings (PER) journey, with both B2B and B2C stakes. UX audit, personas, screen-by-screen redesign on a modular design system.">
-             Refonte du parcours cashback vers l'épargne retraite (PER) d'une app mobile au double enjeu B2B et B2C. Audit UX, personas, refonte écran par écran, appuyée sur un design system modulaire.
-          </p>
+             data-fr="Conception de zéro d'une app mobile qui transforme du cashback en épargne retraite (PER), au double enjeu B2B et B2C. Parcours classiques des apps de cashback repensés, personas, design system modulaire."
+             data-en="Designed from scratch a mobile app that turns cashback into retirement savings (PER), with both B2B and B2C stakes. Standard cashback app journeys rethought, personas, modular design system.">Conception de zéro d'une app mobile qui transforme du cashback en épargne retraite (PER), au double enjeu B2B et B2C. Parcours classiques des apps de cashback repensés, personas, design system modulaire.</p>
         </div>
         <div class="exp-impact">
           <div class="impact-item">
             <p class="impact-val"><span class="grad">6</span></p>
-            <p class="impact-lbl" data-fr="Étapes au lieu de 10 à 12 dans le parcours de conversion" data-en="Steps instead of 10 to 12 in the conversion journey">Étapes au lieu de 10 à 12 dans le parcours de conversion</p>
+            <p class="impact-lbl" data-fr="Étapes de conversion, contre 10 à 12 dans les apps de cashback classiques" data-en="Conversion steps, versus 10 to 12 in standard cashback apps">Étapes de conversion, contre 10 à 12 dans les apps de cashback classiques</p>
           </div>
         </div>
       </div>
@@ -1196,55 +1189,27 @@
     <div class="stack-list">
       <div class="stack-row">
         <p class="stack-cat" data-fr="Design &amp; prototypage" data-en="Design &amp; prototyping">Design &amp; prototypage</p>
-        <div class="stack-tools">
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-figma"/></svg></span>Figma</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-figjam"/></svg></span>FigJam</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-framer"/></svg></span>Framer</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-ux-pilot"/></svg></span>UX Pilot</span>
-        </div>
+        <p class="stack-text" data-fr="Figma, FigJam, Framer, UX Pilot" data-en="Figma, FigJam, Framer, UX Pilot">Figma, FigJam, Framer, UX Pilot</p>
       </div>
       <div class="stack-row">
         <p class="stack-cat" data-fr="Suite Adobe" data-en="Adobe Suite">Suite Adobe</p>
-        <div class="stack-tools">
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-illustrator"/></svg></span>Illustrator</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-photoshop"/></svg></span>Photoshop</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-indesign"/></svg></span>InDesign</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-after-effects"/></svg></span>After Effects</span>
-        </div>
+        <p class="stack-text" data-fr="Illustrator, Photoshop, InDesign, After Effects" data-en="Illustrator, Photoshop, InDesign, After Effects">Illustrator, Photoshop, InDesign, After Effects</p>
       </div>
       <div class="stack-row">
         <p class="stack-cat" data-fr="No-code &amp; CMS" data-en="No-code &amp; CMS">No-code &amp; CMS</p>
-        <div class="stack-tools">
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-webflow"/></svg></span>Webflow</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-wordpress"/></svg></span>WordPress</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-make"/></svg></span>Make</span>
-        </div>
+        <p class="stack-text" data-fr="Webflow, WordPress, Make" data-en="Webflow, WordPress, Make">Webflow, WordPress, Make</p>
       </div>
       <div class="stack-row">
         <p class="stack-cat" data-fr="Collaboration" data-en="Collaboration">Collaboration</p>
-        <div class="stack-tools">
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-notion"/></svg></span>Notion</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-asana"/></svg></span>Asana</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-hubspot"/></svg></span>HubSpot</span>
-        </div>
+        <p class="stack-text" data-fr="Notion, Asana, HubSpot" data-en="Notion, Asana, HubSpot">Notion, Asana, HubSpot</p>
       </div>
       <div class="stack-row">
         <p class="stack-cat" data-fr="Code &amp; IA" data-en="Code &amp; AI">Code &amp; IA</p>
-        <div class="stack-tools">
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-code"/></svg></span>HTML / CSS / JS</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-code"/></svg></span>Python</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-code"/></svg></span><span data-fr="React, TypeScript, Tailwind (en collaboration)" data-en="React, TypeScript, Tailwind (with devs)">React, TypeScript, Tailwind (en collaboration)</span></span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-code"/></svg></span>Claude Code</span>
-        </div>
+        <p class="stack-text" data-fr="HTML, CSS et JavaScript, Python, Claude Code. React, TypeScript et Tailwind en collaboration avec les développeurs." data-en="HTML, CSS and JavaScript, Python, Claude Code. React, TypeScript and Tailwind alongside developers.">HTML, CSS et JavaScript, Python, Claude Code. React, TypeScript et Tailwind en collaboration avec les développeurs.</p>
       </div>
       <div class="stack-row">
         <p class="stack-cat" data-fr="Méthodes" data-en="Methods">Méthodes</p>
-        <div class="stack-tools">
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-method"/></svg></span><span data-fr="Audit heuristique" data-en="Heuristic audit">Audit heuristique</span></span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-method"/></svg></span>WCAG</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-method"/></svg></span>User Research</span>
-          <span class="tool-chip"><span class="tool-icon"><svg><use href="#i-method"/></svg></span>Agile</span>
-        </div>
+        <p class="stack-text" data-fr="Audit heuristique, protocoles de test utilisateur, WCAG, Agile" data-en="Heuristic audit, user test protocols, WCAG, Agile">Audit heuristique, protocoles de test utilisateur, WCAG, Agile</p>
       </div>
     </div>
   </div>
@@ -1274,11 +1239,7 @@
       <p class="edu-prog" data-fr="Spécialisation en ligne, UI/UX Design" data-en="Online specialization, UI/UX Design">Spécialisation en ligne, UI/UX Design</p>
     </div>
 
-    <div class="certs-row">
-      <span class="cert-chip">Google SEO · UC Davis</span>
-      <span class="cert-chip" data-fr="Management du changement · ESSEC" data-en="Change Management · ESSEC">Management du changement · ESSEC</span>
-      <span class="cert-chip">Wireframes to Prototypes · CalArts</span>
-    </div>
+    <p class="certs-text" data-fr="Certificats : Google SEO (UC Davis), Management du changement (ESSEC), Wireframes to Prototypes (CalArts)." data-en="Certificates: Google SEO (UC Davis), Change Management (ESSEC), Wireframes to Prototypes (CalArts).">Certificats : Google SEO (UC Davis), Management du changement (ESSEC), Wireframes to Prototypes (CalArts).</p>
   </div>
 </section>
 
