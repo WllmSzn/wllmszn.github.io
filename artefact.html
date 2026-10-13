@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artefact — Case study · William Suzan</title>
+<title>Artefact · Case study · William Suzan</title>
 <meta name="description" content="Case study : Artefact, plateforme d'investigation pour analystes SOC. Protocole de test, audit heuristique et design system réaligné sur le code.">
 <meta name="theme-color" content="#08090C">
 <link rel="canonical" href="https://wllmszn.github.io/artefact.html">
@@ -11,7 +11,7 @@
 <!-- Partage social -->
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://wllmszn.github.io/artefact.html">
-<meta property="og:title" content="Artefact — Rendre la cyber lisible · Case study">
+<meta property="og:title" content="Artefact, rendre la cyber lisible · Case study">
 <meta property="og:description" content="Plateforme d'investigation pour analystes SOC. Case study de William Suzan, Product Designer UX/UI.">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
@@ -19,7 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Dashboard Artefact : alertes classées par criticité">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Artefact — Rendre la cyber lisible · Case study">
+<meta name="twitter:title" content="Artefact, rendre la cyber lisible · Case study">
 <meta name="twitter:description" content="Plateforme d'investigation pour analystes SOC. Case study de William Suzan, Product Designer UX/UI.">
 <meta name="twitter:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
 
@@ -665,10 +665,8 @@
   </h1>
 
   <p class="case-subtitle"
-     data-fr="Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour tous ceux qui suivent un incident. Un produit où les décisions ne se reprennent pas."
-     data-en="An investigation platform for SOC analysts that must stay legible for everyone following an incident. A product where decisions can't be undone.">
-     Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour tous ceux qui suivent un incident. Un produit où les décisions ne se reprennent pas.
-  </p>
+     data-fr="Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour toutes les personnes qui suivent un incident."
+     data-en="An investigation platform for SOC analysts that must stay readable for everyone following an incident.">Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour toutes les personnes qui suivent un incident.</p>
 
   <div class="case-meta">
     <div class="meta-cell">
@@ -677,7 +675,7 @@
     </div>
     <div class="meta-cell">
       <span class="meta-label" data-fr="Période" data-en="Timeline">Période</span>
-      <p class="meta-value"><span data-fr="Juil. 2023" data-en="Jul 2023">Juil. 2023</span> — <span data-fr="présent" data-en="present">présent</span></p>
+      <p class="meta-value" data-fr="Depuis juil. 2023" data-en="Since Jul 2023">Depuis juil. 2023</p>
     </div>
     <div class="meta-cell">
       <span class="meta-label" data-fr="Contexte" data-en="Context">Contexte</span>
@@ -773,42 +771,30 @@
 <!-- 01 — CONTEXTE -->
 <section class="narrow">
   <div class="chapter">
-    <p class="chapter-num">01 — <span data-fr="Contexte" data-en="Context">Contexte</span></p>
-    <h2 class="chapter-title"><span data-fr="Le problème" data-en="The problem">Le problème</span> <span class="it" data-fr="que personne ne lit" data-en="nobody reads">que personne ne lit</span></h2>
+    <p class="chapter-num">01 · <span data-fr="Contexte" data-en="Context">Contexte</span></p>
+    <h2 class="chapter-title"><span data-fr="Point de" data-en="Starting">Point de</span> <span class="it" data-fr="départ" data-en="point">départ</span></h2>
 
     <div class="prose">
-      <p data-fr="Les SIEM existants sont écrits pour des analystes SOC. Lignes de logs, champs JSON, requêtes en KQL ou SPL. C'est un langage d'expert, magnifique pour qui le maîtrise, mais opaque pour <strong>la plupart des équipes</strong> qui interagissent avec la cybersécurité au quotidien : RSSI, IT ops, métiers en charge d'un incident, dirigeants à qui présenter un rapport."
-         data-en="Existing SIEMs are written for SOC analysts. Log lines, JSON fields, KQL or SPL queries. It's an expert language, beautiful for those who master it, but opaque for <strong>most of the teams</strong> who interact with cybersecurity daily: CISOs, IT ops, business owners handling an incident, leaders needing a report.">
-         Les SIEM existants sont écrits pour des analystes SOC. Lignes de logs, champs JSON, requêtes en KQL ou SPL. C'est un langage d'expert, magnifique pour qui le maîtrise, mais opaque pour <strong>la plupart des équipes</strong> qui interagissent avec la cybersécurité au quotidien : RSSI, IT ops, métiers en charge d'un incident, dirigeants à qui présenter un rapport.
-      </p>
-      <p data-fr="Artefact est né d'un constat : <em>les bonnes décisions de sécurité ne peuvent pas attendre qu'un analyste les traduise.</em> Il fallait un produit qui parle aux deux mondes — sans trahir ni l'un ni l'autre."
-         data-en="Artefact came from one observation: <em>good security decisions can't wait on an analyst to translate them.</em> The product had to speak to both worlds — without betraying either.">
-         Artefact est né d'un constat : <em>les bonnes décisions de sécurité ne peuvent pas attendre qu'un analyste les traduise.</em> Il fallait un produit qui parle aux deux mondes — sans trahir ni l'un ni l'autre.
-      </p>
+      <p data-fr="Les outils SOC du marché sont conçus pour des analystes : lignes de logs, champs JSON, requêtes KQL ou SPL. Or un incident mobilise aussi des personnes qui ne lisent pas ce langage, comme le RSSI, les équipes IT, les métiers concernés ou la direction qui attend un rapport."
+         data-en="SOC tools on the market are built for analysts: log lines, JSON fields, KQL or SPL queries. Yet an incident also involves people who don't read that language, such as the CISO, IT teams, the business owners affected or leadership waiting for a report.">Les outils SOC du marché sont conçus pour des analystes : lignes de logs, champs JSON, requêtes KQL ou SPL. Or un incident mobilise aussi des personnes qui ne lisent pas ce langage, comme le RSSI, les équipes IT, les métiers concernés ou la direction qui attend un rapport.</p>
+      <p data-fr="Artefact devait donc donner le détail technique aux analystes, et une lecture claire de l'urgence et de l'action attendue à toutes les autres personnes impliquées."
+         data-en="So Artefact had to give analysts the technical detail, and give everyone else involved a clear reading of the urgency and the expected action.">Artefact devait donc donner le détail technique aux analystes, et une lecture claire de l'urgence et de l'action attendue à toutes les autres personnes impliquées.</p>
     </div>
 
-    <blockquote class="quote">
-      <span data-fr="« La cybersécurité ne devrait pas être un sport réservé à ceux qui en parlent le dialecte. »" data-en="“Cybersecurity shouldn't be a sport reserved for those who speak the dialect.”">« La cybersécurité ne devrait pas être un sport réservé à ceux qui en parlent le dialecte. »</span>
-      <p class="quote-attr" data-fr="Note d'atelier — 2023" data-en="Workshop note — 2023">Note d'atelier — 2023</p>
-    </blockquote>
   </div>
 </section>
 
 <!-- 02 — APPROCHE -->
 <section class="narrow">
   <div class="chapter">
-    <p class="chapter-num">02 — <span data-fr="Approche" data-en="Approach">Approche</span></p>
-    <h2 class="chapter-title"><span data-fr="Concevoir avec" data-en="Designing with">Concevoir avec</span> <span class="it" data-fr="ceux qui savent" data-en="those who know">ceux qui savent</span></h2>
+    <p class="chapter-num">02 · <span data-fr="Approche" data-en="Approach">Approche</span></p>
+    <h2 class="chapter-title"><span data-fr="Concevoir avec" data-en="Designing with">Concevoir avec</span> <span class="it" data-fr="les ingénieurs sécurité" data-en="security engineers">les ingénieurs sécurité</span></h2>
 
     <div class="prose">
-      <p data-fr="J'ai rejoint l'équipe avec une conviction : <strong>on ne peut pas designer un produit cyber depuis Figma seul.</strong> Les enjeux techniques se cachent dans des nuances que seuls les experts perçoivent — la différence entre une alerte vraie et un faux positif, le moment précis où une corrélation devient signifiante, la hiérarchie implicite entre des dizaines d'événements simultanés."
-         data-en="I joined the team with one conviction: <strong>you can't design a cyber product from Figma alone.</strong> The technical stakes hide in nuances only experts perceive — the difference between a true alert and a false positive, the exact moment correlation becomes meaningful, the implicit hierarchy between dozens of simultaneous events.">
-         J'ai rejoint l'équipe avec une conviction : <strong>on ne peut pas designer un produit cyber depuis Figma seul.</strong> Les enjeux techniques se cachent dans des nuances que seuls les experts perçoivent — la différence entre une alerte vraie et un faux positif, le moment précis où une corrélation devient signifiante, la hiérarchie implicite entre des dizaines d'événements simultanés.
-      </p>
-      <p data-fr="J'ai mis en place un rituel d'<strong>ateliers de co-conception</strong> avec les ingénieurs sécurité de l'équipe. Pas des restitutions. Pas des feedbacks Figma. De la conception simultanée, à la main, sur des écrans imprimés ou Miro. Chaque atelier durait deux heures et produisait une décision."
-         data-en="I set up a ritual of <strong>co-design workshops</strong> with the team's security engineers. Not review sessions. Not Figma feedback. Live design, by hand, on printed screens or Miro. Each workshop lasted two hours and produced one decision.">
-         J'ai mis en place un rituel d'<strong>ateliers de co-conception</strong> avec les ingénieurs sécurité de l'équipe. Pas des restitutions. Pas des feedbacks Figma. De la conception simultanée, à la main, sur des écrans imprimés ou Miro. Chaque atelier durait deux heures et produisait une décision.
-      </p>
+      <p data-fr="Une partie des enjeux ne se voit pas dans Figma : distinguer une vraie alerte d'un faux positif, savoir quand une corrélation devient significative, hiérarchiser des dizaines d'événements simultanés. Ces connaissances étaient chez les ingénieurs sécurité de l'équipe."
+         data-en="Part of the problem can't be seen in Figma: telling a real alert from a false positive, knowing when a correlation becomes significant, ranking dozens of simultaneous events. That knowledge sat with the team's security engineers.">Une partie des enjeux ne se voit pas dans Figma : distinguer une vraie alerte d'un faux positif, savoir quand une corrélation devient significative, hiérarchiser des dizaines d'événements simultanés. Ces connaissances étaient chez les ingénieurs sécurité de l'équipe.</p>
+      <p data-fr="J'ai donc organisé des <strong>ateliers de co-conception</strong> avec eux. On dessinait ensemble, à la main sur des écrans imprimés ou sur Miro, pendant deux heures, et chaque atelier se terminait par une décision."
+         data-en="So I set up <strong>co-design workshops</strong> with them. We sketched together, by hand on printed screens or in Miro, for two hours, and each workshop ended with a decision.">J'ai donc organisé des <strong>ateliers de co-conception</strong> avec eux. On dessinait ensemble, à la main sur des écrans imprimés ou sur Miro, pendant deux heures, et chaque atelier se terminait par une décision.</p>
     </div>
   </div>
 </section>
@@ -829,14 +815,12 @@
 <!-- 03 — CONCEPTION -->
 <section class="narrow">
   <div class="chapter">
-    <p class="chapter-num">03 — <span data-fr="Conception" data-en="Design">Conception</span></p>
+    <p class="chapter-num">03 · <span data-fr="Conception" data-en="Design">Conception</span></p>
     <h2 class="chapter-title"><span data-fr="Trois principes" data-en="Three principles">Trois principes</span></h2>
 
     <div class="prose">
-      <p data-fr="De ces ateliers, trois principes ont émergé. Ils ne sont pas écrits dans le design system — ils sont écrits dans l'usage."
-         data-en="From those workshops, three principles emerged. They're not written in the design system — they're written into the usage itself.">
-         De ces ateliers, trois principes ont émergé. Ils ne sont pas écrits dans le design system — ils sont écrits dans l'usage.
-      </p>
+      <p data-fr="Ces ateliers ont fixé trois principes d'interface."
+         data-en="These workshops set three interface principles.">Ces ateliers ont fixé trois principes d'interface.</p>
     </div>
 
     <div class="principles">
@@ -844,28 +828,22 @@
         <p class="principle-num">01</p>
         <h3 class="principle-title"><span class="it" data-fr="Lisible" data-en="Legible">Lisible</span> <span data-fr="par défaut" data-en="by default">par défaut</span></h3>
         <p class="principle-desc"
-           data-fr="Le langage technique reste accessible en un clic. Mais l'interface parle d'abord en humain : conséquence, action recommandée, urgence."
-           data-en="Technical language stays one click away. But the interface speaks human first: consequence, recommended action, urgency.">
-           Le langage technique reste accessible en un clic. Mais l'interface parle d'abord en humain : conséquence, action recommandée, urgence.
-        </p>
+           data-fr="Le détail technique reste accessible en un clic, mais l'interface affiche d'abord la conséquence, l'action recommandée et l'urgence."
+           data-en="Technical detail stays one click away, but the interface first shows the consequence, the recommended action and the urgency.">Le détail technique reste accessible en un clic, mais l'interface affiche d'abord la conséquence, l'action recommandée et l'urgence.</p>
       </div>
       <div class="principle">
         <p class="principle-num">02</p>
         <h3 class="principle-title"><span class="it" data-fr="Hiérarchisé" data-en="Hierarchical">Hiérarchisé</span> <span data-fr="par contexte" data-en="by context">par contexte</span></h3>
         <p class="principle-desc"
-           data-fr="Une alerte CRITICAL pour un dirigeant n'est pas la même que pour un analyste. L'UI adapte son grain selon le rôle."
-           data-en="A CRITICAL alert means something different to an executive vs an analyst. The UI adapts its granularity by role.">
-           Une alerte CRITICAL pour un dirigeant n'est pas la même que pour un analyste. L'UI adapte son grain selon le rôle.
-        </p>
+           data-fr="Une alerte CRITICAL n'appelle pas la même lecture pour un dirigeant et pour un analyste : le niveau de détail s'adapte au rôle."
+           data-en="A CRITICAL alert isn't read the same way by an executive and by an analyst, so the level of detail adapts to the role.">Une alerte CRITICAL n'appelle pas la même lecture pour un dirigeant et pour un analyste : le niveau de détail s'adapte au rôle.</p>
       </div>
       <div class="principle">
         <p class="principle-num">03</p>
         <h3 class="principle-title"><span class="it" data-fr="Réversible" data-en="Reversible">Réversible</span> <span data-fr="quand possible" data-en="when possible">quand possible</span></h3>
         <p class="principle-desc"
-           data-fr="Les actions destructives demandent une confirmation contextuelle. Les actions souples s'annulent en un geste."
-           data-en="Destructive actions require contextual confirmation. Soft actions undo in a single gesture.">
-           Les actions destructives demandent une confirmation contextuelle. Les actions souples s'annulent en un geste.
-        </p>
+           data-fr="Les actions destructives demandent une confirmation contextuelle ; les autres s'annulent en un geste."
+           data-en="Destructive actions require a contextual confirmation; the others can be undone in one gesture.">Les actions destructives demandent une confirmation contextuelle ; les autres s'annulent en un geste.</p>
       </div>
     </div>
   </div>
@@ -896,18 +874,16 @@
 <!-- 04 — DESIGN SYSTEM -->
 <section class="narrow">
   <div class="chapter">
-    <p class="chapter-num">04 — <span data-fr="Design System" data-en="Design System">Design System</span></p>
-    <h2 class="chapter-title"><span data-fr="Un système" data-en="A system">Un système</span> <span class="it" data-fr="qui tient debout" data-en="that holds up">qui tient debout</span></h2>
+    <p class="chapter-num">04 · <span data-fr="Design System" data-en="Design System">Design System</span></p>
+    <h2 class="chapter-title"><span data-fr="Réaligner Figma" data-en="Realigning Figma">Réaligner Figma</span> <span class="it" data-fr="sur le code" data-en="with the code">sur le code</span></h2>
 
     <div class="prose">
       <p data-fr="J'ai d'abord audité le fichier Figma face au code React. Les tokens étaient exacts, mais aucun composant n'existait côté Figma et <strong>1,7 % seulement des remplissages</strong> étaient reliés aux tokens. En 24 h, 8 jeux de composants ont été créés, dont un Button à 50 variantes, avec une feuille de route sur les 42 composants du code."
          data-en="I started by auditing the Figma file against the React code. Tokens were exact, but no components existed in Figma and <strong>only 1.7% of fills</strong> were linked to tokens. Within 24 h, 8 component sets were built, including a 50-variant Button, with a roadmap covering the code's 42 components.">
          J'ai d'abord audité le fichier Figma face au code React. Les tokens étaient exacts, mais aucun composant n'existait côté Figma et <strong>1,7 % seulement des remplissages</strong> étaient reliés aux tokens. En 24 h, 8 jeux de composants ont été créés, dont un Button à 50 variantes, avec une feuille de route sur les 42 composants du code.
       </p>
-      <p data-fr="Chaque composant a sa <em>logique d'usage documentée</em> : pourquoi il existe, quand l'utiliser, quand l'éviter. Le design system n'est pas une vitrine : c'est un guide de décision."
-         data-en="Every component has its <em>documented usage logic</em>: why it exists, when to use it, when to avoid it. The design system isn't a showcase: it's a decision guide.">
-         Chaque composant a sa <em>logique d'usage documentée</em> : pourquoi il existe, quand l'utiliser, quand l'éviter. Le design system n'est pas une vitrine : c'est un guide de décision.
-      </p>
+      <p data-fr="Chaque composant est documenté avec son usage : à quoi il sert, quand l'utiliser, quand l'éviter."
+         data-en="Each component is documented with its usage: what it's for, when to use it, when to avoid it.">Chaque composant est documenté avec son usage : à quoi il sert, quand l'utiliser, quand l'éviter.</p>
     </div>
   </div>
 </section>
@@ -927,8 +903,8 @@
 <!-- 05 — RÉSULTATS -->
 <section class="narrow">
   <div class="chapter">
-    <p class="chapter-num">05 — <span data-fr="Résultats" data-en="Outcomes">Résultats</span></p>
-    <h2 class="chapter-title"><span data-fr="Ce que ça a" data-en="What it">Ce que ça a</span> <span class="it" data-fr="produit" data-en="produced">produit</span></h2>
+    <p class="chapter-num">05 · <span data-fr="Résultats" data-en="Outcomes">Résultats</span></p>
+    <h2 class="chapter-title"><span data-fr="Ce qui a" data-en="What">Ce qui a</span> <span class="it" data-fr="changé" data-en="changed">changé</span></h2>
 
     <div class="kpi-grid">
       <div class="kpi-cell">
@@ -950,10 +926,8 @@
     </div>
 
     <div class="prose">
-      <p data-fr="L'arbitrage le plus structurant : <strong>séparer les alertes reclassées automatiquement de celles classées par un analyste</strong>. Sans cette séparation, le taux de faux positifs s'auto-alimentait. Chaque décision issue des tests, elle, est tracée jusqu'au ticket, grâce au protocole du workflow cœur : 8 missions, 6 mesures, seuils de décision à 80 %."
-         data-en="The most structural trade-off: <strong>separating automatically reclassified alerts from analyst-classified ones</strong>. Without it, the false-positive rate fed itself. Every test-driven decision is traced down to the ticket, through the core-workflow protocol: 8 tasks, 6 measures, 80% decision thresholds.">
-         L'arbitrage le plus structurant : <strong>séparer les alertes reclassées automatiquement de celles classées par un analyste</strong>. Sans cette séparation, le taux de faux positifs s'auto-alimentait. Chaque décision issue des tests, elle, est tracée jusqu'au ticket, grâce au protocole du workflow cœur : 8 missions, 6 mesures, seuils de décision à 80 %.
-      </p>
+      <p data-fr="Arbitrage le plus important : <strong>séparer les alertes reclassées automatiquement de celles classées par un analyste</strong>. Sans cette séparation, le taux de faux positifs s'alimentait lui-même. Les décisions issues des tests sont tracées jusqu'au ticket, avec un protocole de 8 missions, 6 mesures et des seuils de décision à 80 %."
+         data-en="Most important trade-off: <strong>separating automatically reclassified alerts from analyst-classified ones</strong>. Without it, the false-positive rate fed itself. Test-driven decisions are traced down to the ticket, with a protocol of 8 tasks, 6 measures and 80% decision thresholds.">Arbitrage le plus important : <strong>séparer les alertes reclassées automatiquement de celles classées par un analyste</strong>. Sans cette séparation, le taux de faux positifs s'alimentait lui-même. Les décisions issues des tests sont tracées jusqu'au ticket, avec un protocole de 8 missions, 6 mesures et des seuils de décision à 80 %.</p>
     </div>
   </div>
 </section>
@@ -961,22 +935,16 @@
 <!-- 06 — APPRENTISSAGES -->
 <section class="narrow">
   <div class="chapter">
-    <p class="chapter-num">06 — <span data-fr="Apprentissages" data-en="Lessons">Apprentissages</span></p>
+    <p class="chapter-num">06 · <span data-fr="Apprentissages" data-en="Lessons">Apprentissages</span></p>
     <h2 class="chapter-title"><span data-fr="Ce que" data-en="What">Ce que</span> <span class="it" data-fr="ça m'a appris" data-en="it taught me">ça m'a appris</span></h2>
 
     <div class="prose">
-      <p data-fr="<strong>Co-concevoir, ce n'est pas demander un avis.</strong> C'est s'asseoir avec quelqu'un qui sait des choses que je ne sais pas, et accepter que ma première idée sera révisée. Plus j'ai laissé tomber l'illusion du designer héros, plus le produit est devenu juste."
-         data-en="<strong>Co-design isn't asking for feedback.</strong> It's sitting down with someone who knows things I don't, and accepting that my first idea will be revised. The more I let go of the hero designer fantasy, the more accurate the product became.">
-         <strong>Co-concevoir, ce n'est pas demander un avis.</strong> C'est s'asseoir avec quelqu'un qui sait des choses que je ne sais pas, et accepter que ma première idée sera révisée. Plus j'ai laissé tomber l'illusion du designer héros, plus le produit est devenu juste.
-      </p>
-      <p data-fr="<strong>Un design system ne tient pas par ses composants.</strong> Il tient par sa documentation d'usage. Un bouton est facile à dessiner ; le pourquoi de son existence, c'est ça qui tient dans le temps."
-         data-en="<strong>A design system doesn't hold up through its components.</strong> It holds up through its usage documentation. A button is easy to draw; the reason for its existence is what holds over time.">
-         <strong>Un design system ne tient pas par ses composants.</strong> Il tient par sa documentation d'usage. Un bouton est facile à dessiner ; le pourquoi de son existence, c'est ça qui tient dans le temps.
-      </p>
-      <p data-fr="<strong>La cyber n'est pas une discipline.</strong> C'est un état d'esprit où chaque mot pèse, où chaque alerte peut être un faux positif coûteux ou un vrai incident plus coûteux encore. Designer pour ce contexte, c'est apprendre à respecter le doute."
-         data-en="<strong>Cyber isn't a discipline.</strong> It's a state of mind where every word counts, where every alert can be a costly false positive or a real incident even costlier. Designing for that context is learning to respect doubt.">
-         <strong>La cyber n'est pas une discipline.</strong> C'est un état d'esprit où chaque mot pèse, où chaque alerte peut être un faux positif coûteux ou un vrai incident plus coûteux encore. Designer pour ce contexte, c'est apprendre à respecter le doute.
-      </p>
+      <p data-fr="<strong>Co-concevoir demande d'accepter d'être corrigé.</strong> Les ingénieurs sécurité savaient des choses que je ne savais pas, et mes premières propositions ont souvent été revues. Le produit y a gagné en justesse."
+         data-en="<strong>Co-designing means accepting correction.</strong> The security engineers knew things I didn't, and my first proposals were often revised. The product got more accurate for it."><strong>Co-concevoir demande d'accepter d'être corrigé.</strong> Les ingénieurs sécurité savaient des choses que je ne savais pas, et mes premières propositions ont souvent été revues. Le produit y a gagné en justesse.</p>
+      <p data-fr="<strong>Un design system vaut surtout par sa documentation.</strong> Dessiner un bouton prend peu de temps ; expliquer quand l'utiliser évite les mauvais usages."
+         data-en="<strong>A design system is mostly worth its documentation.</strong> Drawing a button takes little time; explaining when to use it prevents misuse."><strong>Un design system vaut surtout par sa documentation.</strong> Dessiner un bouton prend peu de temps ; expliquer quand l'utiliser évite les mauvais usages.</p>
+      <p data-fr="<strong>En cybersécurité, chaque libellé compte.</strong> Une alerte mal formulée peut faire ignorer un vrai incident ou lancer une enquête inutile. J'ai appris à concevoir des écrans qui montrent clairement le niveau d'incertitude."
+         data-en="<strong>In cybersecurity, every label matters.</strong> A badly worded alert can get a real incident ignored or trigger a pointless investigation. I learned to design screens that make the level of uncertainty clear."><strong>En cybersécurité, chaque libellé compte.</strong> Une alerte mal formulée peut faire ignorer un vrai incident ou lancer une enquête inutile. J'ai appris à concevoir des écrans qui montrent clairement le niveau d'incertitude.</p>
     </div>
   </div>
 </section>
