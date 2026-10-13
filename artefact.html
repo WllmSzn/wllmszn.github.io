@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Artefact — Case study · William Suzan</title>
-<meta name="description" content="Case study : Artefact, un SIEM cybersécurité conçu pour rendre l'analyse de menaces accessible aux équipes non-expertes.">
+<meta name="description" content="Case study : Artefact, plateforme d'investigation pour analystes SOC. Protocole de test, audit heuristique et design system réaligné sur le code.">
 <meta name="theme-color" content="#08090C">
 <link rel="canonical" href="https://wllmszn.github.io/artefact.html">
 
@@ -12,7 +12,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://wllmszn.github.io/artefact.html">
 <meta property="og:title" content="Artefact — Rendre la cyber lisible · Case study">
-<meta property="og:description" content="Un SIEM cybersécurité conçu pour des équipes qui ne sont pas expertes. Case study de William Suzan.">
+<meta property="og:description" content="Plateforme d'investigation pour analystes SOC. Case study de William Suzan, Product Designer UX/UI.">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="Dashboard Artefact : alertes classées par criticité">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Artefact — Rendre la cyber lisible · Case study">
-<meta name="twitter:description" content="Un SIEM cybersécurité conçu pour des équipes qui ne sont pas expertes. Case study de William Suzan.">
+<meta name="twitter:description" content="Plateforme d'investigation pour analystes SOC. Case study de William Suzan, Product Designer UX/UI.">
 <meta name="twitter:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230B0D11'/><text x='50' y='70' font-family='Georgia,serif' font-size='60' fill='%23E8835A' text-anchor='middle'>W</text></svg>">
@@ -665,19 +665,19 @@
   </h1>
 
   <p class="case-subtitle"
-     data-fr="Un SIEM cybersécurité conçu pour des équipes qui ne sont pas expertes. Un produit où les décisions ne se reprennent pas."
-     data-en="A cybersecurity SIEM designed for teams who aren't experts. A product where decisions can't be undone.">
-     Un SIEM cybersécurité conçu pour des équipes qui ne sont pas expertes. Un produit où les décisions ne se reprennent pas.
+     data-fr="Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour tous ceux qui suivent un incident. Un produit où les décisions ne se reprennent pas."
+     data-en="An investigation platform for SOC analysts that must stay legible for everyone following an incident. A product where decisions can't be undone.">
+     Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour tous ceux qui suivent un incident. Un produit où les décisions ne se reprennent pas.
   </p>
 
   <div class="case-meta">
     <div class="meta-cell">
       <span class="meta-label" data-fr="Rôle" data-en="Role">Rôle</span>
-      <p class="meta-value">Lead UX/UI<br>&amp; Product Owner</p>
+      <p class="meta-value">Product Designer<br>UX/UI</p>
     </div>
     <div class="meta-cell">
       <span class="meta-label" data-fr="Période" data-en="Timeline">Période</span>
-      <p class="meta-value">2023 — <span data-fr="présent" data-en="present">présent</span></p>
+      <p class="meta-value"><span data-fr="Juil. 2023" data-en="Jul 2023">Juil. 2023</span> — <span data-fr="présent" data-en="present">présent</span></p>
     </div>
     <div class="meta-cell">
       <span class="meta-label" data-fr="Contexte" data-en="Context">Contexte</span>
@@ -777,9 +777,9 @@
     <h2 class="chapter-title"><span data-fr="Le problème" data-en="The problem">Le problème</span> <span class="it" data-fr="que personne ne lit" data-en="nobody reads">que personne ne lit</span></h2>
 
     <div class="prose">
-      <p data-fr="Les SIEM existants sont écrits pour des analystes SOC. Lignes de logs, champs JSON, requêtes en KQL ou SPL. C'est un langage d'expert, magnifique pour qui le maîtrise, mais opaque pour <strong>80% des équipes</strong> qui interagissent avec la cybersécurité au quotidien : RSSI, IT ops, métiers en charge d'un incident, dirigeants à qui présenter un rapport."
-         data-en="Existing SIEMs are written for SOC analysts. Log lines, JSON fields, KQL or SPL queries. It's an expert language, beautiful for those who master it, but opaque for <strong>80% of the teams</strong> who interact with cybersecurity daily: CISOs, IT ops, business owners handling an incident, leaders needing a report.">
-         Les SIEM existants sont écrits pour des analystes SOC. Lignes de logs, champs JSON, requêtes en KQL ou SPL. C'est un langage d'expert, magnifique pour qui le maîtrise, mais opaque pour <strong>80% des équipes</strong> qui interagissent avec la cybersécurité au quotidien : RSSI, IT ops, métiers en charge d'un incident, dirigeants à qui présenter un rapport.
+      <p data-fr="Les SIEM existants sont écrits pour des analystes SOC. Lignes de logs, champs JSON, requêtes en KQL ou SPL. C'est un langage d'expert, magnifique pour qui le maîtrise, mais opaque pour <strong>la plupart des équipes</strong> qui interagissent avec la cybersécurité au quotidien : RSSI, IT ops, métiers en charge d'un incident, dirigeants à qui présenter un rapport."
+         data-en="Existing SIEMs are written for SOC analysts. Log lines, JSON fields, KQL or SPL queries. It's an expert language, beautiful for those who master it, but opaque for <strong>most of the teams</strong> who interact with cybersecurity daily: CISOs, IT ops, business owners handling an incident, leaders needing a report.">
+         Les SIEM existants sont écrits pour des analystes SOC. Lignes de logs, champs JSON, requêtes en KQL ou SPL. C'est un langage d'expert, magnifique pour qui le maîtrise, mais opaque pour <strong>la plupart des équipes</strong> qui interagissent avec la cybersécurité au quotidien : RSSI, IT ops, métiers en charge d'un incident, dirigeants à qui présenter un rapport.
       </p>
       <p data-fr="Artefact est né d'un constat : <em>les bonnes décisions de sécurité ne peuvent pas attendre qu'un analyste les traduise.</em> Il fallait un produit qui parle aux deux mondes — sans trahir ni l'un ni l'autre."
          data-en="Artefact came from one observation: <em>good security decisions can't wait on an analyst to translate them.</em> The product had to speak to both worlds — without betraying either.">
@@ -900,9 +900,9 @@
     <h2 class="chapter-title"><span data-fr="Un système" data-en="A system">Un système</span> <span class="it" data-fr="qui tient debout" data-en="that holds up">qui tient debout</span></h2>
 
     <div class="prose">
-      <p data-fr="Avec 200+ composants conçus de zéro, le design system d'Artefact est devenu la <strong>colonne vertébrale du produit</strong>. Pas juste une bibliothèque : un langage partagé entre design, dev et métiers."
-         data-en="With 200+ components built from scratch, Artefact's design system became the <strong>backbone of the product</strong>. Not just a library: a shared language between design, dev and business.">
-         Avec 200+ composants conçus de zéro, le design system d'Artefact est devenu la <strong>colonne vertébrale du produit</strong>. Pas juste une bibliothèque : un langage partagé entre design, dev et métiers.
+      <p data-fr="J'ai d'abord audité le fichier Figma face au code React. Les tokens étaient exacts, mais aucun composant n'existait côté Figma et <strong>1,7 % seulement des remplissages</strong> étaient reliés aux tokens. En 24 h, 8 jeux de composants ont été créés, dont un Button à 50 variantes, avec une feuille de route sur les 42 composants du code."
+         data-en="I started by auditing the Figma file against the React code. Tokens were exact, but no components existed in Figma and <strong>only 1.7% of fills</strong> were linked to tokens. Within 24 h, 8 component sets were built, including a 50-variant Button, with a roadmap covering the code's 42 components.">
+         J'ai d'abord audité le fichier Figma face au code React. Les tokens étaient exacts, mais aucun composant n'existait côté Figma et <strong>1,7 % seulement des remplissages</strong> étaient reliés aux tokens. En 24 h, 8 jeux de composants ont été créés, dont un Button à 50 variantes, avec une feuille de route sur les 42 composants du code.
       </p>
       <p data-fr="Chaque composant a sa <em>logique d'usage documentée</em> : pourquoi il existe, quand l'utiliser, quand l'éviter. Le design system n'est pas une vitrine : c'est un guide de décision."
          data-en="Every component has its <em>documented usage logic</em>: why it exists, when to use it, when to avoid it. The design system isn't a showcase: it's a decision guide.">
@@ -932,27 +932,27 @@
 
     <div class="kpi-grid">
       <div class="kpi-cell">
-        <p class="kpi-val">200<span class="plus">+</span></p>
-        <p class="kpi-lbl" data-fr="Composants design system livrés" data-en="Design system components shipped">Composants design system livrés</p>
+        <p class="kpi-val">11</p>
+        <p class="kpi-lbl" data-fr="Décisions produit tracées en tickets après une session de test" data-en="Product decisions ticketed after one test session">Décisions produit tracées en tickets après une session de test</p>
       </div>
       <div class="kpi-cell">
-        <p class="kpi-val">50<span class="plus">+</span></p>
-        <p class="kpi-lbl" data-fr="Tests utilisateurs pilotés" data-en="User tests piloted">Tests utilisateurs pilotés</p>
+        <p class="kpi-val">18<span class="plus">→2</span></p>
+        <p class="kpi-lbl" data-fr="Niveaux de questions dans les guides d'investigation" data-en="Question levels in investigation guides">Niveaux de questions dans les guides d'investigation</p>
       </div>
       <div class="kpi-cell">
-        <p class="kpi-val">2</p>
-        <p class="kpi-lbl" data-fr="Partenariats de démonstration" data-en="Demo partnerships secured">Partenariats de démonstration</p>
+        <p class="kpi-val">12</p>
+        <p class="kpi-lbl" data-fr="Corrections chiffrées issues d'un audit heuristique" data-en="Costed fixes from a heuristic audit">Corrections chiffrées issues d'un audit heuristique</p>
       </div>
       <div class="kpi-cell">
-        <p class="kpi-val">3<span class="plus" data-fr=" ans" data-en=" yrs"> ans</span></p>
-        <p class="kpi-lbl" data-fr="Engagement produit continu" data-en="Continuous product engagement">Engagement produit continu</p>
+        <p class="kpi-val">8</p>
+        <p class="kpi-lbl" data-fr="Jeux de composants Figma créés en 24 h" data-en="Figma component sets built in 24 h">Jeux de composants Figma créés en 24 h</p>
       </div>
     </div>
 
     <div class="prose">
-      <p data-fr="Au-delà des chiffres : <strong>le produit a trouvé un langage</strong> qui parle aux deux côtés du fossé. Les RSSI peuvent montrer un dashboard à leur direction. Les analystes ne sont plus interrompus pour traduire des alertes."
-         data-en="Beyond the numbers: <strong>the product found a language</strong> that speaks to both sides of the gap. CISOs can show a dashboard to their leadership. Analysts are no longer interrupted to translate alerts.">
-         Au-delà des chiffres : <strong>le produit a trouvé un langage</strong> qui parle aux deux côtés du fossé. Les RSSI peuvent montrer un dashboard à leur direction. Les analystes ne sont plus interrompus pour traduire des alertes.
+      <p data-fr="L'arbitrage le plus structurant : <strong>séparer les alertes reclassées automatiquement de celles classées par un analyste</strong>. Sans cette séparation, le taux de faux positifs s'auto-alimentait. Chaque décision issue des tests, elle, est tracée jusqu'au ticket, grâce au protocole du workflow cœur : 8 missions, 6 mesures, seuils de décision à 80 %."
+         data-en="The most structural trade-off: <strong>separating automatically reclassified alerts from analyst-classified ones</strong>. Without it, the false-positive rate fed itself. Every test-driven decision is traced down to the ticket, through the core-workflow protocol: 8 tasks, 6 measures, 80% decision thresholds.">
+         L'arbitrage le plus structurant : <strong>séparer les alertes reclassées automatiquement de celles classées par un analyste</strong>. Sans cette séparation, le taux de faux positifs s'auto-alimentait. Chaque décision issue des tests, elle, est tracée jusqu'au ticket, grâce au protocole du workflow cœur : 8 missions, 6 mesures, seuils de décision à 80 %.
       </p>
     </div>
   </div>
