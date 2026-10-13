@@ -678,6 +678,27 @@
     .case-hero { padding: 92px 20px 40px; }
     .next, .footer { padding-left: 20px; padding-right: 20px; }
   }
+
+  /* === CASE STUDY EN 4 CAS (oct. 2026) === */
+  .chapter { scroll-margin-top: 72px; }
+  .narrow[id] { scroll-margin-top: 64px; }
+  .chapter-title { margin-bottom: 24px; }
+  .prose a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-2); }
+  .prose a:hover { text-decoration-color: var(--accent); }
+  .prose ul, .prose ol { margin: 0 0 18px; padding-left: 22px; }
+  .prose li { margin-bottom: 8px; }
+  .prose li::marker { color: var(--ink-3); }
+  .case-label { margin: 28px 0 10px !important; font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--ink); }
+  .table-wrap { overflow-x: auto; margin: 4px 0 20px; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 14.5px; line-height: 1.5; }
+  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 14px 10px 0; border-bottom: 0.5px solid var(--line); color: var(--ink-2); }
+  .data-table th { color: var(--ink); font-weight: 500; font-size: 13px; }
+  .data-table td:last-child, .data-table th:last-child { padding-right: 0; }
+  .figure { margin: 28px 0 32px; }
+  .figure img { width: 100%; height: auto; display: block; border-radius: 8px; background: #fff; border: 0.5px solid var(--line); }
+  .figure figcaption { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-3); }
+  .flow svg { width: 100%; height: auto; display: block; }
+  .kpi-grid { margin: 36px 0 0; }
 </style>
 </head>
 
@@ -830,144 +851,21 @@
   </div>
 </section>
 
-<!-- 01 — CONTEXTE -->
-<section class="narrow">
+<!-- CASE STUDY EN 4 CAS -->
+<section class="narrow" id="contexte">
   <div class="chapter">
-    <p class="chapter-num">01 · <span data-fr="Contexte" data-en="Context">Contexte</span></p>
-    <h2 class="chapter-title"><span data-fr="Point de" data-en="Starting">Point de</span> <span class="it" data-fr="départ" data-en="point">départ</span></h2>
-
+    <p class="chapter-num" data-fr="Le contexte" data-en="Context">Le contexte</p>
+    <h2 class="chapter-title" data-fr="Le produit et &lt;span class=&quot;it&quot;&gt;mon rôle&lt;/span&gt;" data-en="The product and &lt;span class=&quot;it&quot;&gt;my role&lt;/span&gt;">Le produit et <span class="it">mon rôle</span></h2>
     <div class="prose">
-      <p data-fr="Les outils SOC du marché sont conçus pour des analystes : lignes de logs, champs JSON, requêtes KQL ou SPL. Or un incident mobilise aussi des personnes qui ne lisent pas ce langage, comme le RSSI, les équipes IT, les métiers concernés ou la direction qui attend un rapport."
-         data-en="SOC tools on the market are built for analysts: log lines, JSON fields, KQL or SPL queries. Yet an incident also involves people who don't read that language, such as the CISO, IT teams, the business owners affected or leadership waiting for a report.">Les outils SOC du marché sont conçus pour des analystes : lignes de logs, champs JSON, requêtes KQL ou SPL. Or un incident mobilise aussi des personnes qui ne lisent pas ce langage, comme le RSSI, les équipes IT, les métiers concernés ou la direction qui attend un rapport.</p>
-      <p data-fr="Artefact devait donc donner le détail technique aux analystes, et une lecture claire de l'urgence et de l'action attendue à toutes les autres personnes impliquées."
-         data-en="So Artefact had to give analysts the technical detail, and give everyone else involved a clear reading of the urgency and the expected action.">Artefact devait donc donner le détail technique aux analystes, et une lecture claire de l'urgence et de l'action attendue à toutes les autres personnes impliquées.</p>
+      <p data-fr="Artefact est une plateforme d&#x27;investigation pour analystes SOC : alertes, investigation, réponse aux incidents. J&#x27;en suis &lt;strong&gt;cofondateur&lt;/strong&gt; et j&#x27;y tiens le rôle de Product Designer UX/UI, avec un périmètre produit : roadmap, backlog, spécifications et critères d&#x27;acceptation." data-en="Artefact is an investigation platform for SOC analysts: alerts, investigation, incident response. I&#x27;m a &lt;strong&gt;co-founder&lt;/strong&gt; and work as its UX/UI Product Designer, with product scope: roadmap, backlog, specifications and acceptance criteria.">Artefact est une plateforme d'investigation pour analystes SOC : alertes, investigation, réponse aux incidents. J'en suis <strong>cofondateur</strong> et j'y tiens le rôle de Product Designer UX/UI, avec un périmètre produit : roadmap, backlog, spécifications et critères d'acceptation.</p>
+      <p data-fr="Nous sommes 4 dans l&#x27;équipe. Les quatre cas ci-dessous montrent comment je travaille : tester avant de trancher, auditer avant de redessiner, et ne rien considérer comme validé sans preuve." data-en="We are a team of 4. The four cases below show how I work: test before deciding, audit before redesigning, and treat nothing as validated without evidence.">Nous sommes 4 dans l'équipe. Les quatre cas ci-dessous montrent comment je travaille : tester avant de trancher, auditer avant de redessiner, et ne rien considérer comme validé sans preuve.</p>
+      <ol>
+        <li data-fr="&lt;a href=&quot;#cas-1&quot;&gt;Cas 1 · Guides d&#x27;investigation : de 18 niveaux de questions à 2&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-1&quot;&gt;Case 1 · Investigation guides: from 18 question levels to 2&lt;/a&gt;"><a href="#cas-1">Cas 1 · Guides d'investigation : de 18 niveaux de questions à 2</a></li>
+        <li data-fr="&lt;a href=&quot;#cas-2&quot;&gt;Cas 2 · Audit d&#x27;un questionnaire d&#x27;investigation de 75 questions&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-2&quot;&gt;Case 2 · Auditing a 75-question investigation questionnaire&lt;/a&gt;"><a href="#cas-2">Cas 2 · Audit d'un questionnaire d'investigation de 75 questions</a></li>
+        <li data-fr="&lt;a href=&quot;#cas-3&quot;&gt;Cas 3 · Un design system exact, mais relié à rien&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-3&quot;&gt;Case 3 · An accurate design system, connected to nothing&lt;/a&gt;"><a href="#cas-3">Cas 3 · Un design system exact, mais relié à rien</a></li>
+        <li data-fr="&lt;a href=&quot;#cas-4&quot;&gt;Cas 4 · Des critères d&#x27;acceptation vérifiés par des agents IA&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-4&quot;&gt;Case 4 · Acceptance criteria checked by AI agents&lt;/a&gt;"><a href="#cas-4">Cas 4 · Des critères d'acceptation vérifiés par des agents IA</a></li>
+      </ol>
     </div>
-
-  </div>
-</section>
-
-<!-- 02 — APPROCHE -->
-<section class="narrow">
-  <div class="chapter">
-    <p class="chapter-num">02 · <span data-fr="Approche" data-en="Approach">Approche</span></p>
-    <h2 class="chapter-title"><span data-fr="Concevoir avec" data-en="Designing with">Concevoir avec</span> <span class="it" data-fr="les ingénieurs sécurité" data-en="security engineers">les ingénieurs sécurité</span></h2>
-
-    <div class="prose">
-      <p data-fr="Une partie des enjeux ne se voit pas dans Figma : distinguer une vraie alerte d'un faux positif, savoir quand une corrélation devient significative, hiérarchiser des dizaines d'événements simultanés. Ces connaissances étaient chez les ingénieurs sécurité de l'équipe."
-         data-en="Part of the problem can't be seen in Figma: telling a real alert from a false positive, knowing when a correlation becomes significant, ranking dozens of simultaneous events. That knowledge sat with the team's security engineers.">Une partie des enjeux ne se voit pas dans Figma : distinguer une vraie alerte d'un faux positif, savoir quand une corrélation devient significative, hiérarchiser des dizaines d'événements simultanés. Ces connaissances étaient chez les ingénieurs sécurité de l'équipe.</p>
-      <p data-fr="J'ai donc organisé des <strong>ateliers de co-conception</strong> avec eux. On dessinait ensemble, à la main sur des écrans imprimés ou sur Miro, pendant deux heures, et chaque atelier se terminait par une décision."
-         data-en="So I set up <strong>co-design workshops</strong> with them. We sketched together, by hand on printed screens or in Miro, for two hours, and each workshop ended with a decision.">J'ai donc organisé des <strong>ateliers de co-conception</strong> avec eux. On dessinait ensemble, à la main sur des écrans imprimés ou sur Miro, pendant deux heures, et chaque atelier se terminait par une décision.</p>
-    </div>
-  </div>
-</section>
-
-<!-- IMAGE — atelier · RETIRÉ TEMPORAIREMENT
-     Le cadre était vide et affichait « Remplacer par assets/artefact-workshop.png » au visiteur.
-     Pour le restaurer : décommenter et remplacer .placeholder par <img src="assets/artefact-workshop.png" alt="...">.
-<section class="narrow">
-  <div class="image-block">
-    <div class="image-frame">
-      <div class="placeholder"></div>
-    </div>
-    <p class="image-caption" data-fr="Atelier de co-conception · Cartographie des alertes par criticité · 2024" data-en="Co-design workshop · Mapping alerts by criticality · 2024">Atelier de co-conception · Cartographie des alertes par criticité · 2024</p>
-  </div>
-</section>
--->
-
-<!-- 03 — CONCEPTION -->
-<section class="narrow">
-  <div class="chapter">
-    <p class="chapter-num">03 · <span data-fr="Conception" data-en="Design">Conception</span></p>
-    <h2 class="chapter-title"><span data-fr="Trois principes" data-en="Three principles">Trois principes</span></h2>
-
-    <div class="prose">
-      <p data-fr="Ces ateliers ont fixé trois principes d'interface."
-         data-en="These workshops set three interface principles.">Ces ateliers ont fixé trois principes d'interface.</p>
-    </div>
-
-    <div class="principles">
-      <div class="principle">
-        <p class="principle-num">01</p>
-        <h3 class="principle-title"><span class="it" data-fr="Lisible" data-en="Legible">Lisible</span> <span data-fr="par défaut" data-en="by default">par défaut</span></h3>
-        <p class="principle-desc"
-           data-fr="Le détail technique reste accessible en un clic, mais l'interface affiche d'abord la conséquence, l'action recommandée et l'urgence."
-           data-en="Technical detail stays one click away, but the interface first shows the consequence, the recommended action and the urgency.">Le détail technique reste accessible en un clic, mais l'interface affiche d'abord la conséquence, l'action recommandée et l'urgence.</p>
-      </div>
-      <div class="principle">
-        <p class="principle-num">02</p>
-        <h3 class="principle-title"><span class="it" data-fr="Hiérarchisé" data-en="Hierarchical">Hiérarchisé</span> <span data-fr="par contexte" data-en="by context">par contexte</span></h3>
-        <p class="principle-desc"
-           data-fr="Une alerte CRITICAL n'appelle pas la même lecture pour un dirigeant et pour un analyste : le niveau de détail s'adapte au rôle."
-           data-en="A CRITICAL alert isn't read the same way by an executive and by an analyst, so the level of detail adapts to the role.">Une alerte CRITICAL n'appelle pas la même lecture pour un dirigeant et pour un analyste : le niveau de détail s'adapte au rôle.</p>
-      </div>
-      <div class="principle">
-        <p class="principle-num">03</p>
-        <h3 class="principle-title"><span class="it" data-fr="Réversible" data-en="Reversible">Réversible</span> <span data-fr="quand possible" data-en="when possible">quand possible</span></h3>
-        <p class="principle-desc"
-           data-fr="Les actions destructives demandent une confirmation contextuelle ; les autres s'annulent en un geste."
-           data-en="Destructive actions require a contextual confirmation; the others can be undone in one gesture.">Les actions destructives demandent une confirmation contextuelle ; les autres s'annulent en un geste.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- IMAGE PAIR — avant/après · RETIRÉ TEMPORAIREMENT
-     Les deux cadres étaient vides et affichaient leur nom de fichier au visiteur.
-     C'est le bloc le plus précieux à restaurer en priorité : un avant/après est la
-     meilleure preuve visuelle d'une décision produit.
-<section class="narrow">
-  <div class="image-pair">
-    <div>
-      <div class="image-frame">
-        <div class="placeholder"></div>
-      </div>
-      <p class="image-caption" data-fr="Liste d'alertes, version initiale" data-en="Alert list, initial version">Liste d'alertes, version initiale</p>
-    </div>
-    <div>
-      <div class="image-frame">
-        <div class="placeholder"></div>
-      </div>
-      <p class="image-caption" data-fr="Liste d'alertes après refonte par criticité" data-en="Alert list after criticality redesign">Liste d'alertes après refonte par criticité</p>
-    </div>
-  </div>
-</section>
--->
-
-<!-- 04 — DESIGN SYSTEM -->
-<section class="narrow">
-  <div class="chapter">
-    <p class="chapter-num">04 · <span data-fr="Design System" data-en="Design System">Design System</span></p>
-    <h2 class="chapter-title"><span data-fr="Réaligner Figma" data-en="Realigning Figma">Réaligner Figma</span> <span class="it" data-fr="sur le code" data-en="with the code">sur le code</span></h2>
-
-    <div class="prose">
-      <p data-fr="J'ai d'abord audité le fichier Figma face au code React. Les tokens étaient exacts, mais aucun composant n'existait côté Figma et <strong>1,7 % seulement des remplissages</strong> étaient reliés aux tokens. En 24 h, 8 jeux de composants ont été créés, dont un Button à 50 variantes, avec une feuille de route sur les 42 composants du code."
-         data-en="I started by auditing the Figma file against the React code. Tokens were exact, but no components existed in Figma and <strong>only 1.7% of fills</strong> were linked to tokens. Within 24 h, 8 component sets were built, including a 50-variant Button, with a roadmap covering the code's 42 components.">
-         J'ai d'abord audité le fichier Figma face au code React. Les tokens étaient exacts, mais aucun composant n'existait côté Figma et <strong>1,7 % seulement des remplissages</strong> étaient reliés aux tokens. En 24 h, 8 jeux de composants ont été créés, dont un Button à 50 variantes, avec une feuille de route sur les 42 composants du code.
-      </p>
-      <p data-fr="Chaque composant est documenté avec son usage : à quoi il sert, quand l'utiliser, quand l'éviter."
-         data-en="Each component is documented with its usage: what it's for, when to use it, when to avoid it.">Chaque composant est documenté avec son usage : à quoi il sert, quand l'utiliser, quand l'éviter.</p>
-    </div>
-  </div>
-</section>
-
-<!-- IMAGE — design system · RETIRÉ TEMPORAIREMENT
-     Cadre vide qui affichait son nom de fichier au visiteur.
-<section class="narrow">
-  <div class="image-block">
-    <div class="image-frame">
-      <div class="placeholder"></div>
-    </div>
-    <p class="image-caption" data-fr="Extrait du design system · Catégorisation par criticité, composants atomiques et tokens" data-en="Design system excerpt · Criticality categorisation, atomic components and tokens">Extrait du design system · Catégorisation par criticité, composants atomiques et tokens</p>
-  </div>
-</section>
--->
-
-<!-- 05 — RÉSULTATS -->
-<section class="narrow">
-  <div class="chapter">
-    <p class="chapter-num">05 · <span data-fr="Résultats" data-en="Outcomes">Résultats</span></p>
-    <h2 class="chapter-title"><span data-fr="Ce qui a" data-en="What">Ce qui a</span> <span class="it" data-fr="changé" data-en="changed">changé</span></h2>
-
     <div class="kpi-grid">
       <div class="kpi-cell">
         <p class="kpi-val">11</p>
@@ -979,34 +877,171 @@
       </div>
       <div class="kpi-cell">
         <p class="kpi-val">12</p>
-        <p class="kpi-lbl" data-fr="Corrections chiffrées issues d'un audit heuristique" data-en="Costed fixes from a heuristic audit">Corrections chiffrées issues d'un audit heuristique</p>
+        <p class="kpi-lbl" data-fr="Corrections issues d&#x27;un audit heuristique, toutes livrées" data-en="Fixes from a heuristic audit, all shipped">Corrections issues d'un audit heuristique, toutes livrées</p>
       </div>
       <div class="kpi-cell">
         <p class="kpi-val">8</p>
         <p class="kpi-lbl" data-fr="Jeux de composants Figma créés en 24 h" data-en="Figma component sets built in 24 h">Jeux de composants Figma créés en 24 h</p>
       </div>
     </div>
-
+  </div>
+</section>
+<section class="narrow" id="cas-1">
+  <div class="chapter">
+    <p class="chapter-num" data-fr="Cas 1 · Recherche utilisateur" data-en="Case 1 · User research">Cas 1 · Recherche utilisateur</p>
+    <h2 class="chapter-title" data-fr="Guides d&#x27;investigation : &lt;span class=&quot;it&quot;&gt;de 18 niveaux à 2&lt;/span&gt;" data-en="Investigation guides: &lt;span class=&quot;it&quot;&gt;from 18 levels to 2&lt;/span&gt;">Guides d'investigation : <span class="it">de 18 niveaux à 2</span></h2>
     <div class="prose">
-      <p data-fr="Arbitrage le plus important : <strong>séparer les alertes reclassées automatiquement de celles classées par un analyste</strong>. Sans cette séparation, le taux de faux positifs s'alimentait lui-même. Les décisions issues des tests sont tracées jusqu'au ticket, avec un protocole de 8 missions, 6 mesures et des seuils de décision à 80 %."
-         data-en="Most important trade-off: <strong>separating automatically reclassified alerts from analyst-classified ones</strong>. Without it, the false-positive rate fed itself. Test-driven decisions are traced down to the ticket, with a protocol of 8 tasks, 6 measures and 80% decision thresholds.">Arbitrage le plus important : <strong>séparer les alertes reclassées automatiquement de celles classées par un analyste</strong>. Sans cette séparation, le taux de faux positifs s'alimentait lui-même. Les décisions issues des tests sont tracées jusqu'au ticket, avec un protocole de 8 missions, 6 mesures et des seuils de décision à 80 %.</p>
+      <p data-fr="Dans Artefact, un analyste mène une investigation en suivant un guide : des étapes, des actions et des questions dont les réponses ouvrent d&#x27;autres questions. Rien ne limitait la profondeur de ces questions, qui pouvait atteindre 18 niveaux." data-en="In Artefact, an analyst runs an investigation by following a guide: steps, actions and questions whose answers open further questions. Nothing limited how deep those questions could go: up to 18 levels.">Dans Artefact, un analyste mène une investigation en suivant un guide : des étapes, des actions et des questions dont les réponses ouvrent d'autres questions. Rien ne limitait la profondeur de ces questions, qui pouvait atteindre 18 niveaux.</p>
+      <p class="case-label" data-fr="Ce que j&#x27;ai fait" data-en="What I did">Ce que j'ai fait</p>
+      <ul>
+        <li data-fr="Un protocole figé avant tout recrutement : 8 missions sur le workflow cœur, des réponses de référence connues à l&#x27;avance, un environnement de test dédié." data-en="A protocol frozen before recruiting anyone: 8 tasks on the core workflow, reference answers known in advance, a dedicated test environment.">Un protocole figé avant tout recrutement : 8 missions sur le workflow cœur, des réponses de référence connues à l'avance, un environnement de test dédié.</li>
+        <li data-fr="6 mesures par mission : résultat, durée, niveau d&#x27;aide, erreurs, retours arrière et confiance déclarée. Seuil de décision fixé à 80 %." data-en="6 measures per task: outcome, time, help needed, errors, backtracks and stated confidence. Decision threshold set at 80%.">6 mesures par mission : résultat, durée, niveau d'aide, erreurs, retours arrière et confiance déclarée. Seuil de décision fixé à 80 %.</li>
+        <li data-fr="Un registre qui sépare les décisions de design, les décisions fonctionnelles et les décisions de construction, chacune liée à son ticket." data-en="A log that separates design, functional and build decisions, each linked to its ticket.">Un registre qui sépare les décisions de design, les décisions fonctionnelles et les décisions de construction, chacune liée à son ticket.</li>
+      </ul>
+      <p class="case-label" data-fr="Ce que le test a montré, et ce que j&#x27;ai décidé" data-en="What the test showed, and what I decided">Ce que le test a montré, et ce que j'ai décidé</p>
+      <div class="table-wrap"><table class="data-table">
+        <thead><tr><th data-fr="Observation" data-en="Observation">Observation</th><th data-fr="Décision" data-en="Decision">Décision</th></tr></thead>
+        <tbody>
+          <tr><td data-fr="Le lien entre une question et ses questions filles n&#x27;est pas compris" data-en="The link between a question and its child questions isn&#x27;t understood">Le lien entre une question et ses questions filles n'est pas compris</td><td data-fr="Limiter les guides à 2 niveaux, à la création, à l&#x27;édition et à l&#x27;import" data-en="Cap guides at 2 levels, on creation, editing and import">Limiter les guides à 2 niveaux, à la création, à l'édition et à l'import</td></tr>
+          <tr><td data-fr="Les éléments cliquables sont pris pour de simples tags" data-en="Clickable items are mistaken for plain tags">Les éléments cliquables sont pris pour de simples tags</td><td data-fr="Une affordance d&#x27;action distincte, avec tous ses états" data-en="A distinct action affordance, with all its states">Une affordance d'action distincte, avec tous ses états</td></tr>
+          <tr><td data-fr="« Clôturer » en rouge est lu comme une erreur" data-en="A red &quot;Close&quot; button reads as an error">« Clôturer » en rouge est lu comme une erreur</td><td data-fr="Un traitement neutre et une confirmation claire" data-en="A neutral treatment and a clear confirmation">Un traitement neutre et une confirmation claire</td></tr>
+          <tr><td data-fr="L&#x27;analyste veut comprendre pourquoi une alerte s&#x27;est déclenchée, sans verdict imposé" data-en="Analysts want to know why an alert fired, without an imposed verdict">L'analyste veut comprendre pourquoi une alerte s'est déclenchée, sans verdict imposé</td><td data-fr="Un encart « Pourquoi cette alerte ? » qui sépare faits, interprétation et recommandation" data-en="A &quot;Why this alert?&quot; panel separating facts, interpretation and recommendation">Un encart « Pourquoi cette alerte ? » qui sépare faits, interprétation et recommandation</td></tr>
+        </tbody>
+      </table></div>
+      <p class="case-label" data-fr="Résultat" data-en="Outcome">Résultat</p>
+      <p data-fr="11 décisions (6 de design, 5 fonctionnelles), chacune tracée en ticket avec ses critères d&#x27;acceptation. La limite à 2 niveaux est livrée, avec une migration prévue pour les guides existants." data-en="11 decisions (6 design, 5 functional), each ticketed with its acceptance criteria. The 2-level cap has shipped, with a migration plan for existing guides.">11 décisions (6 de design, 5 fonctionnelles), chacune tracée en ticket avec ses critères d'acceptation. La limite à 2 niveaux est livrée, avec une migration prévue pour les guides existants.</p>
+      <p data-fr="C&#x27;était une première session, avec un seul participant : assez pour corriger ce qui bloquait, pas pour généraliser. Une décision n&#x27;est considérée comme validée que lorsqu&#x27;un utilisateur réussit l&#x27;action sans explication orale." data-en="It was a first session with a single participant: enough to fix what blocked, not enough to generalise. A decision only counts as validated once a user completes the action without verbal help.">C'était une première session, avec un seul participant : assez pour corriger ce qui bloquait, pas pour généraliser. Une décision n'est considérée comme validée que lorsqu'un utilisateur réussit l'action sans explication orale.</p>
     </div>
   </div>
 </section>
-
-<!-- 06 — APPRENTISSAGES -->
-<section class="narrow">
+<section class="narrow" id="cas-2">
   <div class="chapter">
-    <p class="chapter-num">06 · <span data-fr="Apprentissages" data-en="Lessons">Apprentissages</span></p>
-    <h2 class="chapter-title"><span data-fr="Ce que" data-en="What">Ce que</span> <span class="it" data-fr="ça m'a appris" data-en="it taught me">ça m'a appris</span></h2>
-
+    <p class="chapter-num" data-fr="Cas 2 · Audit UX" data-en="Case 2 · UX audit">Cas 2 · Audit UX</p>
+    <h2 class="chapter-title" data-fr="Un questionnaire oui / non &lt;span class=&quot;it&quot;&gt;qui faisait douter l&#x27;analyste&lt;/span&gt;" data-en="A yes / no questionnaire &lt;span class=&quot;it&quot;&gt;that left analysts unsure&lt;/span&gt;">Un questionnaire oui / non <span class="it">qui faisait douter l'analyste</span></h2>
     <div class="prose">
-      <p data-fr="<strong>Co-concevoir demande d'accepter d'être corrigé.</strong> Les ingénieurs sécurité savaient des choses que je ne savais pas, et mes premières propositions ont souvent été revues. Le produit y a gagné en justesse."
-         data-en="<strong>Co-designing means accepting correction.</strong> The security engineers knew things I didn't, and my first proposals were often revised. The product got more accurate for it."><strong>Co-concevoir demande d'accepter d'être corrigé.</strong> Les ingénieurs sécurité savaient des choses que je ne savais pas, et mes premières propositions ont souvent été revues. Le produit y a gagné en justesse.</p>
-      <p data-fr="<strong>Un design system vaut surtout par sa documentation.</strong> Dessiner un bouton prend peu de temps ; expliquer quand l'utiliser évite les mauvais usages."
-         data-en="<strong>A design system is mostly worth its documentation.</strong> Drawing a button takes little time; explaining when to use it prevents misuse."><strong>Un design system vaut surtout par sa documentation.</strong> Dessiner un bouton prend peu de temps ; expliquer quand l'utiliser évite les mauvais usages.</p>
-      <p data-fr="<strong>En cybersécurité, chaque libellé compte.</strong> Une alerte mal formulée peut faire ignorer un vrai incident ou lancer une enquête inutile. J'ai appris à concevoir des écrans qui montrent clairement le niveau d'incertitude."
-         data-en="<strong>In cybersecurity, every label matters.</strong> A badly worded alert can get a real incident ignored or trigger a pointless investigation. I learned to design screens that make the level of uncertainty clear."><strong>En cybersécurité, chaque libellé compte.</strong> Une alerte mal formulée peut faire ignorer un vrai incident ou lancer une enquête inutile. J'ai appris à concevoir des écrans qui montrent clairement le niveau d'incertitude.</p>
+      <p data-fr="Pour qualifier une alerte, l&#x27;analyste répond à un questionnaire tiré du guide d&#x27;investigation. Sur l&#x27;alerte étudiée, un scénario de rançongiciel, il y avait 14 questions de départ, 75 avec les questions de suivi, et 43 requêtes pour vérifier les réponses." data-en="To qualify an alert, the analyst answers a questionnaire drawn from the investigation guide. On the alert reviewed, a ransomware scenario, there were 14 starting questions, 75 including follow-ups, and 43 queries to check the answers.">Pour qualifier une alerte, l'analyste répond à un questionnaire tiré du guide d'investigation. Sur l'alerte étudiée, un scénario de rançongiciel, il y avait 14 questions de départ, 75 avec les questions de suivi, et 43 requêtes pour vérifier les réponses.</p>
+      <p data-fr="J&#x27;ai mené l&#x27;audit le 5 octobre 2026 : les 10 heuristiques de Nielsen, une sévérité notée de 0 à 4, un relevé d&#x27;accessibilité dans le code de la page, puis des recommandations et des wireframes avant / après." data-en="I ran the audit on 5 October 2026: Nielsen&#x27;s 10 heuristics, severity scored 0 to 4, an accessibility check in the page code, then recommendations and before / after wireframes.">J'ai mené l'audit le 5 octobre 2026 : les 10 heuristiques de Nielsen, une sévérité notée de 0 à 4, un relevé d'accessibilité dans le code de la page, puis des recommandations et des wireframes avant / après.</p>
+      <p class="case-label" data-fr="Ce que l&#x27;audit a trouvé" data-en="What the audit found">Ce que l'audit a trouvé</p>
+      <div class="table-wrap"><table class="data-table">
+        <thead><tr><th data-fr="Problème" data-en="Problem">Problème</th><th data-fr="Sévérité" data-en="Severity">Sévérité</th></tr></thead>
+        <tbody>
+          <tr><td data-fr="Aucun lien entre la preuve et la réponse : une question est à OUI alors que la requête ne remonte rien" data-en="No link between evidence and answer: a question reads YES while the query returns nothing">Aucun lien entre la preuve et la réponse : une question est à OUI alors que la requête ne remonte rien</td><td data-fr="4 sur 4" data-en="4 of 4">4 sur 4</td></tr>
+          <tr><td data-fr="Des questions qui proposent un choix déguisé en oui / non" data-en="Questions that hide a choice inside a yes / no">Des questions qui proposent un choix déguisé en oui / non</td><td data-fr="3 sur 4" data-en="3 of 4">3 sur 4</td></tr>
+          <tr><td data-fr="OUI veut dire « suspect » sur certaines questions et « rassurant » sur d&#x27;autres" data-en="YES means &quot;suspicious&quot; on some questions and &quot;reassuring&quot; on others">OUI veut dire « suspect » sur certaines questions et « rassurant » sur d'autres</td><td data-fr="3 sur 4" data-en="3 of 4">3 sur 4</td></tr>
+          <tr><td data-fr="« 1 / 75 répondues » et 98 % de probabilité après une seule réponse, sans explication" data-en="&quot;1 / 75 answered&quot; and a 98% probability after one answer, unexplained">« 1 / 75 répondues » et 98 % de probabilité après une seule réponse, sans explication</td><td data-fr="3 sur 4" data-en="3 of 4">3 sur 4</td></tr>
+          <tr><td data-fr="Pas de réponse « Non vérifiable » : l&#x27;analyste doit deviner" data-en="No &quot;Can&#x27;t verify&quot; answer: the analyst has to guess">Pas de réponse « Non vérifiable » : l'analyste doit deviner</td><td data-fr="3 sur 4" data-en="3 of 4">3 sur 4</td></tr>
+        </tbody>
+      </table></div>
+      <p data-fr="Le plus grave : une alerte pouvait être classée à tort sans que rien ne le signale." data-en="Worst of all: an alert could be closed by mistake with nothing to flag it.">Le plus grave : une alerte pouvait être classée à tort sans que rien ne le signale.</p>
+      <p class="case-label" data-fr="Ce que j&#x27;ai proposé" data-en="What I proposed">Ce que j'ai proposé</p>
+      <ul>
+        <li data-fr="Une règle d&#x27;écriture pour tout le guide : une question, un fait vérifiable, une réponse sans ambiguïté." data-en="One writing rule for the whole guide: one question, one checkable fact, one unambiguous answer.">Une règle d'écriture pour tout le guide : une question, un fait vérifiable, une réponse sans ambiguïté.</li>
+        <li data-fr="Afficher sous chaque réponse son effet sur la suspicion, plutôt que réécrire les 75 questions." data-en="Show each answer&#x27;s effect on suspicion right under it, instead of rewriting all 75 questions.">Afficher sous chaque réponse son effet sur la suspicion, plutôt que réécrire les 75 questions.</li>
+        <li data-fr="12 corrections faisables en un sprint, classées par impact et par effort, et 4 composants redessinés." data-en="12 fixes doable in one sprint, ranked by impact and effort, and 4 redesigned components.">12 corrections faisables en un sprint, classées par impact et par effort, et 4 composants redessinés.</li>
+        <li data-fr="Un chantier plus lourd : que la requête suggère la réponse, et que l&#x27;analyste justifie s&#x27;il la contredit." data-en="A larger piece of work: the query suggests the answer, and the analyst justifies any disagreement.">Un chantier plus lourd : que la requête suggère la réponse, et que l'analyste justifie s'il la contredit.</li>
+      </ul>
+      <p class="case-label" data-fr="Résultat" data-en="Outcome">Résultat</p>
+      <p data-fr="Les 12 corrections sont livrées. Un oui / non n&#x27;est simple que si la question l&#x27;est : sur un écran où une erreur coûte un incident manqué, la rédaction des questions compte autant que l&#x27;interface." data-en="All 12 fixes have shipped. A yes / no is only simple if the question is: on a screen where a mistake costs a missed incident, how questions are written matters as much as the interface.">Les 12 corrections sont livrées. Un oui / non n'est simple que si la question l'est : sur un écran où une erreur coûte un incident manqué, la rédaction des questions compte autant que l'interface.</p>
+    </div>
+    <figure class="figure">
+      <a href="assets/wf1-carte-question.webp" target="_blank" rel="noopener"><img src="assets/wf1-carte-question.webp" alt="Wireframe avant / après de la carte question" width="1344" height="1004" loading="lazy" decoding="async"></a>
+      <figcaption data-fr="La carte question montre l&#x27;effet de la réponse, la branche qu&#x27;elle ouvre, et propose « Non vérifiable ». Les repères QW renvoient aux corrections de l&#x27;audit." data-en="The question card shows the answer&#x27;s effect and the branch it opens, and offers &quot;Can&#x27;t verify&quot;. QW markers refer to the audit&#x27;s fixes.">La carte question montre l'effet de la réponse, la branche qu'elle ouvre, et propose « Non vérifiable ». Les repères QW renvoient aux corrections de l'audit.</figcaption>
+    </figure>
+    <figure class="figure">
+      <a href="assets/wf2-en-tete.webp" target="_blank" rel="noopener"><img src="assets/wf2-en-tete.webp" alt="Wireframe avant / après de l&#x27;en-tête de progression" width="1344" height="932" loading="lazy" decoding="async"></a>
+      <figcaption data-fr="L&#x27;en-tête reste visible et explique son pourcentage ; la progression compte les questions atteignables, pas les 75." data-en="The header stays visible and explains its percentage; progress counts reachable questions, not all 75.">L'en-tête reste visible et explique son pourcentage ; la progression compte les questions atteignables, pas les 75.</figcaption>
+    </figure>
+    <figure class="figure">
+      <a href="assets/wf3-resultat-requete.webp" target="_blank" rel="noopener"><img src="assets/wf3-resultat-requete.webp" alt="Wireframe avant / après du résultat de requête" width="1344" height="1056" loading="lazy" decoding="async"></a>
+      <figcaption data-fr="Le résultat de la requête est confronté à la réponse : si les deux divergent, l&#x27;analyste corrige ou justifie." data-en="The query result is checked against the answer: if they disagree, the analyst corrects or justifies.">Le résultat de la requête est confronté à la réponse : si les deux divergent, l'analyste corrige ou justifie.</figcaption>
+    </figure>
+    <figure class="figure">
+      <a href="assets/wf4-navigation.webp" target="_blank" rel="noopener"><img src="assets/wf4-navigation.webp" alt="Wireframe avant / après de la navigation latérale" width="1344" height="898" loading="lazy" decoding="async"></a>
+      <figcaption data-fr="La navigation latérale ne code plus qu&#x27;un état, avec une légende et un nom accessible par question." data-en="The side navigation now encodes state only, with a legend and an accessible name per question.">La navigation latérale ne code plus qu'un état, avec une légende et un nom accessible par question.</figcaption>
+    </figure>
+  </div>
+</section>
+<section class="narrow" id="cas-3">
+  <div class="chapter">
+    <p class="chapter-num" data-fr="Cas 3 · Design system" data-en="Case 3 · Design system">Cas 3 · Design system</p>
+    <h2 class="chapter-title" data-fr="Un design system exact, &lt;span class=&quot;it&quot;&gt;mais relié à rien&lt;/span&gt;" data-en="An accurate design system, &lt;span class=&quot;it&quot;&gt;connected to nothing&lt;/span&gt;">Un design system exact, <span class="it">mais relié à rien</span></h2>
+    <div class="prose">
+      <p data-fr="Le design system d&#x27;Artefact existait sous forme de board Figma très soigné. Personne ne savait s&#x27;il correspondait encore au code React de l&#x27;application. Je l&#x27;ai audité le 9 septembre 2026, avec des scripts lancés dans le fichier Figma et sur le dépôt de code." data-en="Artefact&#x27;s design system lived in a carefully made Figma board. Nobody knew whether it still matched the app&#x27;s React code. I audited it on 9 September 2026, with scripts run inside the Figma file and on the code repository.">Le design system d'Artefact existait sous forme de board Figma très soigné. Personne ne savait s'il correspondait encore au code React de l'application. Je l'ai audité le 9 septembre 2026, avec des scripts lancés dans le fichier Figma et sur le dépôt de code.</p>
+      <p class="case-label" data-fr="Ce que l&#x27;audit a trouvé" data-en="What the audit found">Ce que l'audit a trouvé</p>
+      <div class="table-wrap"><table class="data-table">
+        <thead><tr><th data-fr="Constat" data-en="Finding">Constat</th><th data-fr="Mesure" data-en="Measure">Mesure</th></tr></thead>
+        <tbody>
+          <tr><td data-fr="Tokens du board absents du code" data-en="Board tokens missing from the code">Tokens du board absents du code</td><td data-fr="0 sur 177 : la couche tokens était exacte" data-en="0 of 177: the token layer was accurate">0 sur 177 : la couche tokens était exacte</td></tr>
+          <tr><td data-fr="Composants Figma" data-en="Figma components">Composants Figma</td><td data-fr="0 sur 9 pages" data-en="0 across 9 pages">0 sur 9 pages</td></tr>
+          <tr><td data-fr="Remplissages reliés à une variable" data-en="Fills linked to a variable">Remplissages reliés à une variable</td><td data-fr="22 sur 1 270 (1,7 %)" data-en="22 of 1,270 (1.7%)">22 sur 1 270 (1,7 %)</td></tr>
+          <tr><td data-fr="Textes utilisant un style partagé" data-en="Texts using a shared style">Textes utilisant un style partagé</td><td data-fr="0 sur 850" data-en="0 of 850">0 sur 850</td></tr>
+          <tr><td data-fr="Pastilles de couleur déjà en dérive" data-en="Colour swatches already drifting">Pastilles de couleur déjà en dérive</td><td data-fr="7 sur 39" data-en="7 of 39">7 sur 39</td></tr>
+          <tr><td data-fr="Statuts d&#x27;incident documentés qui existent dans le code" data-en="Documented incident statuses that exist in code">Statuts d'incident documentés qui existent dans le code</td><td data-fr="0 sur 4" data-en="0 of 4">0 sur 4</td></tr>
+          <tr><td data-fr="Tailles de bouton documentées exactes" data-en="Documented button sizes that are correct">Tailles de bouton documentées exactes</td><td data-fr="0 sur 3" data-en="0 of 3">0 sur 3</td></tr>
+        </tbody>
+      </table></div>
+      <p data-fr="Le board décrivait deux workflows de statuts qui n&#x27;existent pas dans l&#x27;application : un designer qui s&#x27;y fiait dessinait des écrans faux." data-en="The board described two status workflows that don&#x27;t exist in the app: a designer relying on it drew wrong screens.">Le board décrivait deux workflows de statuts qui n'existent pas dans l'application : un designer qui s'y fiait dessinait des écrans faux.</p>
+      <p class="case-label" data-fr="Ce que j&#x27;ai fait en 24 heures" data-en="What I did in 24 hours">Ce que j'ai fait en 24 heures</p>
+      <p data-fr="De 0 à 8 jeux de composants, dont un Button à 50 variantes et un StatusBadge à 13 ; de 177 à 199 variables ; 133 icônes importées. Puis une feuille de route sur les 42 composants du code, classés par nombre de fichiers qui les utilisent." data-en="From 0 to 8 component sets, including a 50-variant Button and a 13-variant StatusBadge; from 177 to 199 variables; 133 icons imported. Then a roadmap across the code&#x27;s 42 components, ranked by how many files use them.">De 0 à 8 jeux de composants, dont un Button à 50 variantes et un StatusBadge à 13 ; de 177 à 199 variables ; 133 icônes importées. Puis une feuille de route sur les 42 composants du code, classés par nombre de fichiers qui les utilisent.</p>
+      <p data-fr="Découverte la plus utile : les 10 styles de texte du board étaient calculés pour une racine de 16 px alors que le produit tourne à 15 px. Les deux tailles concernées couvrent 94 % des usages typographiques." data-en="Most useful finding: the board&#x27;s 10 text styles assumed a 16 px root while the product runs at 15 px. The two sizes involved cover 94% of typographic usage.">Découverte la plus utile : les 10 styles de texte du board étaient calculés pour une racine de 16 px alors que le produit tourne à 15 px. Les deux tailles concernées couvrent 94 % des usages typographiques.</p>
+      <p class="case-label" data-fr="Ce que j&#x27;en retiens" data-en="What I took away">Ce que j'en retiens</p>
+      <p data-fr="Un design system sans composants reliés diverge dès la première urgence. Ici, la dérive était déjà mesurable : quatre pastilles portaient les mêmes valeurs périmées que la documentation." data-en="A design system without linked components drifts at the first rush. Here the drift was already measurable: four swatches carried the same outdated values as the documentation.">Un design system sans composants reliés diverge dès la première urgence. Ici, la dérive était déjà mesurable : quatre pastilles portaient les mêmes valeurs périmées que la documentation.</p>
+    </div>
+  </div>
+</section>
+<section class="narrow" id="cas-4">
+  <div class="chapter">
+    <p class="chapter-num" data-fr="Cas 4 · IA et qualité" data-en="Case 4 · AI and quality">Cas 4 · IA et qualité</p>
+    <h2 class="chapter-title" data-fr="Des critères &lt;span class=&quot;it&quot;&gt;que des agents IA vérifient&lt;/span&gt;" data-en="Criteria &lt;span class=&quot;it&quot;&gt;that AI agents check&lt;/span&gt;">Des critères <span class="it">que des agents IA vérifient</span></h2>
+    <div class="prose">
+      <p data-fr="Nous sommes 4 dans l&#x27;équipe. Les nouvelles fonctionnalités d&#x27;Artefact sortaient sans qu&#x27;on sache vraiment dans quel état elles étaient : ce qui marchait, ce qui avait régressé, ce qui n&#x27;avait jamais été vérifié." data-en="We are a team of 4. New Artefact features shipped without anyone really knowing their state: what worked, what had regressed, what had never been checked.">Nous sommes 4 dans l'équipe. Les nouvelles fonctionnalités d'Artefact sortaient sans qu'on sache vraiment dans quel état elles étaient : ce qui marchait, ce qui avait régressé, ce qui n'avait jamais été vérifié.</p>
+      <p data-fr="J&#x27;écris les spécifications, les règles métier et les critères d&#x27;acceptation de chaque fonctionnalité. J&#x27;ai aussi conçu le modèle de données des guides d&#x27;investigation : quatre niveaux (investigation, étape, action, question) et un identifiant métier stable pour les importer sans doublons." data-en="I write the specifications, business rules and acceptance criteria for each feature. I also designed the data model for investigation guides: four levels (investigation, step, action, question) and a stable business key so they import without duplicates.">J'écris les spécifications, les règles métier et les critères d'acceptation de chaque fonctionnalité. J'ai aussi conçu le modèle de données des guides d'investigation : quatre niveaux (investigation, étape, action, question) et un identifiant métier stable pour les importer sans doublons.</p>
+      <p class="case-label" data-fr="Ce que j&#x27;ai mis en place" data-en="What I set up">Ce que j'ai mis en place</p>
+      <ol>
+        <li data-fr="Des specs et un modèle de données assez précis pour qu&#x27;un agent de code, Claude Code, produise un premier prototype à partir des maquettes." data-en="Specs and a data model precise enough for a coding agent, Claude Code, to build a first prototype from the mockups.">Des specs et un modèle de données assez précis pour qu'un agent de code, Claude Code, produise un premier prototype à partir des maquettes.</li>
+        <li data-fr="Des critères d&#x27;acceptation écrits comme des comportements observables, par exemple : une alerte sous investigation active n&#x27;est pas reclassée automatiquement en faux positif." data-en="Acceptance criteria written as observable behaviour, for example: an alert under active investigation is never auto-reclassified as a false positive.">Des critères d'acceptation écrits comme des comportements observables, par exemple : une alerte sous investigation active n'est pas reclassée automatiquement en faux positif.</li>
+        <li data-fr="Un agent de test par fonctionnalité, qui rejoue ces critères sur l&#x27;environnement de test et rend un verdict par critère." data-en="One test agent per feature, which replays those criteria on the test environment and returns a verdict per criterion.">Un agent de test par fonctionnalité, qui rejoue ces critères sur l'environnement de test et rend un verdict par critère.</li>
+        <li data-fr="Des garde-fous écrits : jamais de validation sans preuve observée, et la main passe à un humain dès qu&#x27;il faut une authentification forte." data-en="Written guardrails: no validation without observed evidence, and a human takes over whenever strong authentication is needed.">Des garde-fous écrits : jamais de validation sans preuve observée, et la main passe à un humain dès qu'il faut une authentification forte.</li>
+      </ol>
+    </div>
+    <figure class="figure flow">
+      <svg viewBox="0 0 760 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Boucle de test par agents : spec, critères, agent de test, verdict" font-family="Inter, sans-serif" font-size="13">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8B92A0"/></marker></defs>
+        <g fill="none" stroke="#8B92A0" stroke-width="1.25">
+          <path d="M184 60H208" marker-end="url(#ar)"/><path d="M368 60H392" marker-end="url(#ar)"/><path d="M552 60H590" marker-end="url(#ar)"/>
+          <path d="M650 100V150M230 150H650"/><path d="M230 150V182" marker-end="url(#ar)"/><path d="M440 150V182" marker-end="url(#ar)"/><path d="M650 150V182" marker-end="url(#ar)"/>
+        </g>
+        <g fill="none" stroke="#3a3f4b" stroke-width="1.25">
+          <rect x="24" y="32" width="160" height="56" rx="8"/><rect x="208" y="32" width="160" height="56" rx="8"/><rect x="392" y="32" width="160" height="56" rx="8"/>
+          <polygon points="590,60 650,20 710,60 650,100"/>
+          <rect x="145" y="182" width="170" height="56" rx="8"/><rect x="355" y="182" width="170" height="56" rx="8"/>
+        </g>
+        <rect x="565" y="182" width="170" height="56" rx="8" fill="rgba(232,131,90,0.12)" stroke="#E8835A" stroke-width="2"/>
+        <g fill="#ECEEF2" text-anchor="middle">
+          <text x="104" y="56" font-weight="600" data-fr="Spec et" data-en="Spec and">Spec et</text>
+          <text x="104" y="74" data-fr="modèle de données" data-en="data model">modèle de données</text>
+          <text x="288" y="56" font-weight="600" data-fr="Critères" data-en="Observable">Critères</text>
+          <text x="288" y="74" data-fr="observables" data-en="criteria">observables</text>
+          <text x="472" y="56" font-weight="600" data-fr="Agent de test" data-en="Test agent">Agent de test</text>
+          <text x="472" y="74" data-fr="sur l'env. de test" data-en="on the test env.">sur l'env. de test</text>
+          <text x="650" y="64" data-fr="Verdict ?" data-en="Verdict?">Verdict ?</text>
+          <text x="230" y="206" font-weight="600" data-fr="Réussi" data-en="Passed">Réussi</text>
+          <text x="440" y="206" font-weight="600" data-fr="Échoué" data-en="Failed">Échoué</text>
+          <text x="650" y="206" font-weight="600" data-fr="Non testable" data-en="Not testable">Non testable</text>
+        </g>
+        <g fill="#A8ADB8" text-anchor="middle" font-size="12">
+          <text x="230" y="224" data-fr="garde anti-régression" data-en="regression guard">garde anti-régression</text>
+          <text x="440" y="224" data-fr="ticket de test créé" data-en="test ticket opened">ticket de test créé</text>
+          <text x="650" y="224" data-fr="passé à un humain" data-en="handed to a human">passé à un humain</text>
+        </g>
+      </svg>
+      <figcaption data-fr="Aucun critère n&#x27;est validé sans preuve observée : ce que l&#x27;agent ne peut pas vérifier revient à un humain." data-en="No criterion is validated without observed evidence: whatever the agent can&#x27;t check goes back to a human.">Aucun critère n'est validé sans preuve observée : ce que l'agent ne peut pas vérifier revient à un humain.</figcaption>
+    </figure>
+    <div class="prose">
+      <p class="case-label" data-fr="Résultat" data-en="Outcome">Résultat</p>
+      <p data-fr="3 campagnes automatisées (usabilité, sécurité, non-régression), chacune avec un rapport et des preuves. Sur la fonctionnalité « Créer et gérer les investigations », le passage du 2 septembre 2026 donne 4 critères réussis, 1 non testable et aucune régression. Une campagne de sécurité a repéré un défaut d&#x27;authentification critique avant le pilote utilisateur." data-en="3 automated campaigns (usability, security, regression), each with a report and evidence. On the &quot;Create and manage investigations&quot; feature, the 2 September 2026 run gave 4 criteria passed, 1 not testable and no regressions. A security campaign caught a critical authentication flaw before the user pilot.">3 campagnes automatisées (usabilité, sécurité, non-régression), chacune avec un rapport et des preuves. Sur la fonctionnalité « Créer et gérer les investigations », le passage du 2 septembre 2026 donne 4 critères réussis, 1 non testable et aucune régression. Une campagne de sécurité a repéré un défaut d'authentification critique avant le pilote utilisateur.</p>
+      <p class="case-label" data-fr="Ce que j&#x27;en retiens" data-en="What I took away">Ce que j'en retiens</p>
+      <p data-fr="Un agent de test vaut ce que valent les critères qu&#x27;on lui donne. Le travail de product designer se déplace vers l&#x27;écriture de critères observables et de règles de verdict." data-en="A test agent is only as good as the criteria it&#x27;s given. Product design work shifts towards writing observable criteria and verdict rules.">Un agent de test vaut ce que valent les critères qu'on lui donne. Le travail de product designer se déplace vers l'écriture de critères observables et de règles de verdict.</p>
     </div>
   </div>
 </section>
