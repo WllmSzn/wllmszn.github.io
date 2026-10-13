@@ -615,6 +615,69 @@
     }
     .halos, body::after { display: none; }
   }
+
+  /* === SOBRIÉTÉ (oct. 2026) ===
+     Retire les marqueurs de site « généré » : libellés en capitales à chasse fixe,
+     filets décoratifs devant les titres, texte en dégradé, halos lumineux, pastilles. */
+  .halos { display: none !important; }
+  .section-label, .hero-eyebrow, .chapter-num, .case-eyebrow, .meta-label, .kpi-lbl, .stat-lbl,
+  .impact-lbl, .project-cat, .project-year, .expertise-num, .hero-meta, .hero-scroll, .exp-period,
+  .exp-company, .edu-year, .stack-cat, .skill-num, .beyond-meta, .image-caption, .principle-num,
+  .next-label, .contact-link-label, .footer, .nav-brand, .nav-current, .lang-btn, .lang-sep {
+    font-family: var(--sans) !important; text-transform: none !important; letter-spacing: 0 !important;
+  }
+  .section-label::before, .hero-eyebrow::before, .chapter-num::before, .next-label::before,
+  .manifesto-sign::before, .case-eyebrow .pill::before { display: none !important; }
+  .section-label, .chapter-num, .next-label { font-size: 13px !important; color: var(--ink-3); }
+  .stat-lbl, .impact-lbl, .kpi-lbl, .beyond-meta, .project-cat, .project-year, .meta-label { font-size: 12.5px !important; line-height: 1.45 !important; }
+  .grad, .hero-title .grad, .case-title .grad, .contact-title .grad, .next-title .grad, .impact-val .grad, .manifesto-text .grad {
+    background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important;
+    -webkit-text-fill-color: currentColor !important; color: var(--accent) !important;
+  }
+  .kpi-val { background: none !important; -webkit-text-fill-color: currentColor !important; color: var(--ink) !important; }
+  .impact-val .grad, .kpi-val .plus { color: var(--ink) !important; -webkit-text-fill-color: currentColor !important; }
+  .hero-avatar { display: none !important; }
+  .hero-intro { grid-template-columns: 1fr !important; }
+  .nav-brand .badge { display: none !important; }
+
+  .nav {
+    top: 0; left: 0; right: 0; transform: none;
+    border: 0; border-bottom: 0.5px solid var(--line);
+    border-radius: 0; box-shadow: none;
+    padding: 12px max(40px, calc((100vw - 1200px) / 2 + 40px));
+    justify-content: space-between;
+    background: rgba(11, 13, 17, 0.88);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .nav-divider { display: none; }
+  .nav-brand, .nav-current { font-size: 14px; font-weight: 500; }
+  .nav-back { border-radius: 6px; }
+  .wrap { max-width: 1200px; }
+  .cta-btn { border-radius: 6px; }
+  .cta-btn:hover { transform: none; box-shadow: none; opacity: 0.9; }
+
+  /* === ÉCHELLE ÉDITORIALE (oct. 2026), comme la page CV === */
+  .case-hero { padding: 120px 40px 56px; }
+  .case-title { font-size: clamp(40px, 5.4vw, 72px); line-height: 1; }
+  .case-subtitle { font-size: 19px; }
+  .meta-cell { padding-top: 18px; padding-bottom: 18px; }
+  .meta-value { font-size: 16px; }
+  .case-hero-image { border-radius: 8px; }
+  .chapter { padding: 56px 0; }
+  .chapter-title { font-size: clamp(28px, 3vw, 40px); line-height: 1.08; }
+  .prose { font-size: 16px; }
+  .prose p { margin-bottom: 18px; }
+  .kpi-grid { padding: 28px 0; }
+  .kpi-val { font-size: 32px !important; }
+  .principle-title { font-size: 19px; }
+  .next { padding-left: 40px; padding-right: 40px; }
+  .next-title { font-size: clamp(32px, 4vw, 52px); line-height: 1.05; }
+  .footer { padding-left: 40px; padding-right: 40px; }
+  @media (max-width: 980px) {
+    .nav { padding: 8px 20px; }
+    .case-hero { padding: 92px 20px 40px; }
+    .next, .footer { padding-left: 20px; padding-right: 20px; }
+  }
 </style>
 </head>
 
@@ -858,13 +921,13 @@
       <div class="image-frame">
         <div class="placeholder"></div>
       </div>
-      <p class="image-caption" data-fr="Liste d'alertes — version initiale" data-en="Alert list — initial version">Liste d'alertes — version initiale</p>
+      <p class="image-caption" data-fr="Liste d'alertes, version initiale" data-en="Alert list, initial version">Liste d'alertes, version initiale</p>
     </div>
     <div>
       <div class="image-frame">
         <div class="placeholder"></div>
       </div>
-      <p class="image-caption" data-fr="Liste d'alertes — après refonte par criticité" data-en="Alert list — after criticality redesign">Liste d'alertes — après refonte par criticité</p>
+      <p class="image-caption" data-fr="Liste d'alertes après refonte par criticité" data-en="Alert list after criticality redesign">Liste d'alertes après refonte par criticité</p>
     </div>
   </div>
 </section>

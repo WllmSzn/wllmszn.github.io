@@ -672,6 +672,80 @@
     }
     .halos, body::after { display: none; }
   }
+
+  /* === SOBRIÉTÉ (oct. 2026) ===
+     Retire les marqueurs de site « généré » : libellés en capitales à chasse fixe,
+     filets décoratifs devant les titres, texte en dégradé, halos lumineux, pastilles. */
+  .halos { display: none !important; }
+  .section-label, .hero-eyebrow, .chapter-num, .case-eyebrow, .meta-label, .kpi-lbl, .stat-lbl,
+  .impact-lbl, .project-cat, .project-year, .expertise-num, .hero-meta, .hero-scroll, .exp-period,
+  .exp-company, .edu-year, .stack-cat, .skill-num, .beyond-meta, .image-caption, .principle-num,
+  .next-label, .contact-link-label, .footer, .nav-brand, .nav-current, .lang-btn, .lang-sep {
+    font-family: var(--sans) !important; text-transform: none !important; letter-spacing: 0 !important;
+  }
+  .section-label::before, .hero-eyebrow::before, .chapter-num::before, .next-label::before,
+  .manifesto-sign::before, .case-eyebrow .pill::before { display: none !important; }
+  .section-label, .chapter-num, .next-label { font-size: 13px !important; color: var(--ink-3); }
+  .stat-lbl, .impact-lbl, .kpi-lbl, .beyond-meta, .project-cat, .project-year, .meta-label { font-size: 12.5px !important; line-height: 1.45 !important; }
+  .grad, .hero-title .grad, .case-title .grad, .contact-title .grad, .next-title .grad, .impact-val .grad, .manifesto-text .grad {
+    background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important;
+    -webkit-text-fill-color: currentColor !important; color: var(--accent) !important;
+  }
+  .kpi-val { background: none !important; -webkit-text-fill-color: currentColor !important; color: var(--ink) !important; }
+  .impact-val .grad, .kpi-val .plus { color: var(--ink) !important; -webkit-text-fill-color: currentColor !important; }
+  .hero-avatar { display: none !important; }
+  .hero-intro { grid-template-columns: 1fr !important; }
+  .nav-brand .badge { display: none !important; }
+
+  .nav {
+    top: 0; left: 0; right: 0; transform: none;
+    border: 0; border-bottom: 0.5px solid var(--line);
+    border-radius: 0; box-shadow: none;
+    padding: 12px max(40px, calc((100vw - 1200px) / 2 + 40px));
+    justify-content: space-between;
+    background: rgba(11, 13, 17, 0.88);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .nav-divider { display: none; }
+  .nav-brand, .nav-current { font-size: 14px; font-weight: 500; }
+  .nav-back { border-radius: 6px; }
+  .wrap { max-width: 1200px; }
+  .cta-btn { border-radius: 6px; }
+  .cta-btn:hover { transform: none; box-shadow: none; opacity: 0.9; }
+
+  /* === ÉCHELLE ÉDITORIALE (oct. 2026), comme la page CV === */
+  .hero { padding: 120px 40px 56px; min-height: 0; }
+  .hero-title { font-size: clamp(40px, 5.4vw, 72px); line-height: 1; }
+  .hero-foot { margin-top: 32px; }
+  .section { padding: 64px 40px; }
+  .section + .section { padding-top: 0; }
+  .section-head { margin-bottom: 32px; }
+  .section-aside { font-size: 19px; }
+  .expertise-row { padding: 18px 0; }
+  .expertise-row:hover { padding-left: 0; }
+  .expertise-name { font-size: clamp(24px, 2.4vw, 32px); }
+  .projects { gap: 40px 32px; margin-top: 16px; }
+  .project-card:hover { transform: none; }
+  .project-card.size-lg { grid-column: span 12; }
+  .project-card.size-md, .project-card.size-md-alt, .project-card.size-lg-alt { grid-column: span 4; margin-top: 0; }
+  .project-visual { border-radius: 8px; aspect-ratio: 2 / 1; }
+  .project-visual.v-comave, .project-visual.v-cashback, .project-visual.v-freelance { display: none; }
+  .project-card:hover .project-visual img { transform: none; }
+  .project-title { font-size: 24px; }
+  .contact { padding: 72px 40px 64px; }
+  .contact-title { font-size: clamp(36px, 4.6vw, 60px); line-height: 1; }
+  .contact-link { border-radius: 8px; }
+  .contact-link:hover { transform: none; }
+  .contact-link-value { font-size: 17px; overflow-wrap: anywhere; }
+  .footer { padding-left: 40px; padding-right: 40px; }
+  @media (max-width: 980px) {
+    .nav { padding: 10px 20px; }
+    .hero { padding: 92px 20px 40px; }
+    .section { padding: 48px 20px; }
+    .contact { padding: 56px 20px 48px; }
+    .footer { padding-left: 20px; padding-right: 20px; }
+    .project-card.size-md, .project-card.size-md-alt, .project-card.size-lg-alt, .project-card.size-lg { grid-column: span 1; }
+  }
 </style>
 </head>
 
@@ -805,69 +879,7 @@
     <!-- Artefact — large, cliquable vers la case study -->
     <a href="artefact.html" class="project-card size-lg">
       <div class="project-visual v-artefact">
-        <!-- Placeholder SVG en attendant les vraies images. Remplace ce bloc par <img src="assets/artefact.png" alt="Artefact SIEM"> quand prêt -->
-        <div class="project-visual-inner">
-          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu de la plateforme Artefact">
-            <rect x="0" y="0" width="120" height="280" fill="#042C53" rx="6"/>
-            <rect x="14" y="20" width="40" height="5" rx="1" fill="#85B7EB"/>
-            <rect x="14" y="40" width="92" height="22" rx="3" fill="#0C447C"/>
-            <circle cx="26" cy="51" r="4" fill="#85B7EB"/>
-            <rect x="36" y="49" width="50" height="4" rx="1" fill="#378ADD"/>
-            <rect x="14" y="70" width="92" height="22" rx="3" fill="rgba(133,183,235,0.08)"/>
-            <circle cx="26" cy="81" r="4" fill="#378ADD" opacity="0.6"/>
-            <rect x="36" y="79" width="40" height="4" rx="1" fill="#185FA5"/>
-            <rect x="14" y="100" width="92" height="22" rx="3" fill="rgba(133,183,235,0.08)"/>
-            <circle cx="26" cy="111" r="4" fill="#378ADD" opacity="0.6"/>
-            <rect x="36" y="109" width="60" height="4" rx="1" fill="#185FA5"/>
-
-            <rect x="134" y="20" width="80" height="80" rx="6" fill="#0C447C"/>
-            <text x="142" y="38" fill="#85B7EB" font-size="7" font-family="monospace">Threats</text>
-            <text x="142" y="68" fill="#E6F1FB" font-size="28" font-family="Instrument Serif, serif" font-style="italic">247</text>
-            <rect x="142" y="78" width="50" height="2" rx="1" fill="#7BD9C4"/>
-            <rect x="142" y="78" width="34" height="2" rx="1" fill="#E8835A"/>
-
-            <rect x="224" y="20" width="80" height="80" rx="6" fill="#0C447C"/>
-            <text x="232" y="38" fill="#85B7EB" font-size="7" font-family="monospace">Correlation</text>
-            <circle cx="245" cy="68" r="4" fill="#E24B4A"/>
-            <circle cx="262" cy="58" r="3" fill="#E8835A"/>
-            <circle cx="280" cy="72" r="3" fill="#B9C7FF"/>
-            <circle cx="295" cy="62" r="3" fill="#7BD9C4"/>
-            <line x1="245" y1="68" x2="262" y2="58" stroke="#185FA5" stroke-width="0.4"/>
-            <line x1="262" y1="58" x2="280" y2="72" stroke="#185FA5" stroke-width="0.4"/>
-            <line x1="280" y1="72" x2="295" y2="62" stroke="#185FA5" stroke-width="0.4"/>
-
-            <rect x="314" y="20" width="72" height="80" rx="6" fill="#0C447C"/>
-            <text x="322" y="38" fill="#85B7EB" font-size="7" font-family="monospace">Timeline</text>
-            <polyline points="322,84 334,76 346,80 358,68 370,72 382,58" fill="none" stroke="#7BD9C4" stroke-width="1.2"/>
-
-            <rect x="134" y="110" width="252" height="150" rx="6" fill="#0C447C"/>
-            <rect x="146" y="124" width="40" height="4" rx="1" fill="#378ADD"/>
-
-            <rect x="146" y="138" width="228" height="22" rx="2" fill="rgba(133,183,235,0.05)"/>
-            <circle cx="158" cy="149" r="3" fill="#E24B4A"/>
-            <rect x="168" y="143" width="60" height="3" rx="1" fill="#85B7EB"/>
-            <rect x="168" y="150" width="100" height="2.5" rx="1" fill="#378ADD" opacity="0.6"/>
-            <text x="332" y="151" fill="#E24B4A" font-size="6" font-family="monospace">CRITICAL</text>
-
-            <rect x="146" y="166" width="228" height="22" rx="2" fill="rgba(133,183,235,0.05)"/>
-            <circle cx="158" cy="177" r="3" fill="#E8835A"/>
-            <rect x="168" y="171" width="76" height="3" rx="1" fill="#85B7EB"/>
-            <rect x="168" y="178" width="90" height="2.5" rx="1" fill="#378ADD" opacity="0.6"/>
-            <text x="346" y="179" fill="#E8835A" font-size="6" font-family="monospace">HIGH</text>
-
-            <rect x="146" y="194" width="228" height="22" rx="2" fill="rgba(133,183,235,0.05)"/>
-            <circle cx="158" cy="205" r="3" fill="#7BD9C4"/>
-            <rect x="168" y="199" width="56" height="3" rx="1" fill="#85B7EB"/>
-            <rect x="168" y="206" width="116" height="2.5" rx="1" fill="#378ADD" opacity="0.6"/>
-            <text x="336" y="207" fill="#7BD9C4" font-size="6" font-family="monospace">RESOLVED</text>
-
-            <rect x="146" y="222" width="228" height="22" rx="2" fill="rgba(133,183,235,0.05)"/>
-            <circle cx="158" cy="233" r="3" fill="#B9C7FF"/>
-            <rect x="168" y="227" width="68" height="3" rx="1" fill="#85B7EB"/>
-            <rect x="168" y="234" width="82" height="2.5" rx="1" fill="#378ADD" opacity="0.6"/>
-            <text x="346" y="235" fill="#B9C7FF" font-size="6" font-family="monospace">INFO</text>
-          </svg>
-        </div>
+        <img src="assets/artefact-overview.webp" alt="Dashboard Artefact : état des alertes, actifs à risque classés par criticité et règles de détection actives" width="1600" height="800" loading="lazy" decoding="async">
       </div>
       <div class="project-info">
         <div class="project-meta">

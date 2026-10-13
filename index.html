@@ -682,6 +682,30 @@
     .exp-row { padding: 24px 0; gap: 12px; }
     .case-body { padding: 22px 20px; }
   }
+
+  /* === SOBRIÉTÉ (oct. 2026) ===
+     Retire les marqueurs de site « généré » : libellés en capitales à chasse fixe,
+     filets décoratifs devant les titres, texte en dégradé, halos lumineux, pastilles. */
+  .halos { display: none !important; }
+  .section-label, .hero-eyebrow, .chapter-num, .case-eyebrow, .meta-label, .kpi-lbl, .stat-lbl,
+  .impact-lbl, .project-cat, .project-year, .expertise-num, .hero-meta, .hero-scroll, .exp-period,
+  .exp-company, .edu-year, .stack-cat, .skill-num, .beyond-meta, .image-caption, .principle-num,
+  .next-label, .contact-link-label, .footer, .nav-brand, .nav-current, .lang-btn, .lang-sep {
+    font-family: var(--sans) !important; text-transform: none !important; letter-spacing: 0 !important;
+  }
+  .section-label::before, .hero-eyebrow::before, .chapter-num::before, .next-label::before,
+  .manifesto-sign::before, .case-eyebrow .pill::before { display: none !important; }
+  .section-label, .chapter-num, .next-label { font-size: 13px !important; color: var(--ink-3); }
+  .stat-lbl, .impact-lbl, .kpi-lbl, .beyond-meta, .project-cat, .project-year, .meta-label { font-size: 12.5px !important; line-height: 1.45 !important; }
+  .grad, .hero-title .grad, .case-title .grad, .contact-title .grad, .next-title .grad, .impact-val .grad, .manifesto-text .grad {
+    background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important;
+    -webkit-text-fill-color: currentColor !important; color: var(--accent) !important;
+  }
+  .kpi-val { background: none !important; -webkit-text-fill-color: currentColor !important; color: var(--ink) !important; }
+  .impact-val .grad, .kpi-val .plus { color: var(--ink) !important; -webkit-text-fill-color: currentColor !important; }
+  .hero-avatar { display: none !important; }
+  .hero-intro { grid-template-columns: 1fr !important; }
+  .nav-brand .badge { display: none !important; }
 </style>
 </head>
 
