@@ -15,6 +15,7 @@ Ce fichier résume le site https://wllmszn.github.io/ pour les modèles de langa
 - [CV](https://wllmszn.github.io/) : parcours, compétences, outils, formation.
 - [Portfolio](https://wllmszn.github.io/portfolio.html) : quatre projets, du SaaS B2B au mobile.
 - [Case study Artefact](https://wllmszn.github.io/artefact.html) : quatre cas détaillés, avec méthode, mesures et résultats.
+- [Designer augmenté](https://wllmszn.github.io/designer-augmente.html) : comment il a outillé une équipe produit de quatre avec des agents IA, suivi sur une fonctionnalité réelle (les guides d'investigation d'Artefact).
 
 Le site existe en français et en anglais (sélecteur FR / EN sur chaque page).
 
@@ -44,6 +45,15 @@ Product Designer UX/UI. Produits numériques, sites vitrines et e-commerce, du c
 2. **Audit UX** d'un questionnaire d'investigation de 75 questions (scénario de rançongiciel) : 10 heuristiques de Nielsen, sévérité de 0 à 4, relevé d'accessibilité. Problème le plus grave : une alerte pouvait être classée à tort sans signal. 12 corrections livrées, 4 composants redessinés, dont la réponse « Non vérifiable ».
 3. **Design system.** Audit du board Figma face au code React par scripts : 0 composant sur 9 pages, 22 remplissages reliés sur 1 270, 0 texte sur 850 utilisant un style partagé. En 24 h : 8 jeux de composants, un Button à 50 variantes, 199 variables, 133 icônes, puis une feuille de route sur les 42 composants du code.
 4. **IA et qualité.** Spécifications et modèle de données assez précis pour prototyper avec Claude Code ; critères d'acceptation écrits comme des comportements observables ; un agent de test par fonctionnalité qui rend un verdict par critère (réussi, échoué, non testable). Quatre fonctionnalités prototypées ainsi sont en production : remédiation, matrice MITRE ATT&CK, dossiers d'incident, vue de clôture des alertes.
+
+## Designer augmenté : la méthode outillée
+
+Dans une équipe de quatre, sans product manager dédié, sans QA ni second designer, William Suzan a construit les outils qui tiennent ces rôles et garde les décisions.
+- **HOMERE** : 15 agents spécialisés (cadrage, UX, architecture, revue critique GO / NO-GO, découpage en tickets, code, tests, revues de code et de design, audit, documentation, acceptation). Aucune étape ne passe sans sa validation ; chaque arbitrage est consigné. 65 dossiers de travail documentés.
+- **Naos** : bibliothèque de design systems lisibles par une IA (23 identités visuelles, 3 modes), avec contrôle automatique et rendu en navigateur réel. Ce site en sort.
+- **Vérification** : 43 scripts de protocole qui pilotent un navigateur, agents de test qui rendent un verdict par critère d'acceptation.
+- **Fil conducteur publié** : les guides d'investigation d'Artefact, d'août à octobre 2026 (34 tickets en 4 lots, 420 tests sur les composants concernés). Décisions prises sur mesure : couleur de bloc retirée (5 teintes sur 10 à moins de 15° d'une couleur de sens), probabilité nulle affichée 50 % corrigée, vue Panorama supprimée.
+- **Statut** : la fonctionnalité n'est pas close ; l'audit, la documentation et l'acceptation restent à jouer, ce que la page dit explicitement.
 
 ## Compétences
 

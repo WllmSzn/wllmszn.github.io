@@ -1,7 +1,7 @@
 // DNA Naos « room-and-pillar », accent bleu électrique (#4C82FF en aplat, #7AA2FF en texte).
 // Recompiler après toute modification des pages : voir README.md dans ce dossier.
 module.exports = {
-  content: { relative: true, files: ['../index.html', '../portfolio.html', '../artefact.html'] },
+  content: { relative: true, files: ['../index.html', '../portfolio.html', '../artefact.html', '../designer-augmente.html'] },
   theme: {
     extend: {
       colors: {
