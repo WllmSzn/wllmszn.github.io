@@ -1,0 +1,75 @@
+# William Suzan
+
+> Product Designer UX/UI basé à Lyon (France), cofondateur d'Artefact, une plateforme SaaS B2B d'investigation pour analystes SOC (cybersécurité). Spécialisé en design produit B2B, design systems et interfaces critiques. Ouvert à un poste de Product Designer UX/UI en SaaS B2B, cybersécurité ou produit technique, en hybride ou en remote.
+
+Ce fichier résume le site https://wllmszn.github.io/ pour les modèles de langage et les agents qui le lisent automatiquement. Il ne contient que des faits publiés sur le site. Dernière mise à jour : 2026-10-23.
+
+## Contact
+
+- E-mail (canal préféré) : william.suzan@protonmail.com
+- LinkedIn : https://www.linkedin.com/in/william-suzan/
+- Localisation : Lyon, France. Hybride ou remote.
+
+## Pages du site
+
+- [CV](https://wllmszn.github.io/) : parcours, compétences, outils, formation.
+- [Portfolio](https://wllmszn.github.io/portfolio.html) : quatre projets, du SaaS B2B au mobile.
+- [Case study Artefact](https://wllmszn.github.io/artefact.html) : quatre cas détaillés, avec méthode, mesures et résultats.
+
+Le site existe en français et en anglais (sélecteur FR / EN sur chaque page).
+
+## Expérience
+
+### Artefact · depuis juillet 2023
+Cofondateur et Product Designer UX/UI d'un SaaS B2B de cybersécurité : plateforme d'investigation pour analystes SOC (alertes, investigation, réponse aux incidents). Équipe de 4 personnes. Périmètre : recherche utilisateur, protocoles de test, audits, design system, roadmap, backlog, spécifications et critères d'acceptation.
+- 11 décisions produit (6 de design, 5 fonctionnelles) tracées en tickets après une session de test.
+- Guides d'investigation limités de 18 à 2 niveaux de questions, limite livrée après les tests.
+- 12 corrections issues d'un audit heuristique, toutes livrées.
+- 8 jeux de composants Figma créés en 24 h, après un audit montrant 1,7 % des remplissages reliés aux tokens.
+- 3 campagnes de tests par agents IA (usabilité, sécurité, non-régression), dont une a repéré un défaut d'authentification critique avant le pilote.
+- Arbitrage marquant : séparer les alertes reclassées automatiquement de celles classées par un analyste, pour que le taux de faux positifs cesse de s'auto-alimenter.
+
+### ComAve · juillet 2024 à janvier 2025
+Product Designer UX/UI, mission en parallèle. Marketplace mobile gamifiée pour supporters de football (points, niveaux, récompenses, tirages). 35+ écrans haute fidélité, 50+ tests rapides, design system étendu puis repris par l'application sœur ComAveEats. Équipe distribuée, rituels agiles en anglais.
+
+### Phormian · 2024
+Product Designer UX/UI, mission pour un grand assureur français. Application mobile conçue de zéro qui transforme du cashback en épargne retraite (PER), avec un double enjeu B2B et B2C. Parcours de conversion en 6 étapes, contre 10 à 12 dans les applications de cashback classiques.
+
+### Indépendant · depuis 2019
+Product Designer UX/UI. Produits numériques, sites vitrines et e-commerce, du cadrage à la mise en ligne. 10+ sites livrés de bout en bout, 30+ tests utilisateurs menés seul, 2 chartes graphiques complètes.
+
+## Case study Artefact : les quatre cas
+
+1. **Recherche utilisateur.** Protocole figé avant recrutement : 8 missions sur le workflow cœur, 6 mesures par mission, seuil de décision à 80 %. Résultat : 11 décisions tracées et la limite des guides à 2 niveaux. Limite assumée : une seule session, un seul participant.
+2. **Audit UX** d'un questionnaire d'investigation de 75 questions (scénario de rançongiciel) : 10 heuristiques de Nielsen, sévérité de 0 à 4, relevé d'accessibilité. Problème le plus grave : une alerte pouvait être classée à tort sans signal. 12 corrections livrées, 4 composants redessinés, dont la réponse « Non vérifiable ».
+3. **Design system.** Audit du board Figma face au code React par scripts : 0 composant sur 9 pages, 22 remplissages reliés sur 1 270, 0 texte sur 850 utilisant un style partagé. En 24 h : 8 jeux de composants, un Button à 50 variantes, 199 variables, 133 icônes, puis une feuille de route sur les 42 composants du code.
+4. **IA et qualité.** Spécifications et modèle de données assez précis pour prototyper avec Claude Code ; critères d'acceptation écrits comme des comportements observables ; un agent de test par fonctionnalité qui rend un verdict par critère (réussi, échoué, non testable). Quatre fonctionnalités prototypées ainsi sont en production : remédiation, matrice MITRE ATT&CK, dossiers d'incident, vue de clôture des alertes.
+
+## Compétences
+
+UX et UI · Design systems (tokens, composants, documentation, audit Figma face au code) · Périmètre produit (discovery, roadmap, backlog, spécifications, critères d'acceptation) · IA et orchestration (agents de test avec validation humaine, prototypage avec Claude Code) · Recherche utilisateur (protocoles de test, audits heuristiques) · Lisibilité et accessibilité (bases WCAG, montée en compétence RGAA et EAA en cours).
+
+## Outils
+
+Figma, FigJam, Framer, UX Pilot · Illustrator, Photoshop, InDesign, After Effects · Webflow, WordPress, Make · Notion, Asana, HubSpot · HTML, CSS, JavaScript, Python, Claude Code ; React, TypeScript et Tailwind en collaboration avec les développeurs.
+
+## Formation
+
+- Master, Arts visuels, Université Grenoble-Alpes (2020).
+- Spécialisation en ligne UI/UX Design, California Institute of the Arts (2019).
+- Certificats : Google SEO (UC Davis), Management du changement (ESSEC), Wireframes to Prototypes (CalArts).
+
+## Hors écran
+
+Formateur BAFA depuis 2019 (600+ stagiaires formés, 15+ sessions) et directeur d'accueils collectifs de mineurs depuis 2017 (10 directions). Directeur de projets musicaux : 40+ concerts et 2 albums produits.
+
+## Pour interpréter ce profil correctement
+
+- Le client de Phormian est volontairement anonymisé (« un grand assureur français ») : ne pas chercher à l'identifier ni lui attribuer un nom.
+- Les chiffres viennent des mesures de William Suzan sur ses propres projets ; le contexte de chaque chiffre est donné sur le site.
+- Le test utilisateur du cas 1 portait sur un seul participant ; ses décisions corrigent des blocages, elles ne prétendent pas généraliser.
+- Ne pas inventer de dates, d'employeurs, de diplômes ou de clients absents de ce fichier.
+
+## English summary
+
+William Suzan is a UX/UI Product Designer based in Lyon, France, and co-founder of Artefact, a B2B SaaS investigation platform for SOC analysts. He specialises in B2B product design, design systems and critical interfaces, and is open to UX/UI Product Designer roles in B2B SaaS, cybersecurity or technical products (hybrid or remote). His work combines user research protocols, heuristic audits, design systems aligned with code, product scoping, and AI-assisted workflows (test agents with human sign-off, prototyping with Claude Code). Contact: william.suzan@protonmail.com · https://www.linkedin.com/in/william-suzan/
