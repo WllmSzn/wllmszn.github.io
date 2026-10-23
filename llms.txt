@@ -30,11 +30,11 @@ Cofondateur et Product Designer UX/UI d'un SaaS B2B de cybersécurité : platefo
 - 3 campagnes de tests par agents IA (usabilité, sécurité, non-régression), dont une a repéré un défaut d'authentification critique avant le pilote.
 - Arbitrage marquant : séparer les alertes reclassées automatiquement de celles classées par un analyste, pour que le taux de faux positifs cesse de s'auto-alimenter.
 
+### Phormian · mai à juin 2026
+Product Designer UX/UI, mission pour un grand assureur français. Application mobile conçue de zéro qui transforme du cashback en épargne retraite (PER), avec un double enjeu B2B et B2C. Parcours de conversion en 6 étapes, contre 10 à 12 dans les applications de cashback classiques.
+
 ### ComAve · juillet 2024 à janvier 2025
 Product Designer UX/UI, mission en parallèle. Marketplace mobile gamifiée pour supporters de football (points, niveaux, récompenses, tirages). 35+ écrans haute fidélité, 50+ tests rapides, design system étendu puis repris par l'application sœur ComAveEats. Équipe distribuée, rituels agiles en anglais.
-
-### Phormian · 2024
-Product Designer UX/UI, mission pour un grand assureur français. Application mobile conçue de zéro qui transforme du cashback en épargne retraite (PER), avec un double enjeu B2B et B2C. Parcours de conversion en 6 étapes, contre 10 à 12 dans les applications de cashback classiques.
 
 ### Indépendant · depuis 2019
 Product Designer UX/UI. Produits numériques, sites vitrines et e-commerce, du cadrage à la mise en ligne. 10+ sites livrés de bout en bout, 30+ tests utilisateurs menés seul, 2 chartes graphiques complètes.
