@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Artefact · Case study · William Suzan</title>
 <meta name="description" content="Case study : Artefact, plateforme d'investigation pour analystes SOC. Protocole de test, audit heuristique et design system réaligné sur le code.">
-<meta name="theme-color" content="#08090C">
+<meta name="theme-color" content="#131419">
 <link rel="canonical" href="https://wllmszn.github.io/artefact.html">
 
 <!-- Partage social -->
@@ -23,1095 +23,320 @@
 <meta name="twitter:description" content="Plateforme d'investigation pour analystes SOC. Case study de William Suzan, Product Designer UX/UI.">
 <meta name="twitter:image" content="https://wllmszn.github.io/assets/og-cover.jpg">
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230B0D11'/><text x='50' y='70' font-family='Georgia,serif' font-size='60' fill='%23E8835A' text-anchor='middle'>W</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23131419'/><text x='50' y='70' font-family='Georgia,serif' font-size='60' fill='%234C82FF' text-anchor='middle'>W</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-
-<style>
-  :root {
-    color-scheme: dark;
-    --bg: #08090C;
-    --bg-2: #0E1015;
-    --surface: rgba(255, 255, 255, 0.025);
-    --surface-2: rgba(255, 255, 255, 0.04);
-    --ink: #ECEEF2;
-    --ink-2: #A8ADB8;
-    /* #5C6270 donnait 3,3:1 sur --bg : échec WCAG AA. #7E8595 = 5,2:1. */
-    --ink-3: #7E8595;
-    --line: rgba(255, 255, 255, 0.06);
-    --line-2: rgba(255, 255, 255, 0.1);
-    --accent: #E8835A;
-    --accent-2: #B9C7FF;
-    --accent-3: #7BD9C4;
-    --serif: 'Instrument Serif', Georgia, serif;
-    --sans: 'Inter', -apple-system, sans-serif;
-    --mono: 'JetBrains Mono', monospace;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  /* .placeholder est en display:flex, qui écrase l'attribut hidden sans ça. */
-  [hidden] { display: none !important; }
-
-  /* Sans ça, chaque ancre atterrit sous la nav flottante. */
-  [id] { scroll-margin-top: 96px; }
-
-  /* Focus clavier dessiné (il n'y en avait aucun). */
-  :where(a, button, [tabindex]):focus-visible {
-    outline: 2px solid var(--accent-3);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  /* Lien d'évitement */
-  .skip-link {
-    position: absolute; left: 12px; top: -60px; z-index: 100;
-    background: var(--bg-2); color: var(--ink); border: 1px solid var(--line-2);
-    padding: 10px 16px; border-radius: 8px; font-size: 14px; text-decoration: none;
-    transition: top 0.15s;
-  }
-  .skip-link:focus { top: 12px; }
-
-  /* Sélecteur de langue (la page portait 63 traductions sans moyen de les afficher). */
-  .lang-buttons { display: flex; align-items: center; padding: 0 6px; gap: 2px; }
-  .lang-btn {
-    font-family: var(--mono); font-size: 11px; padding: 4px 7px; border: 0;
-    background: transparent; color: var(--ink-3); cursor: pointer;
-    transition: color 0.18s; letter-spacing: 0.04em; border-radius: 4px;
-    min-height: 24px; min-width: 24px;
-    display: inline-flex; align-items: center; justify-content: center;
-  }
-  .lang-btn:hover, .lang-btn.active { color: var(--ink); }
-  .lang-sep { color: var(--ink-3); font-family: var(--mono); font-size: 11px; }
-
-  body {
-    font-family: var(--sans);
-    color: var(--ink);
-    background: var(--bg);
-    line-height: 1.6;
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-  }
-
-  /* === HALOS === */
-  .halos { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-  .halo { position: absolute; border-radius: 50%; filter: blur(160px); will-change: transform; }
-  .halo-1 { width: 600px; height: 600px; background: #4A5FC1; top: -200px; right: -150px; opacity: 0.1; animation: drift1 45s ease-in-out infinite; }
-  .halo-2 { width: 700px; height: 700px; background: #E8835A; top: 50%; left: -250px; opacity: 0.08; animation: drift2 52s ease-in-out infinite; }
-  @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-50px,80px) scale(1.1);} }
-  @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(80px,-50px) scale(0.95);} }
-  body::after {
-    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
-    opacity: 0.03; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-  ::selection { background: var(--accent); color: var(--bg); }
-
-  /* === NAV (simplifiée, juste retour) === */
-  .nav {
-    position: fixed;
-    top: 16px; left: 50%;
-    transform: translateX(-50%);
-    z-index: 50;
-    padding: 10px 14px 10px 14px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    background: rgba(8, 9, 12, 0.7);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 0.5px solid var(--line-2);
-    border-radius: 999px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
-  }
-  .nav-back {
-    font-family: var(--sans);
-    font-size: 13px;
-    color: var(--ink-2);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    transition: color 0.18s, background 0.18s;
-  }
-  .nav-back:hover { color: var(--ink); background: var(--surface-2); }
-  .nav-divider { width: 0.5px; height: 14px; background: var(--line-2); }
-  .nav-current {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    letter-spacing: 0.04em;
-  }
-  .nav-right { display: flex; align-items: center; gap: 4px; margin-left: auto; }
-  .nav-icon-link {
-    width: 30px; height: 30px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: var(--ink-2);
-    transition: background 0.18s, color 0.18s;
-    text-decoration: none;
-  }
-  .nav-icon-link:hover { background: var(--surface-2); color: var(--ink); }
-  .nav-icon-link svg { width: 15px; height: 15px; }
-
-  /* === WRAPPER === */
-  .wrap {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 40px;
-    position: relative;
-    z-index: 2;
-  }
-  .narrow {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-
-  /* === HERO === */
-  .case-hero {
-    padding: 160px 0 80px;
-  }
-  .case-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 40px;
-  }
-  .case-eyebrow .pill {
-    padding: 4px 10px;
-    background: rgba(123,217,196,0.1);
-    color: var(--accent-3);
-    border: 0.5px solid rgba(123,217,196,0.3);
-    border-radius: 999px;
-    font-size: 10px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .case-eyebrow .pill::before {
-    content: '';
-    width: 5px; height: 5px;
-    background: var(--accent-3);
-    border-radius: 50%;
-    animation: pulse 2.4s ease-in-out infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.85);} }
-
-  .case-title {
-    font-family: var(--serif);
-    font-size: clamp(56px, 9vw, 152px);
-    line-height: 0.9;
-    letter-spacing: -0.035em;
-    font-weight: 400;
-    margin-bottom: 32px;
-  }
-  .case-title .it { font-style: italic; color: var(--ink-2); }
-  .case-title .grad {
-    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-style: italic;
-  }
-
-  .case-subtitle {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: clamp(20px, 2.2vw, 28px);
-    line-height: 1.35;
-    color: var(--ink-2);
-    max-width: 720px;
-    margin-bottom: 80px;
-  }
-
-  /* === META TABLE === */
-  .case-meta {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    border-top: 0.5px solid var(--line);
-    border-bottom: 0.5px solid var(--line);
-    margin-bottom: 100px;
-  }
-  .meta-cell {
-    padding: 28px 0;
-    border-right: 0.5px solid var(--line);
-  }
-  .meta-cell:last-child { border-right: 0; }
-  .meta-cell:not(:first-child) { padding-left: 32px; }
-  .meta-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 8px;
-    display: block;
-  }
-  .meta-value {
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.3;
-    color: var(--ink);
-  }
-
-  /* === HERO IMAGE === */
-  .case-hero-image {
-    /* 2/1 = ratio exact de artefact-overview.webp (1600x800) : aucun rognage.
-       Le 16/9 d'origine coupait la barre latérale de navigation du produit. */
-    aspect-ratio: 2/1;
-    background: linear-gradient(180deg, var(--surface-2), var(--surface));
-    border: 0.5px solid var(--line);
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 120px;
-    position: relative;
-  }
-  .case-hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .case-hero-image .placeholder {
-    width: 100%; height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(232,131,90,0.15), transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(74,95,193,0.22), transparent 50%),
-      linear-gradient(135deg, #0C447C 0%, #042C53 100%);
-    position: relative;
-  }
-  .placeholder-tag {
-    position: absolute;
-    top: 24px; left: 24px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--ink-3);
-    padding: 5px 11px;
-    border: 0.5px solid var(--line-2);
-    border-radius: 999px;
-    background: rgba(8,9,12,0.4);
-    backdrop-filter: blur(10px);
-  }
-  .placeholder-inner {
-    width: 70%; max-width: 700px;
-  }
-  .placeholder-inner svg { width: 100%; height: auto; display: block; }
-
-  /* === CHAPTER === */
-  .chapter {
-    padding: 80px 0;
-  }
-  .chapter-num {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 32px;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .chapter-num::before {
-    content: '';
-    width: 28px; height: 0.5px;
-    background: var(--line-2);
-  }
-  .chapter-title {
-    font-family: var(--serif);
-    font-size: clamp(36px, 5vw, 64px);
-    line-height: 1;
-    letter-spacing: -0.025em;
-    font-weight: 400;
-    margin-bottom: 40px;
-  }
-  .chapter-title .it { font-style: italic; color: var(--ink-2); }
-
-  .prose {
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--ink-2);
-  }
-  .prose p { margin-bottom: 24px; }
-  .prose p:last-child { margin-bottom: 0; }
-  .prose strong { color: var(--ink); font-weight: 500; }
-  .prose em { color: var(--ink); font-style: italic; }
-
-  .quote {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: clamp(24px, 2.6vw, 32px);
-    line-height: 1.35;
-    color: var(--ink);
-    padding: 40px 0 40px 32px;
-    border-left: 1px solid var(--accent);
-    margin: 40px 0;
-    max-width: 720px;
-  }
-  .quote-attr {
-    margin-top: 20px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    font-style: normal;
-  }
-
-  /* === IMAGE BLOCKS === */
-  .image-block {
-    margin: 60px 0;
-  }
-  .image-block.wide {
-    margin-left: calc(-1 * ((100vw - 760px) / 2 - 40px));
-    margin-right: calc(-1 * ((100vw - 760px) / 2 - 40px));
-    max-width: none;
-  }
-  .image-frame {
-    background: linear-gradient(180deg, var(--surface-2), var(--surface));
-    border: 0.5px solid var(--line);
-    border-radius: 14px;
-    overflow: hidden;
-    aspect-ratio: 16/10;
-    position: relative;
-  }
-  .image-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .image-frame .placeholder {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    background:
-      radial-gradient(circle at 30% 50%, rgba(232,131,90,0.1), transparent 50%),
-      linear-gradient(135deg, #0C2440 0%, #051628 100%);
-    position: relative;
-  }
-  .image-caption {
-    margin-top: 16px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: var(--ink-3);
-    text-align: left;
-  }
-
-  .image-pair {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 60px 0;
-  }
-  .image-pair .image-frame { aspect-ratio: 4/3; }
-
-  /* === KPI === */
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin: 60px 0;
-    padding: 40px 0;
-    border-top: 0.5px solid var(--line);
-    border-bottom: 0.5px solid var(--line);
-  }
-  .kpi-cell {
-    padding: 0 24px;
-    border-right: 0.5px solid var(--line);
-  }
-  .kpi-cell:last-child { border-right: 0; }
-  .kpi-cell:first-child { padding-left: 0; }
-  .kpi-val {
-    font-family: var(--serif);
-    font-size: clamp(40px, 4vw, 56px);
-    line-height: 1;
-    margin-bottom: 10px;
-    letter-spacing: -0.02em;
-    font-style: italic;
-    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .kpi-val .plus { font-size: 0.6em; color: var(--ink-3); -webkit-text-fill-color: var(--ink-3); }
-  .kpi-lbl {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    line-height: 1.4;
-  }
-
-  /* === PRINCIPLES === */
-  .principles {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 0.5px solid var(--line);
-    border-radius: 14px;
-    overflow: hidden;
-    margin: 60px 0;
-  }
-  .principle {
-    background: var(--bg-2);
-    padding: 32px 28px;
-  }
-  .principle-num {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--ink-3);
-    margin-bottom: 16px;
-    letter-spacing: 0.08em;
-  }
-  .principle-title {
-    font-family: var(--serif);
-    font-size: 22px;
-    line-height: 1.2;
-    margin-bottom: 12px;
-    letter-spacing: -0.015em;
-    color: var(--ink);
-  }
-  .principle-title .it { font-style: italic; color: var(--ink-2); }
-  .principle-desc {
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--ink-2);
-  }
-
-  /* === NEXT === */
-  .next {
-    padding: 120px 0 100px;
-    border-top: 0.5px solid var(--line);
-    text-align: left;
-  }
-  .next-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 24px;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .next-label::before { content: ''; width: 28px; height: 0.5px; background: var(--line-2); }
-  .next-title {
-    font-family: var(--serif);
-    font-size: clamp(48px, 8vw, 144px);
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-    font-weight: 400;
-    margin-bottom: 48px;
-  }
-  .next-title .grad {
-    background: linear-gradient(135deg, #E8835A 0%, #B9C7FF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-style: italic;
-  }
-  .next-row { display: flex; gap: 16px; flex-wrap: wrap; }
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 26px;
-    background: var(--ink);
-    color: var(--bg);
-    text-decoration: none;
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    border-radius: 999px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(236,238,242,0.15); }
-  .cta-btn.ghost {
-    background: var(--surface);
-    color: var(--ink);
-    border: 0.5px solid var(--line-2);
-    backdrop-filter: blur(10px);
-  }
-  .cta-btn.ghost:hover { background: var(--surface-2); }
-
-  /* === FOOTER === */
-  .footer {
-    border-top: 0.5px solid var(--line);
-    padding: 32px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    letter-spacing: 0.04em;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .footer a { color: var(--ink-2); text-decoration: none; }
-  .footer a:hover { color: var(--ink); }
-
-  /* === RESPONSIVE === */
-  @media (max-width: 980px) {
-    .wrap { padding: 0 20px; }
-    .narrow { padding: 0 20px; }
-    .nav { left: 12px; right: 12px; transform: none; padding: 8px 12px; gap: 10px; }
-    /* Sous 400px, « Artefact » + le sélecteur de langue font déborder la nav de 2px.
-       Le titre de la page est juste en dessous, l'étiquette est redondante. */
-    @media (max-width: 400px) {
-      .nav-current, .nav-divider { display: none; }
-      .lang-buttons { padding: 0 2px; }
-    }
-    .case-hero { padding: 120px 0 60px; }
-    .case-meta { grid-template-columns: 1fr 1fr; }
-    .meta-cell { padding-left: 0 !important; padding-right: 16px; border-right: 0; border-bottom: 0.5px solid var(--line); }
-    .meta-cell:nth-child(2n) { padding-left: 16px !important; padding-right: 0; }
-    .meta-cell:nth-last-child(-n+2) { border-bottom: 0; }
-    .case-hero-image { margin-bottom: 60px; }
-    .image-block.wide { margin-left: 0; margin-right: 0; }
-    .kpi-grid { grid-template-columns: 1fr 1fr; gap: 32px 0; padding: 32px 0; }
-    .kpi-cell { padding: 0 16px 0 0; border-right: 0.5px solid var(--line); }
-    .kpi-cell:nth-child(2n) { padding: 0 0 0 16px; border-right: 0; }
-    .principles { grid-template-columns: 1fr; }
-    .image-pair { grid-template-columns: 1fr; }
-    .chapter { padding: 50px 0; }
-    .quote { padding: 28px 0 28px 20px; }
-  }
-
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .case-eyebrow, .case-title, .case-subtitle { animation: fadeUp 0.8s ease backwards; }
-  .case-eyebrow { animation-delay: 0.05s; }
-  .case-title { animation-delay: 0.15s; }
-  .case-subtitle { animation-delay: 0.3s; }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-    .halo { animation: none !important; }
-    /* Le scroll fluide est précisément ce qui déclenche les troubles vestibulaires. */
-    html { scroll-behavior: auto !important; }
-  }
-
-  /* Contraste forcé (Windows) : sans ça, les 4 KPI et les titres en dégradé sont invisibles. */
-  @media (forced-colors: active) {
-    .grad, .case-title .grad, .next-title .grad, .kpi-val {
-      -webkit-text-fill-color: currentColor;
-      background: none;
-    }
-    .halos, body::after { display: none; }
-  }
-
-  /* === SOBRIÉTÉ (oct. 2026) ===
-     Retire les marqueurs de site « généré » : libellés en capitales à chasse fixe,
-     filets décoratifs devant les titres, texte en dégradé, halos lumineux, pastilles. */
-  .halos { display: none !important; }
-  .section-label, .hero-eyebrow, .chapter-num, .case-eyebrow, .meta-label, .kpi-lbl, .stat-lbl,
-  .impact-lbl, .project-cat, .project-year, .expertise-num, .hero-meta, .hero-scroll, .exp-period,
-  .exp-company, .edu-year, .stack-cat, .skill-num, .beyond-meta, .image-caption, .principle-num,
-  .next-label, .contact-link-label, .footer, .nav-brand, .nav-current, .lang-btn, .lang-sep {
-    font-family: var(--sans) !important; text-transform: none !important; letter-spacing: 0 !important;
-  }
-  .section-label::before, .hero-eyebrow::before, .chapter-num::before, .next-label::before,
-  .manifesto-sign::before, .case-eyebrow .pill::before { display: none !important; }
-  .section-label, .chapter-num, .next-label { font-size: 13px !important; color: var(--ink-3); }
-  .stat-lbl, .impact-lbl, .kpi-lbl, .beyond-meta, .project-cat, .project-year, .meta-label { font-size: 12.5px !important; line-height: 1.45 !important; }
-  .grad, .hero-title .grad, .case-title .grad, .contact-title .grad, .next-title .grad, .impact-val .grad, .manifesto-text .grad {
-    background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important;
-    -webkit-text-fill-color: currentColor !important; color: var(--accent) !important;
-  }
-  .kpi-val { background: none !important; -webkit-text-fill-color: currentColor !important; color: var(--ink) !important; }
-  .impact-val .grad, .kpi-val .plus { color: var(--ink) !important; -webkit-text-fill-color: currentColor !important; }
-  .hero-avatar { display: none !important; }
-  .hero-intro { grid-template-columns: 1fr !important; }
-  .nav-brand .badge { display: none !important; }
-
-  .nav {
-    top: 0; left: 0; right: 0; transform: none;
-    border: 0; border-bottom: 0.5px solid var(--line);
-    border-radius: 0; box-shadow: none;
-    padding: 12px max(40px, calc((100vw - 1200px) / 2 + 40px));
-    justify-content: space-between;
-    background: rgba(11, 13, 17, 0.88);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  }
-  .nav-divider { display: none; }
-  .nav-brand, .nav-current { font-size: 14px; font-weight: 500; }
-  .nav-back { border-radius: 6px; }
-  .wrap { max-width: 1200px; }
-  .cta-btn { border-radius: 6px; }
-  .cta-btn:hover { transform: none; box-shadow: none; opacity: 0.9; }
-
-  /* === ÉCHELLE ÉDITORIALE (oct. 2026), comme la page CV === */
-  .case-hero { padding: 120px 40px 56px; }
-  .case-title { font-size: clamp(40px, 5.4vw, 72px); line-height: 1; }
-  .case-subtitle { font-size: 19px; }
-  .meta-cell { padding-top: 18px; padding-bottom: 18px; }
-  .meta-value { font-size: 16px; }
-  .case-hero-image { border-radius: 8px; }
-  .chapter { padding: 56px 0; }
-  .chapter-title { font-size: clamp(28px, 3vw, 40px); line-height: 1.08; }
-  .prose { font-size: 16px; }
-  .prose p { margin-bottom: 18px; }
-  .kpi-grid { padding: 28px 0; }
-  .kpi-val { font-size: 32px !important; }
-  .principle-title { font-size: 19px; }
-  .next { padding-left: 40px; padding-right: 40px; }
-  .next-title { font-size: clamp(32px, 4vw, 52px); line-height: 1.05; }
-  .footer { padding-left: 40px; padding-right: 40px; }
-  @media (max-width: 980px) {
-    .nav { padding: 8px 20px; }
-    .case-hero { padding: 92px 20px 40px; }
-    .next, .footer { padding-left: 20px; padding-right: 20px; }
-  }
-
-  /* === CASE STUDY EN 4 CAS (oct. 2026) === */
-  .chapter { scroll-margin-top: 72px; }
-  .narrow[id] { scroll-margin-top: 64px; }
-  .chapter-title { margin-bottom: 24px; }
-  .prose a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-2); }
-  .prose a:hover { text-decoration-color: var(--accent); }
-  .prose ul, .prose ol { margin: 0 0 18px; padding-left: 22px; }
-  .prose li { margin-bottom: 8px; }
-  .prose li::marker { color: var(--ink-3); }
-  .case-label { margin: 28px 0 10px !important; font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--ink); }
-  .table-wrap { overflow-x: auto; margin: 4px 0 20px; }
-  .data-table { width: 100%; border-collapse: collapse; font-size: 14.5px; line-height: 1.5; }
-  .data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 14px 10px 0; border-bottom: 0.5px solid var(--line); color: var(--ink-2); }
-  .data-table th { color: var(--ink); font-weight: 500; font-size: 13px; }
-  .data-table td:last-child, .data-table th:last-child { padding-right: 0; }
-  .figure { margin: 28px 0 32px; }
-  .figure img { width: 100%; height: auto; display: block; border-radius: 8px; background: #fff; border: 0.5px solid var(--line); }
-  .figure figcaption { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-3); }
-  .flow svg { width: 100%; height: auto; display: block; }
-  .kpi-grid { margin: 36px 0 0; }
-  .case-meta { grid-template-columns: repeat(3, 1fr); }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
+<body class="min-h-screen bg-base text-ink font-body antialiased" data-title-fr="Artefact · Case study · William Suzan" data-title-en="Artefact · Case study · William Suzan">
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 rounded-ui bg-accent px-3 py-2 text-sm font-medium text-accent-ink" data-fr="Aller au contenu" data-en="Skip to content">Aller au contenu</a>
 
-<body>
-
-<a href="#main" class="skip-link" data-fr="Aller au contenu" data-en="Skip to content">Aller au contenu</a>
-
-<div class="halos" aria-hidden="true">
-  <div class="halo halo-1"></div>
-  <div class="halo halo-2"></div>
-</div>
-
-<nav class="nav">
-  <a href="portfolio.html" class="nav-back">
-    <span>←</span>
-    <span data-fr="Tous les projets" data-en="All projects">Tous les projets</span>
-  </a>
-  <span class="nav-divider"></span>
-  <span class="nav-current">Artefact</span>
-  <div class="nav-right">
-    <a href="https://www.linkedin.com/in/william-suzan/" target="_blank" rel="noopener" class="nav-icon-link" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-      </svg>
-    </a>
-    <div class="lang-buttons" role="group" aria-label="Language switcher">
-      <button id="lang-fr" class="lang-btn active" aria-label="Français" aria-pressed="true">FR</button>
-      <span class="lang-sep">/</span>
-      <button id="lang-en" class="lang-btn" aria-label="English" aria-pressed="false">EN</button>
-    </div>
+<header class="px-6 pt-6">
+  <div class="mx-auto flex max-w-7xl items-center gap-4 font-display text-sm font-semibold tracking-tight">
+    <a href="portfolio.html" class="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-ui text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" data-fr="&lt;span aria-hidden=&quot;true&quot;&gt;←&lt;/span&gt; Tous les projets" data-en="&lt;span aria-hidden=&quot;true&quot;&gt;←&lt;/span&gt; All projects"><span aria-hidden="true">←</span> Tous les projets</a>
+    <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
+    <span class="hidden shrink-0 font-mono text-[10px] font-normal uppercase tracking-widest text-muted sm:inline" data-fr="Case study · 01" data-en="Case study · 01">Case study · 01</span>
+    <span class="hidden h-px flex-1 bg-line sm:block" aria-hidden="true"></span>
+    <a href="index.html" class="inline-flex min-h-11 shrink-0 items-center rounded-ui focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">William Suzan</a>
+    <div role="group" aria-label="Langue" data-en-aria-label="Language" class="ml-4 flex shrink-0 items-center gap-1 font-mono text-[10px] font-normal uppercase tracking-widest"><button type="button" id="lang-fr" aria-label="Français" aria-pressed="true" class="inline-flex min-h-11 min-w-6 items-center justify-center text-muted hover:text-ink aria-pressed:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">FR</button><span class="text-muted" aria-hidden="true">/</span><button type="button" id="lang-en" aria-label="English" aria-pressed="false" class="inline-flex min-h-11 min-w-6 items-center justify-center text-muted hover:text-ink aria-pressed:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">EN</button></div>
   </div>
-</nav>
+</header>
 
 <main id="main">
-
-<!-- HERO -->
-<section class="wrap case-hero">
-  <div class="case-eyebrow">
-    <span data-fr="Case study · 01" data-en="Case study · 01">Case study · 01</span>
-  </div>
-
-  <!-- Pas d'aria-label ici : il remplaçait le nom accessible et tronquait « Rendre la cyber lisible ». -->
-  <h1 class="case-title">
-    <span>Artefact</span><span style="color: var(--accent);">.</span><br>
-    <span class="it" data-fr="Rendre la" data-en="Making">Rendre la</span><br>
-    <span class="grad" data-fr="cyber lisible" data-en="cyber legible">cyber lisible</span>
-  </h1>
-
-  <p class="case-subtitle"
-     data-fr="Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour toutes les personnes qui suivent un incident."
-     data-en="An investigation platform for SOC analysts that must stay readable for everyone following an incident.">Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour toutes les personnes qui suivent un incident.</p>
-
-  <div class="case-meta">
-    <div class="meta-cell">
-      <span class="meta-label" data-fr="Rôle" data-en="Role">Rôle</span>
-      <p class="meta-value" data-fr="Product Designer UX/UI, cofondateur" data-en="UX/UI Product Designer, co-founder">Product Designer UX/UI, cofondateur</p>
+  <section class="px-6 pb-16 pt-16 md:pt-24">
+    <div class="mx-auto max-w-7xl">
+      <p class="mb-6 font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Artefact · Case study" data-en="Artefact · Case study">Artefact · Case study</p>
+      <h1 class="font-display text-5xl font-bold leading-none tracking-[-0.06em] sm:text-7xl md:text-[9vw]" data-fr="
+        &lt;span class=&quot;block&quot;&gt;Rendre la&lt;/span&gt;
+        &lt;span class=&quot;block text-muted&quot;&gt;cyber lisible&lt;/span&gt;
+      " data-en="
+        &lt;span class=&quot;block&quot;&gt;Making&lt;/span&gt;
+        &lt;span class=&quot;block text-muted&quot;&gt;cyber readable&lt;/span&gt;
+      ">
+        <span class="block">Rendre la</span>
+        <span class="block text-muted">cyber lisible</span>
+      </h1>
+      <p class="mt-10 max-w-md text-sm leading-snug text-muted" data-fr="Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour toutes les personnes qui suivent un incident." data-en="An investigation platform for SOC analysts that must stay readable for everyone following an incident.">Une plateforme d'investigation pour analystes SOC, qui doit rester lisible pour toutes les personnes qui suivent un incident.</p>
+      <dl class="mt-12 grid gap-6 border-t border-line pt-8 sm:grid-cols-3">
+        <div><dt class="font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Rôle" data-en="Role">Rôle</dt><dd class="mt-2 text-sm" data-fr="Product Designer UX/UI, cofondateur" data-en="UX/UI Product Designer, co-founder">Product Designer UX/UI, cofondateur</dd></div>
+        <div><dt class="font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Contexte" data-en="Context">Contexte</dt><dd class="mt-2 text-sm" data-fr="SaaS B2B, cybersécurité" data-en="B2B SaaS, cybersecurity">SaaS B2B, cybersécurité</dd></div>
+        <div><dt class="font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Équipe" data-en="Team">Équipe</dt><dd class="mt-2 text-sm" data-fr="4 personnes : dev, ingénieurs sécurité, métiers" data-en="4 people: dev, security engineers, domain experts">4 personnes : dev, ingénieurs sécurité, métiers</dd></div>
+      </dl>
     </div>
-    <div class="meta-cell">
-      <span class="meta-label" data-fr="Contexte" data-en="Context">Contexte</span>
-      <p class="meta-value">SaaS B2B<br><span data-fr="Cybersécurité" data-en="Cybersecurity">Cybersécurité</span></p>
+  </section>
+
+  <section class="px-6" aria-label="Chiffres clés" data-en-aria-label="Key figures">
+    <div class="mx-auto grid max-w-7xl grid-cols-2 border-y border-line md:grid-cols-4">
+      <div class="py-8 pr-6"><p class="whitespace-nowrap font-display text-4xl font-bold tracking-[-0.06em] tabular-nums md:text-5xl">11</p><p class="mt-2 text-xs leading-snug text-muted" data-fr="décisions produit tracées en tickets après une session de test" data-en="product decisions traced to tickets after one test session">décisions produit tracées en tickets après une session de test</p></div>
+      <div class="border-l border-line py-8 px-6"><p class="whitespace-nowrap font-display text-4xl font-bold tracking-[-0.06em] tabular-nums md:text-5xl">18 → 2</p><p class="mt-2 text-xs leading-snug text-muted" data-fr="niveaux de questions dans les guides, limite livrée après les tests" data-en="question levels in guides, a cap shipped after testing">niveaux de questions dans les guides, limite livrée après les tests</p></div>
+      <div class="border-t border-line py-8 pr-6 md:border-l md:border-t-0 md:pl-6"><p class="whitespace-nowrap font-display text-4xl font-bold tracking-[-0.06em] tabular-nums md:text-5xl">12</p><p class="mt-2 text-xs leading-snug text-muted" data-fr="corrections issues d'un audit heuristique, toutes livrées" data-en="fixes from a heuristic audit, all shipped">corrections issues d'un audit heuristique, toutes livrées</p></div>
+      <div class="border-l border-t border-line py-8 pl-6 md:border-t-0"><p class="whitespace-nowrap font-display text-4xl font-bold tracking-[-0.06em] tabular-nums md:text-5xl">8</p><p class="mt-2 text-xs leading-snug text-muted" data-fr="jeux de composants Figma créés en 24 h" data-en="Figma component sets built in 24 h">jeux de composants Figma créés en 24 h</p></div>
     </div>
-    <div class="meta-cell">
-      <span class="meta-label" data-fr="Équipe" data-en="Team">Équipe</span>
-      <p class="meta-value" data-fr="Dev, ingénieurs sécurité, métiers" data-en="Dev, security engineers, business">Dev, ingénieurs sécurité, métiers</p>
+  </section>
+
+  <section class="px-6 py-24 md:py-32" aria-labelledby="contexte-titre">
+    <div class="mx-auto grid max-w-7xl gap-12 md:grid-cols-2">
+      <div>
+        <p class="mb-6 font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Le contexte" data-en="Context">Le contexte</p>
+        <h2 id="contexte-titre" class="font-display text-4xl font-bold leading-none tracking-[-0.06em] md:text-6xl" data-fr="Le produit et mon rôle" data-en="The product and my role">Le produit et mon rôle</h2>
+        <p class="mt-8 max-w-md text-sm leading-snug text-muted" data-fr="Artefact est une plateforme d'investigation pour analystes SOC : alertes, investigation, réponse aux incidents. J'en suis cofondateur et j'y tiens le rôle de Product Designer UX/UI, avec un périmètre produit : roadmap, backlog, spécifications et critères d'acceptation." data-en="Artefact is an investigation platform for SOC analysts: alerts, investigation, incident response. I'm a co-founder and work as its UX/UI Product Designer, with product scope: roadmap, backlog, specifications and acceptance criteria.">Artefact est une plateforme d'investigation pour analystes SOC : alertes, investigation, réponse aux incidents. J'en suis cofondateur et j'y tiens le rôle de Product Designer UX/UI, avec un périmètre produit : roadmap, backlog, spécifications et critères d'acceptation.</p>
+        <p class="mt-4 max-w-md text-sm leading-snug text-ink" data-fr="Les quatre cas montrent comment je travaille : tester avant de trancher, auditer avant de redessiner, et ne rien considérer comme validé sans preuve." data-en="The four cases show how I work: test before deciding, audit before redesigning, and treat nothing as validated without evidence.">Les quatre cas montrent comment je travaille : tester avant de trancher, auditer avant de redessiner, et ne rien considérer comme validé sans preuve.</p>
+      </div>
+      <nav aria-label="Les quatre cas" class="self-end" data-en-aria-label="The four cases">
+        <ol class="border-t border-line">
+          <li class="border-b border-line" data-fr="&lt;a href=&quot;#cas-1&quot; class=&quot;grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent&quot;&gt;&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Cas 1&lt;/span&gt;Guides d'investigation : de 18 niveaux de questions à 2&lt;span class=&quot;text-accent&quot; aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-1&quot; class=&quot;grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent&quot;&gt;&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Case 1&lt;/span&gt;Investigation guides: from 18 question levels to 2&lt;span class=&quot;text-accent&quot; aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;"><a href="#cas-1" class="grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"><span class="font-mono text-[10px] uppercase tracking-widest text-muted">Cas 1</span>Guides d'investigation : de 18 niveaux de questions à 2<span class="text-accent" aria-hidden="true">↓</span></a></li>
+          <li class="border-b border-line" data-fr="&lt;a href=&quot;#cas-2&quot; class=&quot;grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent&quot;&gt;&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Cas 2&lt;/span&gt;Audit d'un questionnaire d'investigation de 75 questions&lt;span class=&quot;text-accent&quot; aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-2&quot; class=&quot;grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent&quot;&gt;&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Case 2&lt;/span&gt;Audit of a 75-question investigation questionnaire&lt;span class=&quot;text-accent&quot; aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;"><a href="#cas-2" class="grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"><span class="font-mono text-[10px] uppercase tracking-widest text-muted">Cas 2</span>Audit d'un questionnaire d'investigation de 75 questions<span class="text-accent" aria-hidden="true">↓</span></a></li>
+          <li class="border-b border-line" data-fr="&lt;a href=&quot;#cas-3&quot; class=&quot;grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent&quot;&gt;&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Cas 3&lt;/span&gt;Un design system exact, mais relié à rien&lt;span class=&quot;text-accent&quot; aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-3&quot; class=&quot;grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent&quot;&gt;&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Case 3&lt;/span&gt;An accurate design system, connected to nothing&lt;span class=&quot;text-accent&quot; aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;"><a href="#cas-3" class="grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"><span class="font-mono text-[10px] uppercase tracking-widest text-muted">Cas 3</span>Un design system exact, mais relié à rien<span class="text-accent" aria-hidden="true">↓</span></a></li>
+          <li class="border-b border-line" data-fr="&lt;a href=&quot;#cas-4&quot; class=&quot;grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent&quot;&gt;&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Cas 4&lt;/span&gt;Des critères d'acceptation vérifiés par des agents IA&lt;span class=&quot;text-accent&quot; aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-4&quot; class=&quot;grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent&quot;&gt;&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Case 4&lt;/span&gt;Acceptance criteria checked by AI agents&lt;span class=&quot;text-accent&quot; aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;"><a href="#cas-4" class="grid min-h-11 grid-cols-[3rem_1fr_auto] items-center gap-4 rounded-ui py-4 text-sm hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"><span class="font-mono text-[10px] uppercase tracking-widest text-muted">Cas 4</span>Des critères d'acceptation vérifiés par des agents IA<span class="text-accent" aria-hidden="true">↓</span></a></li>
+        </ol>
+      </nav>
     </div>
-  </div>
+  </section>
 
-  <!-- Image hero : vraie capture produit (WebP, 49 Ko). Le schéma SVG d'origine est conservé
-       juste en dessous, masqué — retire `hidden` et supprime l'<img> pour revenir à l'abstraction. -->
-  <div class="case-hero-image">
-    <img src="assets/artefact-overview.webp" alt="Dashboard Artefact : état des alertes, actifs à risque classés par criticité et règles de détection actives (tactiques MITRE ATT&amp;CK)" width="1600" height="800" decoding="async">
-    <div class="placeholder" hidden>
-      <div class="placeholder-inner">
-        <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" aria-label="Aperçu du dashboard Artefact">
-          <rect x="0" y="0" width="180" height="450" fill="#042C53" rx="8"/>
-          <rect x="16" y="24" width="52" height="6" rx="2" fill="#85B7EB"/>
-          <rect x="16" y="48" width="148" height="28" rx="4" fill="#0C447C"/>
-          <circle cx="30" cy="62" r="5" fill="#85B7EB"/>
-          <rect x="42" y="59" width="80" height="5" rx="1" fill="#378ADD"/>
-          <rect x="16" y="84" width="148" height="28" rx="4" fill="rgba(133,183,235,0.08)"/>
-          <circle cx="30" cy="98" r="5" fill="#378ADD" opacity="0.6"/>
-          <rect x="42" y="95" width="64" height="5" rx="1" fill="#185FA5"/>
-          <rect x="16" y="120" width="148" height="28" rx="4" fill="rgba(133,183,235,0.08)"/>
-          <circle cx="30" cy="134" r="5" fill="#378ADD" opacity="0.6"/>
-          <rect x="42" y="131" width="98" height="5" rx="1" fill="#185FA5"/>
-
-          <rect x="200" y="24" width="120" height="10" rx="2" fill="#185FA5"/>
-          <rect x="200" y="44" width="80" height="6" rx="1" fill="#378ADD" opacity="0.5"/>
-
-          <rect x="200" y="72" width="180" height="130" rx="6" fill="#0C447C"/>
-          <text x="216" y="96" fill="#85B7EB" font-size="11" font-family="monospace">Threats detected</text>
-          <text x="216" y="138" fill="#E6F1FB" font-size="44" font-family="Instrument Serif, serif" font-style="italic">247</text>
-          <rect x="216" y="156" width="100" height="3" rx="1" fill="#7BD9C4"/>
-          <rect x="216" y="156" width="68" height="3" rx="1" fill="#E8835A"/>
-          <text x="216" y="180" fill="#7BD9C4" font-size="10" font-family="monospace">+12% vs last week</text>
-
-          <rect x="395" y="72" width="180" height="130" rx="6" fill="#0C447C"/>
-          <text x="411" y="96" fill="#85B7EB" font-size="11" font-family="monospace">Alert correlation</text>
-          <circle cx="425" cy="150" r="6" fill="#E24B4A"/>
-          <circle cx="450" cy="135" r="4" fill="#E8835A"/>
-          <circle cx="475" cy="160" r="5" fill="#B9C7FF"/>
-          <circle cx="500" cy="130" r="3" fill="#7BD9C4"/>
-          <circle cx="525" cy="165" r="4" fill="#E8835A"/>
-          <circle cx="550" cy="145" r="5" fill="#E24B4A"/>
-          <line x1="425" y1="150" x2="450" y2="135" stroke="#185FA5" stroke-width="0.5"/>
-          <line x1="450" y1="135" x2="475" y2="160" stroke="#185FA5" stroke-width="0.5"/>
-          <line x1="475" y1="160" x2="525" y2="165" stroke="#185FA5" stroke-width="0.5"/>
-          <line x1="525" y1="165" x2="550" y2="145" stroke="#185FA5" stroke-width="0.5"/>
-          <line x1="500" y1="130" x2="525" y2="165" stroke="#185FA5" stroke-width="0.5"/>
-
-          <rect x="590" y="72" width="190" height="130" rx="6" fill="#0C447C"/>
-          <text x="606" y="96" fill="#85B7EB" font-size="11" font-family="monospace">Timeline</text>
-          <polyline points="606,175 632,165 658,170 684,155 710,160 736,140 762,150" fill="none" stroke="#7BD9C4" stroke-width="1.5"/>
-          <polyline points="606,184 632,180 658,176 684,174 710,165 736,162 762,156" fill="none" stroke="#E8835A" stroke-width="1.5" opacity="0.6"/>
-
-          <rect x="200" y="222" width="580" height="206" rx="6" fill="#0C447C"/>
-          <rect x="216" y="240" width="64" height="6" rx="1" fill="#378ADD"/>
-          <rect x="216" y="262" width="548" height="0.5" fill="#185FA5"/>
-
-          <rect x="216" y="276" width="548" height="32" rx="3" fill="rgba(133,183,235,0.05)"/>
-          <circle cx="234" cy="292" r="5" fill="#E24B4A"/>
-          <rect x="248" y="285" width="120" height="5" rx="1" fill="#85B7EB"/>
-          <rect x="248" y="295" width="170" height="3.5" rx="1" fill="#378ADD" opacity="0.6"/>
-          <text x="708" y="295" fill="#E24B4A" font-size="10" font-family="monospace">CRITICAL</text>
-
-          <rect x="216" y="316" width="548" height="32" rx="3" fill="rgba(133,183,235,0.05)"/>
-          <circle cx="234" cy="332" r="5" fill="#E8835A"/>
-          <rect x="248" y="325" width="146" height="5" rx="1" fill="#85B7EB"/>
-          <rect x="248" y="335" width="148" height="3.5" rx="1" fill="#378ADD" opacity="0.6"/>
-          <text x="724" y="335" fill="#E8835A" font-size="10" font-family="monospace">HIGH</text>
-
-          <rect x="216" y="356" width="548" height="32" rx="3" fill="rgba(133,183,235,0.05)"/>
-          <circle cx="234" cy="372" r="5" fill="#7BD9C4"/>
-          <rect x="248" y="365" width="106" height="5" rx="1" fill="#85B7EB"/>
-          <rect x="248" y="375" width="190" height="3.5" rx="1" fill="#378ADD" opacity="0.6"/>
-          <text x="712" y="375" fill="#7BD9C4" font-size="10" font-family="monospace">RESOLVED</text>
-
-          <rect x="216" y="396" width="548" height="32" rx="3" fill="rgba(133,183,235,0.05)"/>
-          <circle cx="234" cy="412" r="5" fill="#B9C7FF"/>
-          <rect x="248" y="405" width="130" height="5" rx="1" fill="#85B7EB"/>
-          <rect x="248" y="415" width="140" height="3.5" rx="1" fill="#378ADD" opacity="0.6"/>
-          <text x="724" y="415" fill="#B9C7FF" font-size="10" font-family="monospace">INFO</text>
-        </svg>
+  <section id="cas-1" class="bg-paper px-6 py-24 text-inverse md:py-32" aria-labelledby="cas-1-titre">
+    <div class="mx-auto max-w-7xl">
+      <div class="mb-12 grid grid-cols-3 font-mono text-[10px] uppercase tracking-widest text-inverse/70"><p data-fr="Cas 1" data-en="Case 1">Cas 1</p><p class="text-center" data-fr="Recherche utilisateur" data-en="User Research">Recherche utilisateur</p><p class="text-right">18 → 2</p></div>
+      <h2 id="cas-1-titre" class="max-w-4xl font-display text-4xl font-bold leading-none tracking-[-0.06em] md:text-7xl" data-fr="Guides d'investigation : de 18 niveaux à 2" data-en="Investigation guides: from 18 levels to 2">Guides d'investigation : de 18 niveaux à 2</h2>
+      <div class="mt-12 grid gap-12 md:grid-cols-2">
+        <div>
+          <p class="max-w-md text-sm leading-snug text-inverse/70" data-fr="Dans Artefact, un analyste mène une investigation en suivant un guide : des étapes, des actions et des questions dont les réponses ouvrent d'autres questions. Rien ne limitait la profondeur de ces questions, qui pouvait atteindre 18 niveaux." data-en="In Artefact, an analyst runs an investigation by following a guide: steps, actions and questions whose answers open further questions. Nothing limited how deep those questions could go: up to 18 levels.">Dans Artefact, un analyste mène une investigation en suivant un guide : des étapes, des actions et des questions dont les réponses ouvrent d'autres questions. Rien ne limitait la profondeur de ces questions, qui pouvait atteindre 18 niveaux.</p>
+          <h3 class="mt-10 font-mono text-[10px] font-normal uppercase tracking-widest text-inverse/70" data-fr="Ce que j'ai fait" data-en="What I did">Ce que j'ai fait</h3>
+          <ul class="mt-4 space-y-3 border-l border-line pl-4 text-sm leading-snug">
+            <li data-fr="Un protocole figé avant tout recrutement : 8 missions sur le workflow cœur, des réponses de référence connues à l'avance, un environnement de test dédié." data-en="A protocol frozen before recruiting anyone: 8 tasks on the core workflow, reference answers known in advance, a dedicated test environment.">Un protocole figé avant tout recrutement : 8 missions sur le workflow cœur, des réponses de référence connues à l'avance, un environnement de test dédié.</li>
+            <li data-fr="6 mesures par mission : résultat, durée, niveau d'aide, erreurs, retours arrière et confiance déclarée. Seuil de décision fixé à 80 %." data-en="6 measures per task: outcome, time, help needed, errors, backtracks and stated confidence. Decision threshold set at 80%.">6 mesures par mission : résultat, durée, niveau d'aide, erreurs, retours arrière et confiance déclarée. Seuil de décision fixé à 80 %.</li>
+            <li data-fr="Un registre qui sépare les décisions de design, les décisions fonctionnelles et les décisions de construction, chacune liée à son ticket." data-en="A log that separates design, functional and build decisions, each linked to its ticket.">Un registre qui sépare les décisions de design, les décisions fonctionnelles et les décisions de construction, chacune liée à son ticket.</li>
+          </ul>
+        </div>
+        <figure>
+          <img src="assets/guide-2-niveaux.webp" alt="Un guide limité à 2 niveaux : la question principale, puis ses 13 questions de suivi, avec la réponse « Non vérifiable »" width="1821" height="905" loading="lazy" class="w-full rounded-card border border-line h-auto grayscale" data-en-alt="A guide capped at 2 levels: the main question, then its 13 follow-up questions, with the &quot;Can't verify&quot; answer">
+          <figcaption class="mt-3 text-xs leading-snug text-inverse/70" data-fr="Un guide limité à 2 niveaux : la question principale, puis ses 13 questions de suivi juste en dessous, avec la réponse « Non vérifiable »." data-en="A guide capped at 2 levels: the main question, then its 13 follow-up questions right below, with a &quot;Can't verify&quot; answer.">Un guide limité à 2 niveaux : la question principale, puis ses 13 questions de suivi juste en dessous, avec la réponse « Non vérifiable ».</figcaption>
+        </figure>
+      </div>
+      <div class="mt-16 overflow-x-auto">
+        <table class="w-full min-w-[36rem] text-left text-sm">
+          <caption class="mb-4 text-left font-mono text-[10px] uppercase tracking-widest text-inverse/70" data-fr="Ce que le test a montré, et ce que j'ai décidé" data-en="What the test showed, and what I decided">Ce que le test a montré, et ce que j'ai décidé</caption>
+          <thead><tr class="border-b border-line font-mono text-[10px] uppercase tracking-widest text-inverse/70"><th scope="col" class="py-3 pr-8 font-normal" data-fr="Observation" data-en="Observation">Observation</th><th scope="col" class="py-3 font-normal" data-fr="Décision" data-en="Decision">Décision</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top text-inverse/70" data-fr="Le lien entre une question et ses questions filles n'est pas compris" data-en="The link between a question and its child questions isn't understood">Le lien entre une question et ses questions filles n'est pas compris</td><td class="py-4 align-top font-medium" data-fr="Limiter les guides à 2 niveaux, à la création, à l'édition et à l'import" data-en="Cap guides at 2 levels, on creation, editing and import">Limiter les guides à 2 niveaux, à la création, à l'édition et à l'import</td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top text-inverse/70" data-fr="Les éléments cliquables sont pris pour de simples tags" data-en="Clickable items are mistaken for plain tags">Les éléments cliquables sont pris pour de simples tags</td><td class="py-4 align-top font-medium" data-fr="Une affordance d'action distincte, avec tous ses états" data-en="A distinct action affordance, with all its states">Une affordance d'action distincte, avec tous ses états</td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top text-inverse/70" data-fr="« Clôturer » en rouge est lu comme une erreur" data-en="A red &quot;Close&quot; button reads as an error">« Clôturer » en rouge est lu comme une erreur</td><td class="py-4 align-top font-medium" data-fr="Un traitement neutre et une confirmation claire" data-en="A neutral treatment and a clear confirmation">Un traitement neutre et une confirmation claire</td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top text-inverse/70" data-fr="L'analyste veut comprendre pourquoi une alerte s'est déclenchée, sans verdict imposé" data-en="Analysts want to know why an alert fired, without an imposed verdict">L'analyste veut comprendre pourquoi une alerte s'est déclenchée, sans verdict imposé</td><td class="py-4 align-top font-medium" data-fr="Un encart « Pourquoi cette alerte ? » qui sépare faits, interprétation et recommandation" data-en="A &quot;Why this alert?&quot; panel separating facts, interpretation and recommendation">Un encart « Pourquoi cette alerte ? » qui sépare faits, interprétation et recommandation</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-16 grid gap-8 border-t border-line pt-8 md:grid-cols-[10rem_1fr_1fr]">
+        <h3 class="font-mono text-[10px] font-normal uppercase tracking-widest text-inverse/70" data-fr="Résultat" data-en="Outcome">Résultat</h3>
+        <p class="max-w-md text-sm leading-snug" data-fr="11 décisions (6 de design, 5 fonctionnelles), chacune tracée en ticket avec ses critères d'acceptation. La limite à 2 niveaux est livrée, avec une migration prévue pour les guides existants." data-en="11 decisions (6 design, 5 functional), each ticketed with its acceptance criteria. The 2-level cap has shipped, with a migration plan for existing guides.">11 décisions (6 de design, 5 fonctionnelles), chacune tracée en ticket avec ses critères d'acceptation. La limite à 2 niveaux est livrée, avec une migration prévue pour les guides existants.</p>
+        <p class="max-w-md text-sm leading-snug text-inverse/70" data-fr="C'était une première session, avec un seul participant : assez pour corriger ce qui bloquait, pas pour généraliser. Une décision n'est considérée comme validée que lorsqu'un utilisateur réussit l'action sans explication orale." data-en="It was a first session with a single participant: enough to fix what blocked, not enough to generalise. A decision only counts as validated once a user completes the action without verbal help.">C'était une première session, avec un seul participant : assez pour corriger ce qui bloquait, pas pour généraliser. Une décision n'est considérée comme validée que lorsqu'un utilisateur réussit l'action sans explication orale.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CASE STUDY EN 4 CAS -->
-<section class="narrow" id="contexte">
-  <div class="chapter">
-    <p class="chapter-num" data-fr="Le contexte" data-en="Context">Le contexte</p>
-    <h2 class="chapter-title" data-fr="Le produit et &lt;span class=&quot;it&quot;&gt;mon rôle&lt;/span&gt;" data-en="The product and &lt;span class=&quot;it&quot;&gt;my role&lt;/span&gt;">Le produit et <span class="it">mon rôle</span></h2>
-    <div class="prose">
-      <p data-fr="Artefact est une plateforme d&#x27;investigation pour analystes SOC : alertes, investigation, réponse aux incidents. J&#x27;en suis &lt;strong&gt;cofondateur&lt;/strong&gt; et j&#x27;y tiens le rôle de Product Designer UX/UI, avec un périmètre produit : roadmap, backlog, spécifications et critères d&#x27;acceptation." data-en="Artefact is an investigation platform for SOC analysts: alerts, investigation, incident response. I&#x27;m a &lt;strong&gt;co-founder&lt;/strong&gt; and work as its UX/UI Product Designer, with product scope: roadmap, backlog, specifications and acceptance criteria.">Artefact est une plateforme d'investigation pour analystes SOC : alertes, investigation, réponse aux incidents. J'en suis <strong>cofondateur</strong> et j'y tiens le rôle de Product Designer UX/UI, avec un périmètre produit : roadmap, backlog, spécifications et critères d'acceptation.</p>
-      <p data-fr="Nous sommes 4 dans l&#x27;équipe. Les quatre cas ci-dessous montrent comment je travaille : tester avant de trancher, auditer avant de redessiner, et ne rien considérer comme validé sans preuve." data-en="We are a team of 4. The four cases below show how I work: test before deciding, audit before redesigning, and treat nothing as validated without evidence.">Nous sommes 4 dans l'équipe. Les quatre cas ci-dessous montrent comment je travaille : tester avant de trancher, auditer avant de redessiner, et ne rien considérer comme validé sans preuve.</p>
-      <ol>
-        <li data-fr="&lt;a href=&quot;#cas-1&quot;&gt;Cas 1 · Guides d&#x27;investigation : de 18 niveaux de questions à 2&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-1&quot;&gt;Case 1 · Investigation guides: from 18 question levels to 2&lt;/a&gt;"><a href="#cas-1">Cas 1 · Guides d'investigation : de 18 niveaux de questions à 2</a></li>
-        <li data-fr="&lt;a href=&quot;#cas-2&quot;&gt;Cas 2 · Audit d&#x27;un questionnaire d&#x27;investigation de 75 questions&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-2&quot;&gt;Case 2 · Auditing a 75-question investigation questionnaire&lt;/a&gt;"><a href="#cas-2">Cas 2 · Audit d'un questionnaire d'investigation de 75 questions</a></li>
-        <li data-fr="&lt;a href=&quot;#cas-3&quot;&gt;Cas 3 · Un design system exact, mais relié à rien&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-3&quot;&gt;Case 3 · An accurate design system, connected to nothing&lt;/a&gt;"><a href="#cas-3">Cas 3 · Un design system exact, mais relié à rien</a></li>
-        <li data-fr="&lt;a href=&quot;#cas-4&quot;&gt;Cas 4 · Des critères d&#x27;acceptation vérifiés par des agents IA&lt;/a&gt;" data-en="&lt;a href=&quot;#cas-4&quot;&gt;Case 4 · Acceptance criteria checked by AI agents&lt;/a&gt;"><a href="#cas-4">Cas 4 · Des critères d'acceptation vérifiés par des agents IA</a></li>
-      </ol>
-    </div>
-    <div class="kpi-grid">
-      <div class="kpi-cell">
-        <p class="kpi-val">11</p>
-        <p class="kpi-lbl" data-fr="Décisions produit tracées en tickets après une session de test" data-en="Product decisions ticketed after one test session">Décisions produit tracées en tickets après une session de test</p>
+  <section id="cas-2" class="px-6 py-24 md:py-32" aria-labelledby="cas-2-titre">
+    <div class="mx-auto max-w-7xl">
+      <div class="mb-12 grid grid-cols-3 font-mono text-[10px] uppercase tracking-widest text-muted"><p data-fr="Cas 2" data-en="Case 2">Cas 2</p><p class="text-center" data-fr="Audit UX" data-en="UX audit">Audit UX</p><p class="text-right" data-fr="75 questions" data-en="75 questions">75 questions</p></div>
+      <h2 id="cas-2-titre" class="max-w-4xl font-display text-4xl font-bold leading-none tracking-[-0.06em] md:text-7xl" data-fr="Un questionnaire oui / non qui faisait douter l'analyste" data-en="A yes / no questionnaire that left analysts unsure">Un questionnaire oui / non qui faisait douter l'analyste</h2>
+      <div class="mt-12 grid gap-12 md:grid-cols-2">
+        <p class="max-w-md text-sm leading-snug text-muted" data-fr="Pour qualifier une alerte, l'analyste répond à un questionnaire tiré du guide d'investigation. Sur l'alerte étudiée, un scénario de rançongiciel, il y avait 14 questions de départ, 75 avec les questions de suivi, et 43 requêtes pour vérifier les réponses." data-en="To qualify an alert, the analyst answers a questionnaire drawn from the investigation guide. On the alert reviewed, a ransomware scenario, there were 14 starting questions, 75 including follow-ups, and 43 queries to check the answers.">Pour qualifier une alerte, l'analyste répond à un questionnaire tiré du guide d'investigation. Sur l'alerte étudiée, un scénario de rançongiciel, il y avait 14 questions de départ, 75 avec les questions de suivi, et 43 requêtes pour vérifier les réponses.</p>
+        <p class="max-w-md text-sm leading-snug text-muted" data-fr="J'ai mené l'audit : les 10 heuristiques de Nielsen, une sévérité notée de 0 à 4, un relevé d'accessibilité dans le code de la page, puis des recommandations et des wireframes avant / après." data-en="I ran the audit: Nielsen's 10 heuristics, severity scored 0 to 4, an accessibility check in the page code, then recommendations and before / after wireframes.">J'ai mené l'audit : les 10 heuristiques de Nielsen, une sévérité notée de 0 à 4, un relevé d'accessibilité dans le code de la page, puis des recommandations et des wireframes avant / après.</p>
       </div>
-      <div class="kpi-cell">
-        <p class="kpi-val">18<span class="plus">→2</span></p>
-        <p class="kpi-lbl" data-fr="Niveaux de questions dans les guides : limite livrée après les tests" data-en="Question levels in guides: limit shipped after testing">Niveaux de questions dans les guides : limite livrée après les tests</p>
+      <div class="mt-16 overflow-x-auto">
+        <table class="w-full min-w-[36rem] text-left text-sm">
+          <caption class="mb-4 text-left font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Ce que l'audit a trouvé" data-en="What the audit found">Ce que l'audit a trouvé</caption>
+          <thead><tr class="border-b border-line font-mono text-[10px] uppercase tracking-widest text-muted"><th scope="col" class="py-3 pr-8 font-normal" data-fr="Problème" data-en="Problem">Problème</th><th scope="col" class="py-3 text-right font-normal" data-fr="Sévérité" data-en="Severity">Sévérité</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-line"><td class="py-4 pr-8" data-fr="Aucun lien entre la preuve et la réponse : une question est à OUI alors que la requête ne remonte rien" data-en="No link between evidence and answer: a question reads YES while the query returns nothing">Aucun lien entre la preuve et la réponse : une question est à OUI alors que la requête ne remonte rien</td><td class="whitespace-nowrap py-4 text-right font-mono text-xs tabular-nums" data-fr="&lt;span class=&quot;rounded-ui border border-danger px-2 py-1 text-danger&quot;&gt;4 sur 4&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui border border-danger px-2 py-1 text-danger&quot;&gt;4 of 4&lt;/span&gt;"><span class="rounded-ui border border-danger px-2 py-1 text-danger">4 sur 4</span></td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8" data-fr="Des questions qui proposent un choix déguisé en oui / non" data-en="Questions that hide a choice inside a yes / no">Des questions qui proposent un choix déguisé en oui / non</td><td class="whitespace-nowrap py-4 text-right font-mono text-xs tabular-nums" data-fr="&lt;span class=&quot;rounded-ui border border-line px-2 py-1&quot;&gt;3 sur 4&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui border border-line px-2 py-1&quot;&gt;3 of 4&lt;/span&gt;"><span class="rounded-ui border border-line px-2 py-1">3 sur 4</span></td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8" data-fr="OUI veut dire « suspect » sur certaines questions et « rassurant » sur d'autres" data-en="YES means &quot;suspicious&quot; on some questions and &quot;reassuring&quot; on others">OUI veut dire « suspect » sur certaines questions et « rassurant » sur d'autres</td><td class="whitespace-nowrap py-4 text-right font-mono text-xs tabular-nums" data-fr="&lt;span class=&quot;rounded-ui border border-line px-2 py-1&quot;&gt;3 sur 4&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui border border-line px-2 py-1&quot;&gt;3 of 4&lt;/span&gt;"><span class="rounded-ui border border-line px-2 py-1">3 sur 4</span></td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8" data-fr="« 1 / 75 répondues » et 98 % de probabilité après une seule réponse, sans explication" data-en="&quot;1 / 75 answered&quot; and a 98% probability after one answer, unexplained">« 1 / 75 répondues » et 98 % de probabilité après une seule réponse, sans explication</td><td class="whitespace-nowrap py-4 text-right font-mono text-xs tabular-nums" data-fr="&lt;span class=&quot;rounded-ui border border-line px-2 py-1&quot;&gt;3 sur 4&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui border border-line px-2 py-1&quot;&gt;3 of 4&lt;/span&gt;"><span class="rounded-ui border border-line px-2 py-1">3 sur 4</span></td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8" data-fr="Pas de réponse « Non vérifiable » : l'analyste doit deviner" data-en="No &quot;Can't verify&quot; answer: the analyst has to guess">Pas de réponse « Non vérifiable » : l'analyste doit deviner</td><td class="whitespace-nowrap py-4 text-right font-mono text-xs tabular-nums" data-fr="&lt;span class=&quot;rounded-ui border border-line px-2 py-1&quot;&gt;3 sur 4&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui border border-line px-2 py-1&quot;&gt;3 of 4&lt;/span&gt;"><span class="rounded-ui border border-line px-2 py-1">3 sur 4</span></td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="kpi-cell">
-        <p class="kpi-val">12</p>
-        <p class="kpi-lbl" data-fr="Corrections issues d&#x27;un audit heuristique, toutes livrées" data-en="Fixes from a heuristic audit, all shipped">Corrections issues d'un audit heuristique, toutes livrées</p>
+      <p class="mt-8 max-w-2xl font-display text-2xl font-bold leading-tight tracking-[-0.04em]" data-fr="Le plus grave : une alerte pouvait être classée à tort sans que rien ne le signale." data-en="Worst of all: an alert could be closed by mistake with nothing to flag it.">Le plus grave : une alerte pouvait être classée à tort sans que rien ne le signale.</p>
+      <div class="mt-16 grid gap-12 md:grid-cols-2">
+        <div>
+          <h3 class="font-mono text-[10px] font-normal uppercase tracking-widest text-muted" data-fr="Ce que j'ai proposé" data-en="What I proposed">Ce que j'ai proposé</h3>
+          <ul class="mt-4 space-y-3 border-l border-line pl-4 text-sm leading-snug">
+            <li data-fr="Une règle d'écriture pour tout le guide : une question, un fait vérifiable, une réponse sans ambiguïté." data-en="One writing rule for the whole guide: one question, one checkable fact, one unambiguous answer.">Une règle d'écriture pour tout le guide : une question, un fait vérifiable, une réponse sans ambiguïté.</li>
+            <li data-fr="Afficher sous chaque réponse son effet sur la suspicion, plutôt que réécrire les 75 questions." data-en="Show each answer's effect on suspicion right under it, instead of rewriting all 75 questions.">Afficher sous chaque réponse son effet sur la suspicion, plutôt que réécrire les 75 questions.</li>
+            <li data-fr="12 corrections faisables en un sprint, classées par impact et par effort, et 4 composants redessinés." data-en="12 fixes doable in one sprint, ranked by impact and effort, and 4 redesigned components.">12 corrections faisables en un sprint, classées par impact et par effort, et 4 composants redessinés.</li>
+            <li data-fr="Un chantier plus lourd : que la requête suggère la réponse, et que l'analyste justifie s'il la contredit." data-en="A larger piece of work: the query suggests the answer, and the analyst justifies any disagreement.">Un chantier plus lourd : que la requête suggère la réponse, et que l'analyste justifie s'il la contredit.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-mono text-[10px] font-normal uppercase tracking-widest text-muted" data-fr="Résultat" data-en="Outcome">Résultat</h3>
+          <p class="mt-4 max-w-md text-sm leading-snug" data-fr="Les 12 corrections sont livrées. Un oui / non n'est simple que si la question l'est : sur un écran où une erreur coûte un incident manqué, la rédaction des questions compte autant que l'interface." data-en="All 12 fixes have shipped. A yes / no is only simple if the question is: on a screen where a mistake costs a missed incident, how questions are written matters as much as the interface.">Les 12 corrections sont livrées. Un oui / non n'est simple que si la question l'est : sur un écran où une erreur coûte un incident manqué, la rédaction des questions compte autant que l'interface.</p>
+        </div>
       </div>
-      <div class="kpi-cell">
-        <p class="kpi-val">8</p>
-        <p class="kpi-lbl" data-fr="Jeux de composants Figma créés en 24 h" data-en="Figma component sets built in 24 h">Jeux de composants Figma créés en 24 h</p>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="narrow" id="cas-1">
-  <div class="chapter">
-    <p class="chapter-num" data-fr="Cas 1 · Recherche utilisateur" data-en="Case 1 · User research">Cas 1 · Recherche utilisateur</p>
-    <h2 class="chapter-title" data-fr="Guides d&#x27;investigation : &lt;span class=&quot;it&quot;&gt;de 18 niveaux à 2&lt;/span&gt;" data-en="Investigation guides: &lt;span class=&quot;it&quot;&gt;from 18 levels to 2&lt;/span&gt;">Guides d'investigation : <span class="it">de 18 niveaux à 2</span></h2>
-    <div class="prose">
-      <p data-fr="Dans Artefact, un analyste mène une investigation en suivant un guide : des étapes, des actions et des questions dont les réponses ouvrent d&#x27;autres questions. Rien ne limitait la profondeur de ces questions, qui pouvait atteindre 18 niveaux." data-en="In Artefact, an analyst runs an investigation by following a guide: steps, actions and questions whose answers open further questions. Nothing limited how deep those questions could go: up to 18 levels.">Dans Artefact, un analyste mène une investigation en suivant un guide : des étapes, des actions et des questions dont les réponses ouvrent d'autres questions. Rien ne limitait la profondeur de ces questions, qui pouvait atteindre 18 niveaux.</p>
-      <p class="case-label" data-fr="Ce que j&#x27;ai fait" data-en="What I did">Ce que j'ai fait</p>
-      <ul>
-        <li data-fr="Un protocole figé avant tout recrutement : 8 missions sur le workflow cœur, des réponses de référence connues à l&#x27;avance, un environnement de test dédié." data-en="A protocol frozen before recruiting anyone: 8 tasks on the core workflow, reference answers known in advance, a dedicated test environment.">Un protocole figé avant tout recrutement : 8 missions sur le workflow cœur, des réponses de référence connues à l'avance, un environnement de test dédié.</li>
-        <li data-fr="6 mesures par mission : résultat, durée, niveau d&#x27;aide, erreurs, retours arrière et confiance déclarée. Seuil de décision fixé à 80 %." data-en="6 measures per task: outcome, time, help needed, errors, backtracks and stated confidence. Decision threshold set at 80%.">6 mesures par mission : résultat, durée, niveau d'aide, erreurs, retours arrière et confiance déclarée. Seuil de décision fixé à 80 %.</li>
-        <li data-fr="Un registre qui sépare les décisions de design, les décisions fonctionnelles et les décisions de construction, chacune liée à son ticket." data-en="A log that separates design, functional and build decisions, each linked to its ticket.">Un registre qui sépare les décisions de design, les décisions fonctionnelles et les décisions de construction, chacune liée à son ticket.</li>
+      <ul class="mt-16 grid gap-px border border-line bg-line sm:grid-cols-2">
+        <li class="bg-base p-6"><img src="assets/wf1-carte-question.webp" alt="Wireframe de la carte question : l'effet de la réponse, la branche qu'elle ouvre et la réponse « Non vérifiable »" width="1344" height="1004" loading="lazy" class="w-full rounded-card h-auto grayscale" data-en-alt="Question card wireframe: the answer's effect, the branch it opens and the &quot;Can't verify&quot; answer"><p class="mt-4 text-xs leading-snug text-muted" data-fr="La carte question montre l'effet de la réponse, la branche qu'elle ouvre, et propose « Non vérifiable ». Les repères QW renvoient aux corrections de l'audit." data-en="The question card shows the answer's effect and the branch it opens, and offers &quot;Can't verify&quot;. QW markers refer to the audit's fixes.">La carte question montre l'effet de la réponse, la branche qu'elle ouvre, et propose « Non vérifiable ». Les repères QW renvoient aux corrections de l'audit.</p></li>
+        <li class="bg-base p-6"><img src="assets/wf2-en-tete.webp" alt="Wireframe de l'en-tête qui reste visible et explique son pourcentage" width="1344" height="932" loading="lazy" class="w-full rounded-card h-auto grayscale" data-en-alt="Wireframe of the header that stays visible and explains its percentage"><p class="mt-4 text-xs leading-snug text-muted" data-fr="L'en-tête reste visible et explique son pourcentage ; la progression compte les questions atteignables, pas les 75." data-en="The header stays visible and explains its percentage; progress counts reachable questions, not all 75.">L'en-tête reste visible et explique son pourcentage ; la progression compte les questions atteignables, pas les 75.</p></li>
+        <li class="bg-base p-6"><img src="assets/wf3-resultat-requete.webp" alt="Wireframe du résultat de la requête confronté à la réponse de l'analyste" width="1344" height="1056" loading="lazy" class="w-full rounded-card h-auto grayscale" data-en-alt="Wireframe of the query result checked against the analyst's answer"><p class="mt-4 text-xs leading-snug text-muted" data-fr="Le résultat de la requête est confronté à la réponse : si les deux divergent, l'analyste corrige ou justifie." data-en="The query result is checked against the answer: if they disagree, the analyst corrects or justifies.">Le résultat de la requête est confronté à la réponse : si les deux divergent, l'analyste corrige ou justifie.</p></li>
+        <li class="bg-base p-6"><img src="assets/wf4-navigation.webp" alt="Wireframe de la navigation latérale, avec un seul état codé et sa légende" width="1344" height="898" loading="lazy" class="w-full rounded-card h-auto grayscale" data-en-alt="Wireframe of the side navigation, encoding a single state with its legend"><p class="mt-4 text-xs leading-snug text-muted" data-fr="La navigation latérale ne code plus qu'un état, avec une légende et un nom accessible par question." data-en="The side navigation now encodes state only, with a legend and an accessible name per question.">La navigation latérale ne code plus qu'un état, avec une légende et un nom accessible par question.</p></li>
       </ul>
-      <p class="case-label" data-fr="Ce que le test a montré, et ce que j&#x27;ai décidé" data-en="What the test showed, and what I decided">Ce que le test a montré, et ce que j'ai décidé</p>
-      <div class="table-wrap"><table class="data-table">
-        <thead><tr><th data-fr="Observation" data-en="Observation">Observation</th><th data-fr="Décision" data-en="Decision">Décision</th></tr></thead>
-        <tbody>
-          <tr><td data-fr="Le lien entre une question et ses questions filles n&#x27;est pas compris" data-en="The link between a question and its child questions isn&#x27;t understood">Le lien entre une question et ses questions filles n'est pas compris</td><td data-fr="Limiter les guides à 2 niveaux, à la création, à l&#x27;édition et à l&#x27;import" data-en="Cap guides at 2 levels, on creation, editing and import">Limiter les guides à 2 niveaux, à la création, à l'édition et à l'import</td></tr>
-          <tr><td data-fr="Les éléments cliquables sont pris pour de simples tags" data-en="Clickable items are mistaken for plain tags">Les éléments cliquables sont pris pour de simples tags</td><td data-fr="Une affordance d&#x27;action distincte, avec tous ses états" data-en="A distinct action affordance, with all its states">Une affordance d'action distincte, avec tous ses états</td></tr>
-          <tr><td data-fr="« Clôturer » en rouge est lu comme une erreur" data-en="A red &quot;Close&quot; button reads as an error">« Clôturer » en rouge est lu comme une erreur</td><td data-fr="Un traitement neutre et une confirmation claire" data-en="A neutral treatment and a clear confirmation">Un traitement neutre et une confirmation claire</td></tr>
-          <tr><td data-fr="L&#x27;analyste veut comprendre pourquoi une alerte s&#x27;est déclenchée, sans verdict imposé" data-en="Analysts want to know why an alert fired, without an imposed verdict">L'analyste veut comprendre pourquoi une alerte s'est déclenchée, sans verdict imposé</td><td data-fr="Un encart « Pourquoi cette alerte ? » qui sépare faits, interprétation et recommandation" data-en="A &quot;Why this alert?&quot; panel separating facts, interpretation and recommendation">Un encart « Pourquoi cette alerte ? » qui sépare faits, interprétation et recommandation</td></tr>
-        </tbody>
-      </table></div>
+      <figure class="mt-16 border-t border-line pt-10">
+        <figcaption class="mb-6 grid gap-2 md:grid-cols-[10rem_1fr]" data-fr="&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;Le composant livré&lt;/span&gt;&lt;span class=&quot;max-w-2xl text-sm leading-snug text-muted&quot;&gt;La carte question en production, sur le scénario de rançongiciel audité : les trois réponses, dont « Non vérifiable », la requête qui vérifie la réponse juste en dessous, la progression des 13 questions de suivi et la navigation latérale numérotée.&lt;/span&gt;" data-en="&lt;span class=&quot;font-mono text-[10px] uppercase tracking-widest text-muted&quot;&gt;The shipped component&lt;/span&gt;&lt;span class=&quot;max-w-2xl text-sm leading-snug text-muted&quot;&gt;The question card in production, on the audited ransomware scenario: the three answers, including &quot;Can't verify&quot;, the query that checks the answer right below it, progress through the 13 follow-up questions, and the numbered side navigation.&lt;/span&gt;"><span class="font-mono text-[10px] uppercase tracking-widest text-muted">Le composant livré</span><span class="max-w-2xl text-sm leading-snug text-muted">La carte question en production, sur le scénario de rançongiciel audité : les trois réponses, dont « Non vérifiable », la requête qui vérifie la réponse juste en dessous, la progression des 13 questions de suivi et la navigation latérale numérotée.</span></figcaption>
+        <img src="assets/composant-question.webp" alt="Carte question d'Artefact : « Des extensions de fichiers massivement renommées .locked .encrypted ou aléatoires apparaissent-elles après l'exécution ? », réponses OUI, NON (sélectionnée) et Non vérifiable, requête « Renommages massifs post-vssadmin » à exécuter, 13 questions à suivre, et navigation latérale de 1 à 11" width="2340" height="584" loading="lazy" class="h-auto w-full rounded-card border border-line grayscale" data-en-alt="Artefact question card: &quot;Do mass-renamed .locked, .encrypted or random file extensions appear after execution?&quot;, answers YES, NO (selected) and Can't verify, a &quot;Mass renames after vssadmin&quot; query to run, 13 follow-up questions, and side navigation from 1 to 11">
+      </figure>
     </div>
-    <figure class="figure">
-      <a href="assets/guide-2-niveaux.webp" target="_blank" rel="noopener"><img src="assets/guide-2-niveaux.webp" alt="Écran d'investigation Artefact : une question principale et ses questions de suivi" width="1821" height="905" loading="lazy" decoding="async" style="background:#16181d"></a>
-      <figcaption data-fr="Un guide limité à 2 niveaux : la question principale, puis ses 13 questions de suivi juste en dessous, avec la réponse « Non vérifiable »." data-en="A guide capped at 2 levels: the main question, then its 13 follow-up questions right below, with a &quot;Can&#x27;t verify&quot; answer.">Un guide limité à 2 niveaux : la question principale, puis ses 13 questions de suivi juste en dessous, avec la réponse « Non vérifiable ».</figcaption>
-    </figure>
-    <div class="prose">
-      <p class="case-label" data-fr="Résultat" data-en="Outcome">Résultat</p>
-      <p data-fr="11 décisions (6 de design, 5 fonctionnelles), chacune tracée en ticket avec ses critères d&#x27;acceptation. La limite à 2 niveaux est livrée, avec une migration prévue pour les guides existants." data-en="11 decisions (6 design, 5 functional), each ticketed with its acceptance criteria. The 2-level cap has shipped, with a migration plan for existing guides.">11 décisions (6 de design, 5 fonctionnelles), chacune tracée en ticket avec ses critères d'acceptation. La limite à 2 niveaux est livrée, avec une migration prévue pour les guides existants.</p>
-      <p data-fr="C&#x27;était une première session, avec un seul participant : assez pour corriger ce qui bloquait, pas pour généraliser. Une décision n&#x27;est considérée comme validée que lorsqu&#x27;un utilisateur réussit l&#x27;action sans explication orale." data-en="It was a first session with a single participant: enough to fix what blocked, not enough to generalise. A decision only counts as validated once a user completes the action without verbal help.">C'était une première session, avec un seul participant : assez pour corriger ce qui bloquait, pas pour généraliser. Une décision n'est considérée comme validée que lorsqu'un utilisateur réussit l'action sans explication orale.</p>
-    </div>
-  </div>
-</section>
-<section class="narrow" id="cas-2">
-  <div class="chapter">
-    <p class="chapter-num" data-fr="Cas 2 · Audit UX" data-en="Case 2 · UX audit">Cas 2 · Audit UX</p>
-    <h2 class="chapter-title" data-fr="Un questionnaire oui / non &lt;span class=&quot;it&quot;&gt;qui faisait douter l&#x27;analyste&lt;/span&gt;" data-en="A yes / no questionnaire &lt;span class=&quot;it&quot;&gt;that left analysts unsure&lt;/span&gt;">Un questionnaire oui / non <span class="it">qui faisait douter l'analyste</span></h2>
-    <div class="prose">
-      <p data-fr="Pour qualifier une alerte, l&#x27;analyste répond à un questionnaire tiré du guide d&#x27;investigation. Sur l&#x27;alerte étudiée, un scénario de rançongiciel, il y avait 14 questions de départ, 75 avec les questions de suivi, et 43 requêtes pour vérifier les réponses." data-en="To qualify an alert, the analyst answers a questionnaire drawn from the investigation guide. On the alert reviewed, a ransomware scenario, there were 14 starting questions, 75 including follow-ups, and 43 queries to check the answers.">Pour qualifier une alerte, l'analyste répond à un questionnaire tiré du guide d'investigation. Sur l'alerte étudiée, un scénario de rançongiciel, il y avait 14 questions de départ, 75 avec les questions de suivi, et 43 requêtes pour vérifier les réponses.</p>
-      <p data-fr="J&#x27;ai mené l&#x27;audit : les 10 heuristiques de Nielsen, une sévérité notée de 0 à 4, un relevé d&#x27;accessibilité dans le code de la page, puis des recommandations et des wireframes avant / après." data-en="I ran the audit: Nielsen&#x27;s 10 heuristics, severity scored 0 to 4, an accessibility check in the page code, then recommendations and before / after wireframes.">J'ai mené l'audit : les 10 heuristiques de Nielsen, une sévérité notée de 0 à 4, un relevé d'accessibilité dans le code de la page, puis des recommandations et des wireframes avant / après.</p>
-      <p class="case-label" data-fr="Ce que l&#x27;audit a trouvé" data-en="What the audit found">Ce que l'audit a trouvé</p>
-      <div class="table-wrap"><table class="data-table">
-        <thead><tr><th data-fr="Problème" data-en="Problem">Problème</th><th data-fr="Sévérité" data-en="Severity">Sévérité</th></tr></thead>
-        <tbody>
-          <tr><td data-fr="Aucun lien entre la preuve et la réponse : une question est à OUI alors que la requête ne remonte rien" data-en="No link between evidence and answer: a question reads YES while the query returns nothing">Aucun lien entre la preuve et la réponse : une question est à OUI alors que la requête ne remonte rien</td><td data-fr="4 sur 4" data-en="4 of 4">4 sur 4</td></tr>
-          <tr><td data-fr="Des questions qui proposent un choix déguisé en oui / non" data-en="Questions that hide a choice inside a yes / no">Des questions qui proposent un choix déguisé en oui / non</td><td data-fr="3 sur 4" data-en="3 of 4">3 sur 4</td></tr>
-          <tr><td data-fr="OUI veut dire « suspect » sur certaines questions et « rassurant » sur d&#x27;autres" data-en="YES means &quot;suspicious&quot; on some questions and &quot;reassuring&quot; on others">OUI veut dire « suspect » sur certaines questions et « rassurant » sur d'autres</td><td data-fr="3 sur 4" data-en="3 of 4">3 sur 4</td></tr>
-          <tr><td data-fr="« 1 / 75 répondues » et 98 % de probabilité après une seule réponse, sans explication" data-en="&quot;1 / 75 answered&quot; and a 98% probability after one answer, unexplained">« 1 / 75 répondues » et 98 % de probabilité après une seule réponse, sans explication</td><td data-fr="3 sur 4" data-en="3 of 4">3 sur 4</td></tr>
-          <tr><td data-fr="Pas de réponse « Non vérifiable » : l&#x27;analyste doit deviner" data-en="No &quot;Can&#x27;t verify&quot; answer: the analyst has to guess">Pas de réponse « Non vérifiable » : l'analyste doit deviner</td><td data-fr="3 sur 4" data-en="3 of 4">3 sur 4</td></tr>
-        </tbody>
-      </table></div>
-      <p data-fr="Le plus grave : une alerte pouvait être classée à tort sans que rien ne le signale." data-en="Worst of all: an alert could be closed by mistake with nothing to flag it.">Le plus grave : une alerte pouvait être classée à tort sans que rien ne le signale.</p>
-      <p class="case-label" data-fr="Ce que j&#x27;ai proposé" data-en="What I proposed">Ce que j'ai proposé</p>
-      <ul>
-        <li data-fr="Une règle d&#x27;écriture pour tout le guide : une question, un fait vérifiable, une réponse sans ambiguïté." data-en="One writing rule for the whole guide: one question, one checkable fact, one unambiguous answer.">Une règle d'écriture pour tout le guide : une question, un fait vérifiable, une réponse sans ambiguïté.</li>
-        <li data-fr="Afficher sous chaque réponse son effet sur la suspicion, plutôt que réécrire les 75 questions." data-en="Show each answer&#x27;s effect on suspicion right under it, instead of rewriting all 75 questions.">Afficher sous chaque réponse son effet sur la suspicion, plutôt que réécrire les 75 questions.</li>
-        <li data-fr="12 corrections faisables en un sprint, classées par impact et par effort, et 4 composants redessinés." data-en="12 fixes doable in one sprint, ranked by impact and effort, and 4 redesigned components.">12 corrections faisables en un sprint, classées par impact et par effort, et 4 composants redessinés.</li>
-        <li data-fr="Un chantier plus lourd : que la requête suggère la réponse, et que l&#x27;analyste justifie s&#x27;il la contredit." data-en="A larger piece of work: the query suggests the answer, and the analyst justifies any disagreement.">Un chantier plus lourd : que la requête suggère la réponse, et que l'analyste justifie s'il la contredit.</li>
-      </ul>
-      <p class="case-label" data-fr="Résultat" data-en="Outcome">Résultat</p>
-      <p data-fr="Les 12 corrections sont livrées. Un oui / non n&#x27;est simple que si la question l&#x27;est : sur un écran où une erreur coûte un incident manqué, la rédaction des questions compte autant que l&#x27;interface." data-en="All 12 fixes have shipped. A yes / no is only simple if the question is: on a screen where a mistake costs a missed incident, how questions are written matters as much as the interface.">Les 12 corrections sont livrées. Un oui / non n'est simple que si la question l'est : sur un écran où une erreur coûte un incident manqué, la rédaction des questions compte autant que l'interface.</p>
-    </div>
-    <figure class="figure">
-      <a href="assets/wf1-carte-question.webp" target="_blank" rel="noopener"><img src="assets/wf1-carte-question.webp" alt="Wireframe avant / après de la carte question" width="1344" height="1004" loading="lazy" decoding="async"></a>
-      <figcaption data-fr="La carte question montre l&#x27;effet de la réponse, la branche qu&#x27;elle ouvre, et propose « Non vérifiable ». Les repères QW renvoient aux corrections de l&#x27;audit." data-en="The question card shows the answer&#x27;s effect and the branch it opens, and offers &quot;Can&#x27;t verify&quot;. QW markers refer to the audit&#x27;s fixes.">La carte question montre l'effet de la réponse, la branche qu'elle ouvre, et propose « Non vérifiable ». Les repères QW renvoient aux corrections de l'audit.</figcaption>
-    </figure>
-    <figure class="figure">
-      <a href="assets/wf2-en-tete.webp" target="_blank" rel="noopener"><img src="assets/wf2-en-tete.webp" alt="Wireframe avant / après de l&#x27;en-tête de progression" width="1344" height="932" loading="lazy" decoding="async"></a>
-      <figcaption data-fr="L&#x27;en-tête reste visible et explique son pourcentage ; la progression compte les questions atteignables, pas les 75." data-en="The header stays visible and explains its percentage; progress counts reachable questions, not all 75.">L'en-tête reste visible et explique son pourcentage ; la progression compte les questions atteignables, pas les 75.</figcaption>
-    </figure>
-    <figure class="figure">
-      <a href="assets/wf3-resultat-requete.webp" target="_blank" rel="noopener"><img src="assets/wf3-resultat-requete.webp" alt="Wireframe avant / après du résultat de requête" width="1344" height="1056" loading="lazy" decoding="async"></a>
-      <figcaption data-fr="Le résultat de la requête est confronté à la réponse : si les deux divergent, l&#x27;analyste corrige ou justifie." data-en="The query result is checked against the answer: if they disagree, the analyst corrects or justifies.">Le résultat de la requête est confronté à la réponse : si les deux divergent, l'analyste corrige ou justifie.</figcaption>
-    </figure>
-    <figure class="figure">
-      <a href="assets/wf4-navigation.webp" target="_blank" rel="noopener"><img src="assets/wf4-navigation.webp" alt="Wireframe avant / après de la navigation latérale" width="1344" height="898" loading="lazy" decoding="async"></a>
-      <figcaption data-fr="La navigation latérale ne code plus qu&#x27;un état, avec une légende et un nom accessible par question." data-en="The side navigation now encodes state only, with a legend and an accessible name per question.">La navigation latérale ne code plus qu'un état, avec une légende et un nom accessible par question.</figcaption>
-    </figure>
-  </div>
-</section>
-<section class="narrow" id="cas-3">
-  <div class="chapter">
-    <p class="chapter-num" data-fr="Cas 3 · Design system" data-en="Case 3 · Design system">Cas 3 · Design system</p>
-    <h2 class="chapter-title" data-fr="Un design system exact, &lt;span class=&quot;it&quot;&gt;mais relié à rien&lt;/span&gt;" data-en="An accurate design system, &lt;span class=&quot;it&quot;&gt;connected to nothing&lt;/span&gt;">Un design system exact, <span class="it">mais relié à rien</span></h2>
-    <div class="prose">
-      <p data-fr="Le design system d&#x27;Artefact existait sous forme de board Figma très soigné. Personne ne savait s&#x27;il correspondait encore au code React de l&#x27;application. Je l&#x27;ai audité avec des scripts lancés dans le fichier Figma et sur le dépôt de code." data-en="Artefact&#x27;s design system lived in a carefully made Figma board. Nobody knew whether it still matched the app&#x27;s React code. I audited it with scripts run inside the Figma file and on the code repository.">Le design system d'Artefact existait sous forme de board Figma très soigné. Personne ne savait s'il correspondait encore au code React de l'application. Je l'ai audité avec des scripts lancés dans le fichier Figma et sur le dépôt de code.</p>
-      <p class="case-label" data-fr="Ce que l&#x27;audit a trouvé" data-en="What the audit found">Ce que l'audit a trouvé</p>
-      <div class="table-wrap"><table class="data-table">
-        <thead><tr><th data-fr="Constat" data-en="Finding">Constat</th><th data-fr="Mesure" data-en="Measure">Mesure</th></tr></thead>
-        <tbody>
-          <tr><td data-fr="Tokens du board absents du code" data-en="Board tokens missing from the code">Tokens du board absents du code</td><td data-fr="0 sur 177 : la couche tokens était exacte" data-en="0 of 177: the token layer was accurate">0 sur 177 : la couche tokens était exacte</td></tr>
-          <tr><td data-fr="Composants Figma" data-en="Figma components">Composants Figma</td><td data-fr="0 sur 9 pages" data-en="0 across 9 pages">0 sur 9 pages</td></tr>
-          <tr><td data-fr="Remplissages reliés à une variable" data-en="Fills linked to a variable">Remplissages reliés à une variable</td><td data-fr="22 sur 1 270 (1,7 %)" data-en="22 of 1,270 (1.7%)">22 sur 1 270 (1,7 %)</td></tr>
-          <tr><td data-fr="Textes utilisant un style partagé" data-en="Texts using a shared style">Textes utilisant un style partagé</td><td data-fr="0 sur 850" data-en="0 of 850">0 sur 850</td></tr>
-          <tr><td data-fr="Pastilles de couleur déjà en dérive" data-en="Colour swatches already drifting">Pastilles de couleur déjà en dérive</td><td data-fr="7 sur 39" data-en="7 of 39">7 sur 39</td></tr>
-          <tr><td data-fr="Statuts d&#x27;incident documentés qui existent dans le code" data-en="Documented incident statuses that exist in code">Statuts d'incident documentés qui existent dans le code</td><td data-fr="0 sur 4" data-en="0 of 4">0 sur 4</td></tr>
-          <tr><td data-fr="Tailles de bouton documentées exactes" data-en="Documented button sizes that are correct">Tailles de bouton documentées exactes</td><td data-fr="0 sur 3" data-en="0 of 3">0 sur 3</td></tr>
-        </tbody>
-      </table></div>
-      <p data-fr="Le board décrivait deux workflows de statuts qui n&#x27;existent pas dans l&#x27;application : un designer qui s&#x27;y fiait dessinait des écrans faux." data-en="The board described two status workflows that don&#x27;t exist in the app: a designer relying on it drew wrong screens.">Le board décrivait deux workflows de statuts qui n'existent pas dans l'application : un designer qui s'y fiait dessinait des écrans faux.</p>
-      <p class="case-label" data-fr="Ce que j&#x27;ai fait en 24 heures" data-en="What I did in 24 hours">Ce que j'ai fait en 24 heures</p>
-      <p data-fr="De 0 à 8 jeux de composants, dont un Button à 50 variantes et un StatusBadge à 13 ; de 177 à 199 variables ; 133 icônes importées. Puis une feuille de route sur les 42 composants du code, classés par nombre de fichiers qui les utilisent." data-en="From 0 to 8 component sets, including a 50-variant Button and a 13-variant StatusBadge; from 177 to 199 variables; 133 icons imported. Then a roadmap across the code&#x27;s 42 components, ranked by how many files use them.">De 0 à 8 jeux de composants, dont un Button à 50 variantes et un StatusBadge à 13 ; de 177 à 199 variables ; 133 icônes importées. Puis une feuille de route sur les 42 composants du code, classés par nombre de fichiers qui les utilisent.</p>
-    </div>
-    <figure class="figure">
-      <a href="assets/ds-button-variantes.webp" target="_blank" rel="noopener"><img src="assets/ds-button-variantes.webp" alt="Composant Button dans Figma : 50 variantes sur fond sombre" width="1180" height="284" loading="lazy" decoding="async" style="background:#16181d"></a>
-      <figcaption data-fr="Le Button reconstruit dans Figma : les 10 variantes du code, chacune en 5 tailles, dont le bouton icône seul." data-en="The Button rebuilt in Figma: the code&#x27;s 10 variants, each in 5 sizes, including the icon-only button.">Le Button reconstruit dans Figma : les 10 variantes du code, chacune en 5 tailles, dont le bouton icône seul.</figcaption>
-    </figure>
-    <div class="prose">
-      <p data-fr="Découverte la plus utile : les 10 styles de texte du board étaient calculés pour une racine de 16 px alors que le produit tournait à 15 px. Les deux tailles concernées couvraient 94 % des usages typographiques. Le produit est depuis passé à 16 px, ce qui a rendu les 10 styles exacts sans les redessiner." data-en="Most useful finding: the board&#x27;s 10 text styles assumed a 16 px root while the product ran at 15 px. The two sizes involved covered 94% of typographic usage. The product has since moved to 16 px, which made all 10 styles correct without redrawing them.">Découverte la plus utile : les 10 styles de texte du board étaient calculés pour une racine de 16 px alors que le produit tournait à 15 px. Les deux tailles concernées couvraient 94 % des usages typographiques. Le produit est depuis passé à 16 px, ce qui a rendu les 10 styles exacts sans les redessiner.</p>
-      <p class="case-label" data-fr="Ce que j&#x27;en retiens" data-en="What I took away">Ce que j'en retiens</p>
-      <p data-fr="Un design system sans composants reliés diverge dès la première urgence. Ici, la dérive était déjà mesurable : quatre pastilles portaient les mêmes valeurs périmées que la documentation." data-en="A design system without linked components drifts at the first rush. Here the drift was already measurable: four swatches carried the same outdated values as the documentation.">Un design system sans composants reliés diverge dès la première urgence. Ici, la dérive était déjà mesurable : quatre pastilles portaient les mêmes valeurs périmées que la documentation.</p>
-    </div>
-  </div>
-</section>
-<section class="narrow" id="cas-4">
-  <div class="chapter">
-    <p class="chapter-num" data-fr="Cas 4 · IA et qualité" data-en="Case 4 · AI and quality">Cas 4 · IA et qualité</p>
-    <h2 class="chapter-title" data-fr="Des critères &lt;span class=&quot;it&quot;&gt;que des agents IA vérifient&lt;/span&gt;" data-en="Criteria &lt;span class=&quot;it&quot;&gt;that AI agents check&lt;/span&gt;">Des critères <span class="it">que des agents IA vérifient</span></h2>
-    <div class="prose">
-      <p data-fr="Nous sommes 4 dans l&#x27;équipe. Les nouvelles fonctionnalités d&#x27;Artefact sortaient sans qu&#x27;on sache vraiment dans quel état elles étaient : ce qui marchait, ce qui avait régressé, ce qui n&#x27;avait jamais été vérifié." data-en="We are a team of 4. New Artefact features shipped without anyone really knowing their state: what worked, what had regressed, what had never been checked.">Nous sommes 4 dans l'équipe. Les nouvelles fonctionnalités d'Artefact sortaient sans qu'on sache vraiment dans quel état elles étaient : ce qui marchait, ce qui avait régressé, ce qui n'avait jamais été vérifié.</p>
-      <p data-fr="J&#x27;écris les spécifications, les règles métier et les critères d&#x27;acceptation de chaque fonctionnalité. J&#x27;ai aussi conçu le modèle de données des guides d&#x27;investigation : quatre niveaux (investigation, étape, action, question) et un identifiant métier stable pour les importer sans doublons." data-en="I write the specifications, business rules and acceptance criteria for each feature. I also designed the data model for investigation guides: four levels (investigation, step, action, question) and a stable business key so they import without duplicates.">J'écris les spécifications, les règles métier et les critères d'acceptation de chaque fonctionnalité. J'ai aussi conçu le modèle de données des guides d'investigation : quatre niveaux (investigation, étape, action, question) et un identifiant métier stable pour les importer sans doublons.</p>
-      <p class="case-label" data-fr="Ce que j&#x27;ai mis en place" data-en="What I set up">Ce que j'ai mis en place</p>
-      <ol>
-        <li data-fr="Des specs et un modèle de données assez précis pour qu&#x27;un agent de code, Claude Code, produise un premier prototype à partir des maquettes." data-en="Specs and a data model precise enough for a coding agent, Claude Code, to build a first prototype from the mockups.">Des specs et un modèle de données assez précis pour qu'un agent de code, Claude Code, produise un premier prototype à partir des maquettes.</li>
-        <li data-fr="Des critères d&#x27;acceptation écrits comme des comportements observables, par exemple : une alerte sous investigation active n&#x27;est pas reclassée automatiquement en faux positif." data-en="Acceptance criteria written as observable behaviour, for example: an alert under active investigation is never auto-reclassified as a false positive.">Des critères d'acceptation écrits comme des comportements observables, par exemple : une alerte sous investigation active n'est pas reclassée automatiquement en faux positif.</li>
-        <li data-fr="Un agent de test par fonctionnalité, qui rejoue ces critères sur l&#x27;environnement de test et rend un verdict par critère." data-en="One test agent per feature, which replays those criteria on the test environment and returns a verdict per criterion.">Un agent de test par fonctionnalité, qui rejoue ces critères sur l'environnement de test et rend un verdict par critère.</li>
-        <li data-fr="Des garde-fous écrits : jamais de validation sans preuve observée, et la main passe à un humain dès qu&#x27;il faut une authentification forte." data-en="Written guardrails: no validation without observed evidence, and a human takes over whenever strong authentication is needed.">Des garde-fous écrits : jamais de validation sans preuve observée, et la main passe à un humain dès qu'il faut une authentification forte.</li>
-      </ol>
-    </div>
-    <figure class="figure flow">
-      <svg viewBox="0 0 760 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Boucle de test par agents : spec, critères, agent de test, verdict" font-family="Inter, sans-serif" font-size="13">
-        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8B92A0"/></marker></defs>
-        <g fill="none" stroke="#8B92A0" stroke-width="1.25">
-          <path d="M184 60H208" marker-end="url(#ar)"/><path d="M368 60H392" marker-end="url(#ar)"/><path d="M552 60H590" marker-end="url(#ar)"/>
-          <path d="M650 100V150M230 150H650"/><path d="M230 150V182" marker-end="url(#ar)"/><path d="M440 150V182" marker-end="url(#ar)"/><path d="M650 150V182" marker-end="url(#ar)"/>
-        </g>
-        <g fill="none" stroke="#3a3f4b" stroke-width="1.25">
-          <rect x="24" y="32" width="160" height="56" rx="8"/><rect x="208" y="32" width="160" height="56" rx="8"/><rect x="392" y="32" width="160" height="56" rx="8"/>
-          <polygon points="590,60 650,20 710,60 650,100"/>
-          <rect x="145" y="182" width="170" height="56" rx="8"/><rect x="355" y="182" width="170" height="56" rx="8"/>
-        </g>
-        <rect x="565" y="182" width="170" height="56" rx="8" fill="rgba(232,131,90,0.12)" stroke="#E8835A" stroke-width="2"/>
-        <g fill="#ECEEF2" text-anchor="middle">
-          <text x="104" y="56" font-weight="600" data-fr="Spec et" data-en="Spec and">Spec et</text>
-          <text x="104" y="74" data-fr="modèle de données" data-en="data model">modèle de données</text>
-          <text x="288" y="56" font-weight="600" data-fr="Critères" data-en="Observable">Critères</text>
-          <text x="288" y="74" data-fr="observables" data-en="criteria">observables</text>
-          <text x="472" y="56" font-weight="600" data-fr="Agent de test" data-en="Test agent">Agent de test</text>
-          <text x="472" y="74" data-fr="sur l'env. de test" data-en="on the test env.">sur l'env. de test</text>
-          <text x="650" y="64" data-fr="Verdict ?" data-en="Verdict?">Verdict ?</text>
-          <text x="230" y="206" font-weight="600" data-fr="Réussi" data-en="Passed">Réussi</text>
-          <text x="440" y="206" font-weight="600" data-fr="Échoué" data-en="Failed">Échoué</text>
-          <text x="650" y="206" font-weight="600" data-fr="Non testable" data-en="Not testable">Non testable</text>
-        </g>
-        <g fill="#A8ADB8" text-anchor="middle" font-size="12">
-          <text x="230" y="224" data-fr="garde anti-régression" data-en="regression guard">garde anti-régression</text>
-          <text x="440" y="224" data-fr="ticket de test créé" data-en="test ticket opened">ticket de test créé</text>
-          <text x="650" y="224" data-fr="passé à un humain" data-en="handed to a human">passé à un humain</text>
-        </g>
-      </svg>
-      <figcaption data-fr="Aucun critère n&#x27;est validé sans preuve observée : ce que l&#x27;agent ne peut pas vérifier revient à un humain." data-en="No criterion is validated without observed evidence: whatever the agent can&#x27;t check goes back to a human.">Aucun critère n'est validé sans preuve observée : ce que l'agent ne peut pas vérifier revient à un humain.</figcaption>
-    </figure>
-    <div class="prose">
-      <p class="case-label" data-fr="Extrait d&#x27;un rapport de campagne" data-en="Excerpt from a campaign report">Extrait d&#x27;un rapport de campagne</p>
-      <div class="table-wrap"><table class="data-table">
-        <thead><tr><th data-fr="Critère" data-en="Criterion">Critère</th><th data-fr="Verdict de l&#x27;agent" data-en="Agent&#x27;s verdict">Verdict de l'agent</th></tr></thead>
-        <tbody>
-          <tr><td data-fr="Ouvrir une investigation depuis le détail d&#x27;une alerte" data-en="Open an investigation from an alert&#x27;s detail">Ouvrir une investigation depuis le détail d'une alerte</td><td data-fr="Réussi" data-en="Passed">Réussi</td></tr>
-          <tr><td data-fr="L&#x27;alerte reflète tout de suite l&#x27;ouverture de l&#x27;investigation" data-en="The alert immediately reflects the open investigation">L'alerte reflète tout de suite l'ouverture de l'investigation</td><td data-fr="Réussi (non testable au passage précédent)" data-en="Passed (not testable on the previous run)">Réussi (non testable au passage précédent)</td></tr>
-          <tr><td data-fr="Retrouver l&#x27;investigation d&#x27;une alerte par la recherche" data-en="Find an alert&#x27;s investigation through search">Retrouver l'investigation d'une alerte par la recherche</td><td data-fr="Réussi, avec une friction : la recherche ignore l&#x27;identifiant de l&#x27;alerte" data-en="Passed, with friction: search ignores the alert&#x27;s ID">Réussi, avec une friction : la recherche ignore l'identifiant de l'alerte</td></tr>
-          <tr><td data-fr="Une alerte sous investigation n&#x27;est pas reclassée en faux positif" data-en="An alert under investigation is not reclassified as a false positive">Une alerte sous investigation n'est pas reclassée en faux positif</td><td data-fr="Réussi" data-en="Passed">Réussi</td></tr>
-          <tr><td data-fr="Notifications à l&#x27;ouverture et à la clôture" data-en="Notifications on open and close">Notifications à l'ouverture et à la clôture</td><td data-fr="Non testable : aucun connecteur sur l&#x27;environnement de test, repassé à un humain" data-en="Not testable: no connector on the test environment, handed to a human">Non testable : aucun connecteur sur l'environnement de test, repassé à un humain</td></tr>
-        </tbody>
-      </table></div>
-      <p data-fr="Le même passage a relevé un bug hors périmètre : classer l&#x27;alerte clôturait l&#x27;investigation sans dater sa fin. Le rapport recommande la correction." data-en="The same run flagged a bug outside its scope: closing the alert ended the investigation without a completion date. The report recommends the fix.">Le même passage a relevé un bug hors périmètre : classer l'alerte clôturait l'investigation sans dater sa fin. Le rapport recommande la correction.</p>
-    </div>
-    <div class="prose">
-      <p class="case-label" data-fr="Résultat" data-en="Outcome">Résultat</p>
-      <p data-fr="Quatre fonctionnalités prototypées de cette façon avec Claude Code sont en production : la remédiation, la matrice MITRE ATT&amp;amp;CK, les dossiers d&#x27;incident et la refonte de la vue de clôture des alertes. 3 campagnes automatisées (usabilité, sécurité, non-régression), chacune avec un rapport et des preuves. Sur la fonctionnalité « Créer et gérer les investigations », un passage donne 4 critères réussis, 1 non testable et aucune régression. Une campagne de sécurité a repéré un défaut d&#x27;authentification critique avant le pilote utilisateur." data-en="Four features prototyped this way with Claude Code are in production: remediation, the MITRE ATT&amp;amp;CK matrix, incident cases and the redesigned alert close view. 3 automated campaigns (usability, security, regression), each with a report and evidence. On the &quot;Create and manage investigations&quot; feature, one run gave 4 criteria passed, 1 not testable and no regressions. A security campaign caught a critical authentication flaw before the user pilot.">Quatre fonctionnalités prototypées de cette façon avec Claude Code sont en production : la remédiation, la matrice MITRE ATT&amp;CK, les dossiers d'incident et la refonte de la vue de clôture des alertes. 3 campagnes automatisées (usabilité, sécurité, non-régression), chacune avec un rapport et des preuves. Sur la fonctionnalité « Créer et gérer les investigations », un passage donne 4 critères réussis, 1 non testable et aucune régression. Une campagne de sécurité a repéré un défaut d'authentification critique avant le pilote utilisateur.</p>
-      <p class="case-label" data-fr="Ce que j&#x27;en retiens" data-en="What I took away">Ce que j'en retiens</p>
-      <p data-fr="Un agent de test vaut ce que valent les critères qu&#x27;on lui donne. Le travail de product designer se déplace vers l&#x27;écriture de critères observables et de règles de verdict." data-en="A test agent is only as good as the criteria it&#x27;s given. Product design work shifts towards writing observable criteria and verdict rules.">Un agent de test vaut ce que valent les critères qu'on lui donne. Le travail de product designer se déplace vers l'écriture de critères observables et de règles de verdict.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- NEXT -->
-<section class="wrap next">
-  <p class="next-label" data-fr="Suite" data-en="Next">Suite</p>
-  <h2 class="next-title">
-    <span data-fr="Voir d'autres" data-en="See more">Voir d'autres</span><br>
-    <span class="grad" data-fr="projets ?" data-en="work ?">projets ?</span>
-  </h2>
-  <div class="next-row">
-    <a href="portfolio.html" class="cta-btn">
-      <span data-fr="Tous les projets" data-en="All projects">Tous les projets</span>
-      <span>↗</span>
-    </a>
-    <a href="index.html" class="cta-btn ghost">
-      <span data-fr="Voir mon CV" data-en="View my CV">Voir mon CV</span>
-      <span>↗</span>
-    </a>
-  </div>
-</section>
+  <section id="cas-3" class="bg-paper px-6 py-24 text-inverse md:py-32" aria-labelledby="cas-3-titre">
+    <div class="mx-auto max-w-7xl">
+      <div class="mb-12 grid grid-cols-3 font-mono text-[10px] uppercase tracking-widest text-inverse/70"><p data-fr="Cas 3" data-en="Case 3">Cas 3</p><p class="text-center" data-fr="Design system" data-en="Design system">Design system</p><p class="text-right" data-fr="24 heures" data-en="24 hours">24 heures</p></div>
+      <h2 id="cas-3-titre" class="max-w-4xl font-display text-4xl font-bold leading-none tracking-[-0.06em] md:text-7xl" data-fr="Un design system exact, mais relié à rien" data-en="An accurate design system, connected to nothing">Un design system exact, mais relié à rien</h2>
+      <p class="mt-10 max-w-md text-sm leading-snug text-inverse/70" data-fr="Le design system d'Artefact existait sous forme de board Figma très soigné. Personne ne savait s'il correspondait encore au code React de l'application. Je l'ai audité avec des scripts lancés dans le fichier Figma et sur le dépôt de code." data-en="Artefact's design system lived in a carefully made Figma board. Nobody knew whether it still matched the app's React code. I audited it with scripts run inside the Figma file and on the code repository.">Le design system d'Artefact existait sous forme de board Figma très soigné. Personne ne savait s'il correspondait encore au code React de l'application. Je l'ai audité avec des scripts lancés dans le fichier Figma et sur le dépôt de code.</p>
+      <div class="mt-16 grid gap-12 md:grid-cols-[7fr_5fr]">
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[28rem] text-left text-sm">
+            <caption class="mb-4 text-left font-mono text-[10px] uppercase tracking-widest text-inverse/70" data-fr="Ce que l'audit a trouvé" data-en="What the audit found">Ce que l'audit a trouvé</caption>
+            <thead><tr class="border-b border-line font-mono text-[10px] uppercase tracking-widest text-inverse/70"><th scope="col" class="py-3 pr-8 font-normal" data-fr="Constat" data-en="Finding">Constat</th><th scope="col" class="py-3 text-right font-normal" data-fr="Mesure" data-en="Measure">Mesure</th></tr></thead>
+            <tbody class="tabular-nums">
+              <tr class="border-b border-line"><td class="py-3 pr-8" data-fr="Tokens du board absents du code" data-en="Board tokens missing from the code">Tokens du board absents du code</td><td class="py-3 text-right font-mono text-xs" data-fr="0 sur 177" data-en="0 of 177">0 sur 177</td></tr>
+              <tr class="border-b border-line"><td class="py-3 pr-8" data-fr="Composants Figma" data-en="Figma components">Composants Figma</td><td class="py-3 text-right font-mono text-xs" data-fr="0 sur 9 pages" data-en="0 across 9 pages">0 sur 9 pages</td></tr>
+              <tr class="border-b border-line"><td class="py-3 pr-8" data-fr="Remplissages reliés à une variable" data-en="Fills linked to a variable">Remplissages reliés à une variable</td><td class="py-3 text-right font-mono text-xs" data-fr="22 sur 1 270 (1,7 %)" data-en="22 of 1,270 (1.7%)">22 sur 1 270 (1,7 %)</td></tr>
+              <tr class="border-b border-line"><td class="py-3 pr-8" data-fr="Textes utilisant un style partagé" data-en="Texts using a shared style">Textes utilisant un style partagé</td><td class="py-3 text-right font-mono text-xs" data-fr="0 sur 850" data-en="0 of 850">0 sur 850</td></tr>
+              <tr class="border-b border-line"><td class="py-3 pr-8" data-fr="Pastilles de couleur déjà en dérive" data-en="Colour swatches already drifting">Pastilles de couleur déjà en dérive</td><td class="py-3 text-right font-mono text-xs" data-fr="7 sur 39" data-en="7 of 39">7 sur 39</td></tr>
+              <tr class="border-b border-line"><td class="py-3 pr-8" data-fr="Statuts d'incident documentés qui existent dans le code" data-en="Documented incident statuses that exist in code">Statuts d'incident documentés qui existent dans le code</td><td class="py-3 text-right font-mono text-xs" data-fr="0 sur 4" data-en="0 of 4">0 sur 4</td></tr>
+              <tr class="border-b border-line"><td class="py-3 pr-8" data-fr="Tailles de bouton documentées exactes" data-en="Documented button sizes that are correct">Tailles de bouton documentées exactes</td><td class="py-3 text-right font-mono text-xs" data-fr="0 sur 3" data-en="0 of 3">0 sur 3</td></tr>
+            </tbody>
+          </table>
+          <p class="mt-4 text-xs leading-snug text-inverse/70" data-fr="La couche tokens était exacte. Mais le board décrivait deux workflows de statuts qui n'existent pas dans l'application : un designer qui s'y fiait dessinait des écrans faux." data-en="The token layer was accurate. But the board described two status workflows that don't exist in the app: a designer relying on it would draw wrong screens.">La couche tokens était exacte. Mais le board décrivait deux workflows de statuts qui n'existent pas dans l'application : un designer qui s'y fiait dessinait des écrans faux.</p>
+        </div>
+        <div>
+          <h3 class="font-mono text-[10px] font-normal uppercase tracking-widest text-inverse/70" data-fr="Ce que j'ai fait en 24 heures" data-en="What I did in 24 hours">Ce que j'ai fait en 24 heures</h3>
+          <dl class="mt-4 grid grid-cols-2 border-t border-line">
+            <div class="border-b border-line py-5 pr-4"><dt class="sr-only" data-fr="Jeux de composants" data-en="Component sets">Jeux de composants</dt><dd class="font-display text-4xl font-bold tracking-[-0.06em] tabular-nums">0 → 8</dd><dd class="mt-1 text-xs text-inverse/70" data-fr="jeux de composants" data-en="component sets">jeux de composants</dd></div>
+            <div class="border-b border-l border-line py-5 pl-4"><dt class="sr-only" data-fr="Variables" data-en="Variables">Variables</dt><dd class="font-display text-4xl font-bold tracking-[-0.06em] tabular-nums">199</dd><dd class="mt-1 text-xs text-inverse/70" data-fr="variables, contre 177" data-en="variables, up from 177">variables, contre 177</dd></div>
+            <div class="border-b border-line py-5 pr-4"><dt class="sr-only" data-fr="Variantes du Button" data-en="Button variants">Variantes du Button</dt><dd class="font-display text-4xl font-bold tracking-[-0.06em] tabular-nums">50</dd><dd class="mt-1 text-xs text-inverse/70" data-fr="variantes du Button" data-en="Button variants">variantes du Button</dd></div>
+            <div class="border-b border-l border-line py-5 pl-4"><dt class="sr-only" data-fr="Icônes" data-en="Icons">Icônes</dt><dd class="font-display text-4xl font-bold tracking-[-0.06em] tabular-nums">133</dd><dd class="mt-1 text-xs text-inverse/70" data-fr="icônes importées" data-en="icons imported">icônes importées</dd></div>
+          </dl>
+          <p class="mt-4 text-xs leading-snug text-inverse/70" data-fr="Puis une feuille de route sur les 42 composants du code, classés par nombre de fichiers qui les utilisent." data-en="Then a roadmap across the code's 42 components, ranked by how many files use them.">Puis une feuille de route sur les 42 composants du code, classés par nombre de fichiers qui les utilisent.</p>
+        </div>
+      </div>
+      <figure class="mt-16">
+        <img src="assets/ds-button-variantes.webp" alt="Le Button reconstruit dans Figma : les 10 variantes du code, chacune en 5 tailles" width="1180" height="284" loading="lazy" class="w-full rounded-card border border-line h-auto grayscale" data-en-alt="The Button rebuilt in Figma: the code's 10 variants, each in 5 sizes">
+        <figcaption class="mt-3 text-xs leading-snug text-inverse/70" data-fr="Le Button reconstruit dans Figma : les 10 variantes du code, chacune en 5 tailles, dont le bouton icône seul." data-en="The Button rebuilt in Figma: the code's 10 variants, each in 5 sizes, including the icon-only button.">Le Button reconstruit dans Figma : les 10 variantes du code, chacune en 5 tailles, dont le bouton icône seul.</figcaption>
+      </figure>
+      <div class="mt-16 grid gap-8 border-t border-line pt-8 md:grid-cols-2">
+        <p class="max-w-md text-sm leading-snug" data-fr="&lt;span class=&quot;font-semibold&quot;&gt;Découverte la plus utile :&lt;/span&gt; les 10 styles de texte du board étaient calculés pour une racine de 16 px alors que le produit tournait à 15 px. Les deux tailles concernées couvraient 94 % des usages typographiques. Le produit est depuis passé à 16 px, ce qui a rendu les 10 styles exacts sans les redessiner." data-en="&lt;span class=&quot;font-semibold&quot;&gt;Most useful finding:&lt;/span&gt; the board's 10 text styles were computed for a 16 px root while the product ran at 15 px. The two sizes involved covered 94% of typographic usage. The product has since moved to 16 px, which made all 10 styles accurate without redrawing them."><span class="font-semibold">Découverte la plus utile :</span> les 10 styles de texte du board étaient calculés pour une racine de 16 px alors que le produit tournait à 15 px. Les deux tailles concernées couvraient 94 % des usages typographiques. Le produit est depuis passé à 16 px, ce qui a rendu les 10 styles exacts sans les redessiner.</p>
+        <p class="max-w-md text-sm leading-snug text-inverse/70" data-fr="&lt;span class=&quot;font-semibold text-inverse&quot;&gt;Ce que j'en retiens :&lt;/span&gt; un design system sans composants reliés diverge dès la première urgence. Ici, la dérive était déjà mesurable : quatre pastilles portaient les mêmes valeurs périmées que la documentation." data-en="&lt;span class=&quot;font-semibold text-inverse&quot;&gt;What I take from it:&lt;/span&gt; a design system without linked components drifts at the first emergency. Here the drift was already measurable: four swatches carried the same outdated values as the documentation."><span class="font-semibold text-inverse">Ce que j'en retiens :</span> un design system sans composants reliés diverge dès la première urgence. Ici, la dérive était déjà mesurable : quatre pastilles portaient les mêmes valeurs périmées que la documentation.</p>
+      </div>
+    </div>
+  </section>
 
+  <section id="cas-4" class="px-6 py-24 md:py-32" aria-labelledby="cas-4-titre">
+    <div class="mx-auto max-w-7xl">
+      <div class="mb-12 grid grid-cols-3 font-mono text-[10px] uppercase tracking-widest text-muted"><p data-fr="Cas 4" data-en="Case 4">Cas 4</p><p class="text-center" data-fr="IA et qualité" data-en="AI and quality">IA et qualité</p><p class="text-right" data-fr="3 campagnes" data-en="3 campaigns">3 campagnes</p></div>
+      <h2 id="cas-4-titre" class="max-w-4xl font-display text-4xl font-bold leading-none tracking-[-0.06em] md:text-7xl" data-fr="Des critères que des agents IA vérifient" data-en="Criteria that AI agents check">Des critères que des agents IA vérifient</h2>
+      <div class="mt-12 grid gap-12 md:grid-cols-2">
+        <div>
+          <p class="max-w-md text-sm leading-snug text-muted" data-fr="Les nouvelles fonctionnalités d'Artefact sortaient sans qu'on sache vraiment dans quel état elles étaient : ce qui marchait, ce qui avait régressé, ce qui n'avait jamais été vérifié." data-en="Artefact's new features shipped without anyone really knowing their state: what worked, what had regressed, what had never been checked.">Les nouvelles fonctionnalités d'Artefact sortaient sans qu'on sache vraiment dans quel état elles étaient : ce qui marchait, ce qui avait régressé, ce qui n'avait jamais été vérifié.</p>
+          <p class="mt-4 max-w-md text-sm leading-snug text-muted" data-fr="J'écris les spécifications, les règles métier et les critères d'acceptation de chaque fonctionnalité. J'ai aussi conçu le modèle de données des guides d'investigation : quatre niveaux (investigation, étape, action, question) et un identifiant métier stable pour les importer sans doublons." data-en="I write the specifications, business rules and acceptance criteria for each feature. I also designed the data model for investigation guides: four levels (investigation, step, action, question) and a stable business key so they import without duplicates.">J'écris les spécifications, les règles métier et les critères d'acceptation de chaque fonctionnalité. J'ai aussi conçu le modèle de données des guides d'investigation : quatre niveaux (investigation, étape, action, question) et un identifiant métier stable pour les importer sans doublons.</p>
+        </div>
+        <div>
+          <h3 class="font-mono text-[10px] font-normal uppercase tracking-widest text-muted" data-fr="Ce que j'ai mis en place" data-en="What I set up">Ce que j'ai mis en place</h3>
+          <ul class="mt-4 space-y-3 border-l border-line pl-4 text-sm leading-snug">
+            <li data-fr="Des specs et un modèle de données assez précis pour qu'un agent de code, Claude Code, produise un premier prototype à partir des maquettes." data-en="Specs and a data model precise enough for a coding agent, Claude Code, to build a first prototype from the mockups.">Des specs et un modèle de données assez précis pour qu'un agent de code, Claude Code, produise un premier prototype à partir des maquettes.</li>
+            <li data-fr="Des critères d'acceptation écrits comme des comportements observables, par exemple : une alerte sous investigation active n'est pas reclassée automatiquement en faux positif." data-en="Acceptance criteria written as observable behaviour, for example: an alert under active investigation is never auto-reclassified as a false positive.">Des critères d'acceptation écrits comme des comportements observables, par exemple : une alerte sous investigation active n'est pas reclassée automatiquement en faux positif.</li>
+            <li data-fr="Un agent de test par fonctionnalité, qui rejoue ces critères sur l'environnement de test et rend un verdict par critère." data-en="One test agent per feature, which replays those criteria on the test environment and returns a verdict per criterion.">Un agent de test par fonctionnalité, qui rejoue ces critères sur l'environnement de test et rend un verdict par critère.</li>
+            <li data-fr="Des garde-fous écrits : jamais de validation sans preuve observée, et la main passe à un humain dès qu'il faut une authentification forte." data-en="Written guardrails: no validation without observed evidence, and a human takes over whenever strong authentication is needed.">Des garde-fous écrits : jamais de validation sans preuve observée, et la main passe à un humain dès qu'il faut une authentification forte.</li>
+          </ul>
+        </div>
+      </div>
+
+      <figure class="mt-16 border-y border-line py-10">
+        <figcaption class="mb-8 font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Du critère au verdict" data-en="From criterion to verdict">Du critère au verdict</figcaption>
+        <ol class="grid gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1.4fr] md:items-center">
+          <li class="rounded-ui border border-line p-4"><p class="font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Étape 1" data-en="Step 1">Étape 1</p><p class="mt-2 text-sm font-semibold" data-fr="Spec et modèle de données" data-en="Spec and data model">Spec et modèle de données</p></li>
+          <li class="hidden text-muted md:block" aria-hidden="true">→</li>
+          <li class="rounded-ui border border-line p-4"><p class="font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Étape 2" data-en="Step 2">Étape 2</p><p class="mt-2 text-sm font-semibold" data-fr="Critères observables" data-en="Observable criteria">Critères observables</p></li>
+          <li class="hidden text-muted md:block" aria-hidden="true">→</li>
+          <li class="rounded-ui border border-line p-4"><p class="font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Étape 3" data-en="Step 3">Étape 3</p><p class="mt-2 text-sm font-semibold" data-fr="Agent de test sur l'environnement de test" data-en="Test agent on the test environment">Agent de test sur l'environnement de test</p></li>
+          <li class="hidden text-muted md:block" aria-hidden="true">→</li>
+          <li class="rounded-ui border border-line p-4">
+            <p class="font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Verdict" data-en="Verdict">Verdict</p>
+            <ul class="mt-3 space-y-2 text-xs">
+              <li class="flex items-baseline justify-between gap-3" data-fr="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-success&quot;&gt;Réussi&lt;/span&gt;&lt;span class=&quot;text-muted&quot;&gt;garde anti-régression&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-success&quot;&gt;Passed&lt;/span&gt;&lt;span class=&quot;text-muted&quot;&gt;regression guard&lt;/span&gt;"><span class="rounded-ui bg-success/15 px-2 py-0.5 font-mono text-success">Réussi</span><span class="text-muted">garde anti-régression</span></li>
+              <li class="flex items-baseline justify-between gap-3" data-fr="&lt;span class=&quot;rounded-ui bg-danger/15 px-2 py-0.5 font-mono text-danger&quot;&gt;Échoué&lt;/span&gt;&lt;span class=&quot;text-muted&quot;&gt;ticket de test créé&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui bg-danger/15 px-2 py-0.5 font-mono text-danger&quot;&gt;Failed&lt;/span&gt;&lt;span class=&quot;text-muted&quot;&gt;test ticket created&lt;/span&gt;"><span class="rounded-ui bg-danger/15 px-2 py-0.5 font-mono text-danger">Échoué</span><span class="text-muted">ticket de test créé</span></li>
+              <li class="flex items-baseline justify-between gap-3" data-fr="&lt;span class=&quot;rounded-ui bg-warning/15 px-2 py-0.5 font-mono text-warning&quot;&gt;Non testable&lt;/span&gt;&lt;span class=&quot;text-muted&quot;&gt;passé à un humain&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui bg-warning/15 px-2 py-0.5 font-mono text-warning&quot;&gt;Not testable&lt;/span&gt;&lt;span class=&quot;text-muted&quot;&gt;handed to a human&lt;/span&gt;"><span class="rounded-ui bg-warning/15 px-2 py-0.5 font-mono text-warning">Non testable</span><span class="text-muted">passé à un humain</span></li>
+            </ul>
+          </li>
+        </ol>
+        <p class="mt-8 text-sm text-ink" data-fr="Aucun critère n'est validé sans preuve observée : ce que l'agent ne peut pas vérifier revient à un humain." data-en="No criterion is validated without observed evidence: whatever the agent can't check goes back to a human.">Aucun critère n'est validé sans preuve observée : ce que l'agent ne peut pas vérifier revient à un humain.</p>
+      </figure>
+
+      <div class="mt-16 overflow-x-auto">
+        <table class="w-full min-w-[36rem] text-left text-sm">
+          <caption class="mb-4 text-left font-mono text-[10px] uppercase tracking-widest text-muted" data-fr="Extrait d'un rapport de campagne" data-en="Excerpt from a campaign report">Extrait d'un rapport de campagne</caption>
+          <thead><tr class="border-b border-line font-mono text-[10px] uppercase tracking-widest text-muted"><th scope="col" class="py-3 pr-8 font-normal" data-fr="Critère" data-en="Criterion">Critère</th><th scope="col" class="py-3 font-normal" data-fr="Verdict de l'agent" data-en="Agent's verdict">Verdict de l'agent</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top" data-fr="Ouvrir une investigation depuis le détail d'une alerte" data-en="Open an investigation from an alert's detail">Ouvrir une investigation depuis le détail d'une alerte</td><td class="py-4 align-top" data-fr="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success&quot;&gt;Réussi&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success&quot;&gt;Passed&lt;/span&gt;"><span class="rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success">Réussi</span></td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top" data-fr="L'alerte reflète tout de suite l'ouverture de l'investigation" data-en="The alert immediately reflects the open investigation">L'alerte reflète tout de suite l'ouverture de l'investigation</td><td class="py-4 align-top" data-fr="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success&quot;&gt;Réussi&lt;/span&gt; &lt;span class=&quot;ml-2 text-xs text-muted&quot;&gt;non testable au passage précédent&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success&quot;&gt;Passed&lt;/span&gt; &lt;span class=&quot;ml-2 text-xs text-muted&quot;&gt;not testable on the previous run&lt;/span&gt;"><span class="rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success">Réussi</span> <span class="ml-2 text-xs text-muted">non testable au passage précédent</span></td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top" data-fr="Retrouver l'investigation d'une alerte par la recherche" data-en="Find an alert's investigation through search">Retrouver l'investigation d'une alerte par la recherche</td><td class="py-4 align-top" data-fr="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success&quot;&gt;Réussi&lt;/span&gt; &lt;span class=&quot;ml-2 text-xs text-muted&quot;&gt;friction : la recherche ignore l'identifiant de l'alerte&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success&quot;&gt;Passed&lt;/span&gt; &lt;span class=&quot;ml-2 text-xs text-muted&quot;&gt;friction: search ignores the alert ID&lt;/span&gt;"><span class="rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success">Réussi</span> <span class="ml-2 text-xs text-muted">friction : la recherche ignore l'identifiant de l'alerte</span></td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top" data-fr="Une alerte sous investigation n'est pas reclassée en faux positif" data-en="An alert under investigation is not reclassified as a false positive">Une alerte sous investigation n'est pas reclassée en faux positif</td><td class="py-4 align-top" data-fr="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success&quot;&gt;Réussi&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success&quot;&gt;Passed&lt;/span&gt;"><span class="rounded-ui bg-success/15 px-2 py-0.5 font-mono text-xs text-success">Réussi</span></td></tr>
+            <tr class="border-b border-line"><td class="py-4 pr-8 align-top" data-fr="Notifications à l'ouverture et à la clôture" data-en="Notifications on open and close">Notifications à l'ouverture et à la clôture</td><td class="py-4 align-top" data-fr="&lt;span class=&quot;rounded-ui bg-warning/15 px-2 py-0.5 font-mono text-xs text-warning&quot;&gt;Non testable&lt;/span&gt; &lt;span class=&quot;ml-2 text-xs text-muted&quot;&gt;aucun connecteur sur l'environnement de test, repassé à un humain&lt;/span&gt;" data-en="&lt;span class=&quot;rounded-ui bg-warning/15 px-2 py-0.5 font-mono text-xs text-warning&quot;&gt;Not testable&lt;/span&gt; &lt;span class=&quot;ml-2 text-xs text-muted&quot;&gt;no connector on the test environment, handed back to a human&lt;/span&gt;"><span class="rounded-ui bg-warning/15 px-2 py-0.5 font-mono text-xs text-warning">Non testable</span> <span class="ml-2 text-xs text-muted">aucun connecteur sur l'environnement de test, repassé à un humain</span></td></tr>
+          </tbody>
+        </table>
+        <p class="mt-4 text-xs leading-snug text-muted" data-fr="Le même passage a relevé un bug hors périmètre : classer l'alerte clôturait l'investigation sans dater sa fin. Le rapport recommande la correction." data-en="The same run flagged a bug outside its scope: closing the alert ended the investigation without a completion date. The report recommends the fix.">Le même passage a relevé un bug hors périmètre : classer l'alerte clôturait l'investigation sans dater sa fin. Le rapport recommande la correction.</p>
+      </div>
+
+      <div class="mt-16 grid gap-8 border-t border-line pt-8 md:grid-cols-[10rem_1fr_1fr]">
+        <h3 class="font-mono text-[10px] font-normal uppercase tracking-widest text-muted" data-fr="Résultat" data-en="Outcome">Résultat</h3>
+        <p class="max-w-md text-sm leading-snug" data-fr="Quatre fonctionnalités prototypées de cette façon avec Claude Code sont en production : la remédiation, la matrice MITRE ATT&amp;amp;CK, les dossiers d'incident et la refonte de la vue de clôture des alertes. 3 campagnes automatisées (usabilité, sécurité, non-régression), chacune avec un rapport et des preuves. Une campagne de sécurité a repéré un défaut d'authentification critique avant le pilote utilisateur." data-en="Four features prototyped this way with Claude Code are in production: remediation, the MITRE ATT&amp;amp;CK matrix, incident files and the redesigned alert-closure view. 3 automated campaigns (usability, security, regression), each with a report and evidence. A security campaign caught a critical authentication flaw before the user pilot.">Quatre fonctionnalités prototypées de cette façon avec Claude Code sont en production : la remédiation, la matrice MITRE ATT&amp;CK, les dossiers d'incident et la refonte de la vue de clôture des alertes. 3 campagnes automatisées (usabilité, sécurité, non-régression), chacune avec un rapport et des preuves. Une campagne de sécurité a repéré un défaut d'authentification critique avant le pilote utilisateur.</p>
+        <p class="max-w-md text-sm leading-snug text-muted" data-fr="&lt;span class=&quot;font-semibold text-ink&quot;&gt;Ce que j'en retiens :&lt;/span&gt; un agent de test vaut ce que valent les critères qu'on lui donne. Le travail de product designer se déplace vers l'écriture de critères observables et de règles de verdict." data-en="&lt;span class=&quot;font-semibold text-ink&quot;&gt;What I take from it:&lt;/span&gt; a test agent is only as good as the criteria it is given. Product design work shifts toward writing observable criteria and verdict rules."><span class="font-semibold text-ink">Ce que j'en retiens :</span> un agent de test vaut ce que valent les critères qu'on lui donne. Le travail de product designer se déplace vers l'écriture de critères observables et de règles de verdict.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper px-6 pb-40 pt-24 text-inverse md:pt-32" aria-labelledby="suite-titre">
+    <div class="mx-auto max-w-7xl">
+      <p class="mb-6 font-mono text-[10px] uppercase tracking-widest text-inverse/70" data-fr="Suite" data-en="Next">Suite</p>
+      <h2 id="suite-titre" class="font-display text-5xl font-bold leading-none tracking-[-0.06em] md:text-8xl" data-fr="Voir d'autres projets" data-en="See more projects">Voir d'autres projets</h2>
+      <div class="mt-12 grid gap-4 border-t border-line pt-8 text-sm font-medium md:grid-cols-3">
+        <a href="portfolio.html" class="inline-flex min-h-11 items-center gap-1 rounded-ui focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inverse" data-fr="Tous les projets &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;" data-en="All projects &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;">Tous les projets <span aria-hidden="true">→</span></a>
+        <a href="index.html" class="inline-flex min-h-11 items-center gap-1 rounded-ui focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inverse md:justify-center" data-fr="Voir mon CV &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;" data-en="View my résumé &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;">Voir mon CV <span aria-hidden="true">→</span></a>
+        <a href="https://www.linkedin.com/in/william-suzan/" class="inline-flex min-h-11 items-center gap-1 rounded-ui focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inverse md:justify-end" data-fr="LinkedIn &lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;" data-en="LinkedIn &lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;">LinkedIn <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="mt-16 font-mono text-[10px] uppercase tracking-widest text-inverse/70" data-fr="© 2026 William Suzan · Artefact · Case study 01" data-en="© 2026 William Suzan · Artefact · Case study 01">© 2026 William Suzan · Artefact · Case study 01</p>
+    </div>
+  </section>
 </main>
 
-<footer class="wrap footer">
-  <span>© 2026 William Suzan</span>
-  <span>Artefact · Case study 01</span>
-  <span><a href="https://www.linkedin.com/in/william-suzan/" target="_blank" rel="noopener">LinkedIn ↗</a></span>
-</footer>
-
+<nav aria-label="Cas" class="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4" data-en-aria-label="Cases">
+  <div class="flex items-center gap-1 rounded-ui border border-line bg-surface p-1.5 text-sm">
+    <a href="#cas-1" class="hidden rounded-ui px-3 py-1.5 text-muted hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:block" data-fr="Cas 1" data-en="Case 1">Cas 1</a>
+    <a href="#cas-2" class="hidden rounded-ui px-3 py-1.5 text-muted hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:block" data-fr="Cas 2" data-en="Case 2">Cas 2</a>
+    <a href="#cas-3" class="hidden rounded-ui px-3 py-1.5 text-muted hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:block" data-fr="Cas 3" data-en="Case 3">Cas 3</a>
+    <a href="#cas-4" class="hidden rounded-ui px-3 py-1.5 text-muted hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:block" data-fr="Cas 4" data-en="Case 4">Cas 4</a>
+    <a href="portfolio.html" class="rounded-ui px-3 py-2.5 text-muted hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:py-1.5" data-fr="Projets" data-en="Work">Projets</a>
+    <a href="mailto:william.suzan@protonmail.com" class="inline-flex items-center gap-1 rounded-ui bg-accent px-3 py-2.5 font-medium text-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink sm:py-1.5" data-fr="Écrire un e-mail &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;" data-en="Send an email &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;">Écrire un e-mail <span aria-hidden="true">→</span></a>
+  </div>
+</nav>
 <script>
 (function() {
   const btnFR = document.getElementById('lang-fr');
   const btnEN = document.getElementById('lang-en');
+
+  // Les valeurs françaises des attributs sont mémorisées au premier passage.
+  document.querySelectorAll('[data-en-alt]').forEach(el => el.setAttribute('data-fr-alt', el.getAttribute('alt')));
+  document.querySelectorAll('[data-en-aria-label]').forEach(el => el.setAttribute('data-fr-aria-label', el.getAttribute('aria-label')));
 
   function setLang(lang) {
     document.querySelectorAll('[data-fr]').forEach(el => {
       // Garde-fou : un élément qui contient lui-même un [data-fr] détruirait
       // son enfant en réécrivant innerHTML. On laisse l'enfant se traduire seul.
       if (el.querySelector('[data-fr]')) return;
-      el.innerHTML = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-fr');
+      el.innerHTML = el.getAttribute('data-' + lang);
     });
+    document.querySelectorAll('[data-en-alt]').forEach(el => el.setAttribute('alt', el.getAttribute('data-' + lang + '-alt')));
+    document.querySelectorAll('[data-en-aria-label]').forEach(el => el.setAttribute('aria-label', el.getAttribute('data-' + lang + '-aria-label')));
+    document.title = document.body.getAttribute('data-title-' + lang);
     document.documentElement.lang = lang;
-    btnFR.classList.toggle('active', lang === 'fr');
-    btnEN.classList.toggle('active', lang === 'en');
-    // L'état actif ne doit pas être signalé que par la couleur (WCAG 1.4.1).
+    // L'état actif est porté par aria-pressed, pas par la couleur seule (WCAG 1.4.1).
     btnFR.setAttribute('aria-pressed', String(lang === 'fr'));
     btnEN.setAttribute('aria-pressed', String(lang === 'en'));
     try { localStorage.setItem('ws-lang', lang); } catch (e) {}
@@ -1126,6 +351,5 @@
   } catch (e) {}
 })();
 </script>
-
 </body>
 </html>
